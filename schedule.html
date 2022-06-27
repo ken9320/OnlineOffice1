@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXX Compary online office</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="calendar.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="schedule.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="main">
+        <aside>
+            <div class="calendar-wrapper">
+                <button id="btnPrev" type="button">Prev</button>
+                <button id="btnNext" type="button">Next</button>
+            <div id="divCal"></div>
+            </div>
+        </aside>
+        <main>
+            <nav class="navbar navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Home</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Schedule</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Meeting</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Sent File</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          File
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="#">department001</a></li>
+                          <li><a class="dropdown-item" href="#">department002</a></li>
+                          <li><a class="dropdown-item" href="#">department003</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+              <div class="timetable">
+                <div class="week-names">
+                  <div>monday</div>
+                  <div>tuesday</div>
+                  <div>wednesday</div>
+                  <div>thursday</div>
+                  <div>friday</div>
+                  <div>saturday</div>
+                  <div>sunday</div>
+                </div>
+                <div class="time-interval">
+                  <div>08:00</div>
+                  <div>09:00</div>
+                  <div>10:00</div>
+                  <div>11:00</div>
+                  <div>12:00</div>
+                  <div>13:00</div>
+                  <div>14:00</div>
+                  <div>15:00</div>
+                  <div>16:00</div>
+                  <div>17:00</div>
+                  <div>18:00</div>
+                  <div>19:00</div>
+                  <div>20:00</div>
+                  <div>21:00</div>
+                  <div>22:00</div>
+                  <div>23:00</div>
+                  <div>00:00</div>
+                  <div>01:00</div>
+                  <div>02:00</div>
+                  <div>03:00</div>
+                  <div>04:00</div>
+                  <div>05:00</div>
+                  <div>06:00</div>
+                  <div>07:00</div>
+                </div>
+                <div class="content">
+                  
+                </div>
+              </div>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="calendar.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
