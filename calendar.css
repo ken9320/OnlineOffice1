@@ -1,10 +1,13 @@
 .calendar-wrapper {
-    max-width: 100%;
+    max-width: 90%;
     margin: 10px auto;
     padding: 5px;
     border: 1px solid #dcdcff;
     border-radius: 5px;
     background: #fff;
+    position: relative;
+    top: 10%
+
   }
 
   .calendar-wrapper table {
@@ -63,7 +66,7 @@
     background: transparent;
     border: none;
     outline: none;
-    font-size: 10px;
+    font-size: 15px;
     color: #c0c0c0;
     cursor: pointer;
     font-family: "Roboto Condensed", sans-serif;
@@ -74,12 +77,4 @@
 #btnNext:hover {
   color: #28283b;
   font-weight: bold;
-}
-
-aside{
-    
-    width: 300px;
-    min-height: 100hv;
-    background-image: 
-        linear-gradient(#7968ce 40%,#03254e);
 }
