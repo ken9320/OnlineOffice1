@@ -8,15 +8,6 @@ html,body {
   box-sizing: border-box;
 }
 
-.timetable {
-  display: grid;
-  grid-template-areas: ". week" "time content";
-  grid-template-columns: 150px;
-  grid-template-rows: 60px;
-  width: 80vw;
-  height: 120vh;
-}
-
 #date{
   display: flex;
   justify-content: center;
@@ -24,6 +15,15 @@ html,body {
   font-size: 25px;
   color: #ffffff;
   font-weight: bold;
+}
+
+.timetable {
+  display: grid;
+  grid-template-areas: ". week" "time content";
+  grid-template-columns: 150px;
+  grid-template-rows: 60px;
+  width: 80vw;
+  height: 120vh;
 }
 
 .timetable .week-names {
@@ -42,6 +42,7 @@ html,body {
   height: 100%;
   box-shadow: inset 0 0 1px 1px #eceff1;
 }
+
 .timetable .time-interval {
   grid-area: time;
   display: grid;
@@ -57,6 +58,7 @@ html,body {
   height: 100%;
   box-shadow: inset 0 1px 1px 0 #ffffff;
 }
+
 .timetable .content {
   grid-area: content;
   display: grid;
@@ -65,17 +67,17 @@ html,body {
 }
 .timetable .content > div {
   box-shadow: inset 1px 0 0 #eceff1, inset 0 1px 0 1px #ffffff;
+  width: 100%;
+  height: 100%;
 }
 
 .time.active{
   background-color: #ffffff;
   border: none;
 }
-
 .time textarea{
   display: none;
 }
-
 .time.active textarea{
   display: block;  
   width: 100%;

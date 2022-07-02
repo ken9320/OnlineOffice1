@@ -78,3 +78,21 @@
   color: #28283b;
   font-weight: bold;
 }
+
+aside > form{
+  position: relative;
+  top: 10%;
+  margin: 10px auto;
+  padding: 5px;
+}
+
+aside > form > input{
+  margin: 5px;
+  max-width: 90%;
+  margin: 10px;
+}
+
+span{
+  padding-left: 10px;
+  color: #000000;
+}

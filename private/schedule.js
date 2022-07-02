@@ -76,4 +76,33 @@ document.addEventListener("drop", event => {
   }
 });
 
+document.querySelector('#eventSubmit').addEventListener('click', async function() {
+  date = document.querySelector('#eventDate').value;
+  id = document.querySelector('#eventTime').value;
+  content = document.querySelector('#eventContent').value;
+  console.log(date);
+
+  const schs = document.querySelectorAll('.time');
+  // console.log(schs);
+  for(const sch of schs) {
+    sch.classList.add('active');
+    sch.querySelector(`#${id}`).innerHTML = `${content}`
+    console.log(id);
+  }
+  // const formData = await document.querySelector('.eventForm').value
+  // console.log(formData);
+  // json= await JSON.stringify(formData);
+  // console.log(json);
+
+  // await fetch('/event', {
+  //   method: 'POST',
+  //   headers: {'Content-Type': 'application/json'},
+  //   body: JSON.stringify({
+  //     content: event
+  //   })
+  // })
+
+  // document.querySelector('.eventForm').reset()
+})
+
 createtalbe();

@@ -89,8 +89,13 @@ Cal.prototype.showMonth = function(y, m) {
     let chk = new Date();
     let chkY = chk.getFullYear();
     let chkM = chk.getMonth();
+    let chkD = chk.getDay();
     if (chkY == this.currYear && chkM == this.currMonth && i == this.currDay) {
       html += `<td id="${i}" class="today">${i}</td>`;
+      // const days = document.querySelectorAll('.week-names');
+      // for(const day of days){
+      //   day.querySelector(`#${chkD}`).classList.add('active');}
+      // document.querySelector(`.timetable > .week-names > #${chkD}`).classList.add('active');
     } else {
       html += `<td id="${i}" class="normal">${i}</td>`;
     }
@@ -140,27 +145,27 @@ function getId(id) {
 
   document.querySelector("#date").innerHTML = `${new Date().getDate()} / ${new Date().getMonth()+1}`;
 
-  const cal = document.querySelector("divCal");
-  const table = document.querySelector("table");
-  const tbody = document.querySelector("tbody");
-  const tr = document.querySelector("tr");
-  const td = document.querySelector("td");
+  // const cal = document.querySelector("divCal");
+  // const table = document.querySelector("table");
+  // const tbody = document.querySelector("tbody");
+  // const tr = document.querySelector("tr");
+  // const td = document.querySelector("td");
   
-  cal.addEventListener("click", function(e) {
-    console.log('table click')
-  },true);
-  table.addEventListener("click", function(e) {
-    console.log('table click')
-  },true);
-  tbody.addEventListener("click", function(e) {
-    console.log('tbody click')
-  },true);
-  tr.addEventListener("click", function(e) {
-    console.log('tr click')
-  },true);
-  td.addEventListener("click", function(e) {
-    console.log('td click')
-  },true);
+  // cal.addEventListener("click", function(e) {
+  //   console.log('table click')
+  // },true);
+  // table.addEventListener("click", function(e) {
+  //   console.log('table click')
+  // },true);
+  // tbody.addEventListener("click", function(e) {
+  //   console.log('tbody click')
+  // },true);
+  // tr.addEventListener("click", function(e) {
+  //   console.log('tr click')
+  // },true);
+  // td.addEventListener("click", function(e) {
+  //   console.log('td click')
+  // },true);
 
 
   // const dates = document.querySelectorAll("td")

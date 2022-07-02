@@ -11,7 +11,8 @@ CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
     staffid INTEGER NOT NULL,
     event TEXT,
-    time VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
 );
