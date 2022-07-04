@@ -15,10 +15,11 @@ export const client = new Client({
 });
 
 client.connect();
+
 // import path from "path";
 // import events from "./event.js";
-let clientId ="";
-
+let peopleID ="";
+logger.info("Client connected");
 const app = express();
 
 //讀取憑證及金鑰 by: https://blog.twtnn.com/2020/04/nodejshttps.html
@@ -64,23 +65,23 @@ app.use(express.urlencoded());
 
 
   
-io.on('connect',(client) =>{
-  client.join("chartRoom");
+io.on('connect',(people) =>{
+  people.join("chartRoom");
   console.log("Have connect request" );
-  client.emit('serverMsg', "HI Users");
-  clientId = client.id
-  console.log(clientId);
+  people.emit('serverMsg', "HI Users");
+  peopleID = people.id
+  console.log(peopleID);
   
 
 
-  client.on('offer',offers =>{
+  people.on('offer',offers =>{
   console.log(offers)
-  client.to("chartRoom").emit('offer',offers)
+  people.to("chartRoom").emit('offer',offers)
   })
 
-  client.on('answer',answer =>{
+  people.on('answer',answer =>{
     console.log(answer)
-    client.to("chartRoom").emit('answer',answer)
+    people.to("chartRoom").emit('answer',answer)
     })
 
 

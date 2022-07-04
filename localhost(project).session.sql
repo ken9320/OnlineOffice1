@@ -4,7 +4,7 @@ CREATE TABLE staffs (
     name VARCHAR(255) NOT NULL,
     department VARCHAR(255) NOT NULL,
     position VARCHAR(255) NOT NULL,
-    entry_date DATE NOT NULL,
+    entry_date DATE NOT NULL
 );
 
 CREATE TABLE schedule (
@@ -14,6 +14,6 @@ CREATE TABLE schedule (
     date DATE NOT NULL,
     time TIME NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
 );
 
