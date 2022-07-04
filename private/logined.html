@@ -108,14 +108,32 @@
 			</main>
 		</div>
 		<button class="open-button" type="button">Chat</button>
-		<div class="chat-popup" id="chatForm">
-			<div class="title">message</div>
-			<div class="showchat"></div>
-			<form action="#" class="form-container">
-				<input type="text" placeholder="Type message.." name="msg" />
-				<button type="submit" class="btn">Send</button>
-				<button type="button" class="btn-cancel">X</button>
-			</form>
+		<div class="chat-container">
+			<header class="chat-header">
+				<h1>chat</h1>
+				<a id="leave-btn" class="btn">X</a>
+			</header>
+			<main class="chat-main">
+				<div class="chat-sidebar">
+					<h3><i class="fas fa-comments"></i> Room Name:</h3>
+					<h2 id="room-name"></h2>
+					<h3><i class="fas fa-users"></i> Users</h3>
+					<ul id="users"></ul>
+				</div>
+				<div class="chat-messages"></div>
+			</main>
+			<div class="chat-form-container">
+				<form id="chat-form">
+					<input
+						id="msg"
+						type="text"
+						placeholder="Enter Message"
+						required
+						autocomplete="off"
+					/>
+					<button class="btn">Send</button>
+				</form>
+			</div>
 		</div>
 
 		<script
@@ -123,8 +141,13 @@
 			integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 			crossorigin="anonymous"
 		></script>
-		<script src="js/chatbox.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+			integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+			crossorigin="anonymous"
+		></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/chatbox.js"></script>
 		<script src="js/logined.js"></script>
 	</body>
 </html>
