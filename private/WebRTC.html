@@ -1,40 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>WebRTC</title>
-		<link rel="stylesheet" href="WebRTC.css" />
-	</head>
-	<body>
-		<!-- <span>Video Chat With WebRTC</span> -->
 
-		<video
-			autoplay
-			playsinline
-			width="848px"
-			height="480px"
-			id="localVideo"
-		></video>
-		<!-- playsinline means video is playing inline -->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WebRTC</title>
+	<link rel="stylesheet" href="WebRTC.css">
+</head>
 
-		<video
-			autoplay
-			playsinline
-			width="848px"
-			height="480px"
-			id="remoteVideo"
-		></video>
+<body>
+	<!-- <span>Video Chat With WebRTC</span> -->
 
-		<div class="box">
-			<button id="startButton">開自己cam</button>
-			<button id="callButton">同我叫曬所有人入黎開會</button>
-			<button id="hangupButton">收線</button>
-		</div>
+	<div class="box">
+		<button id="startButton">開自己cam</button>
+		<button id="callButton">同我叫曬所有人入黎開會</button>
+		<button id="hangupButton">收線</button>
+	</div>
 
-		<script src="/socket.io/socket.io.js"></script>
-		<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-		<script type="module" src="WebRTC.html"></script>
-	</body>
+	<video autoplay playsinline width="848px" height="480px" id="localVideo"></video>
+	<!-- playsinline means video is playing inline -->
+
+	<video autoplay playsinline width="848px" height="480px" id="remoteVideo"></video>
+
+	<script src='/socket.io/socket.io.js'></script>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script type="module" src="main.js"></script>
+
+</body>
+
 </html>
