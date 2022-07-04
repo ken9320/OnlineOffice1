@@ -6,59 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>XXX Compary online office</title>
 		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-		/>
-		<link rel="stylesheet" href="css/calendar.css" />
-		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 			integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="css/schedule.css" />
 		<link rel="stylesheet" href="css/chatbox.css" />
 		<link rel="stylesheet" href="css/logined.css" />
 	</head>
 	<body>
 		<div class="main">
 			<aside>
-				<div class="calendar-wrapper">
-					<button id="btnPrev" type="button">Prev</button>
-					<button id="btnNext" type="button">Next</button>
-					<div id="divCal"></div>
+				<div class="personalinfo" data-id="">
+					<p>
+						<img src="img/icon-person250x250.png" />
+						Name: testing001<br />
+						Employee-ID: 000000<br />
+						Position: Normal
+					</p>
 				</div>
-
-				<form class="eventForm" method="POST" action="/event">
-					<span>Event Date:</span>
-					<input
-						type="text"
-						id="eventDate"
-						onfocus="(this.type='date')"
-						onblur="(this.type='text')"
-					/><br />
-					<span>Event Time:</span>
-					<input
-						type="number"
-						id="eventTime"
-						placeholder="HH"
-						max="23"
-						min="0"
-						maxlength="2"
-					/><br />
-					<span>Event:</span>
-					<input type="text" id="eventContent" />
-					<input type="submit" id="eventSubmit" value="Submit" />
-				</form>
 			</aside>
+
 			<main>
 				<nav class="navbar navbar-expand-lg bg-light">
 					<div class="container-fluid">
@@ -129,24 +97,16 @@
 						</div>
 					</div>
 				</nav>
-
-				<div class="timetable">
-					<div id="showdate"></div>
-					<div class="week-names">
-						<div id="day1">monday</div>
-						<div id="day2">tuesday</div>
-						<div id="day3">wednesday</div>
-						<div id="day4">thursday</div>
-						<div id="day5">friday</div>
-						<div id="day6">saturday</div>
-						<div id="day0">sunday</div>
-					</div>
-					<div class="time-interval"></div>
-					<div class="content"></div>
+				<div class="mainbody">
+					<div class="file">file01</div>
+					<div class="file">file02</div>
+					<div class="file">file03</div>
+					<div class="file">file04</div>
+					<div class="file">file05</div>
+					<div class="file">file06</div>
 				</div>
 			</main>
 		</div>
-
 		<button class="open-button" type="button">Chat</button>
 		<div class="chat-popup" id="chatForm">
 			<div class="title">message</div>
@@ -163,8 +123,6 @@
 			integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
 			crossorigin="anonymous"
 		></script>
-		<script src="js/schedule.js"></script>
-		<script src="js/calendar.js"></script>
 		<script src="js/chatbox.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="js/logined.js"></script>
