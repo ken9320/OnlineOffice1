@@ -118,20 +118,28 @@ window.onload = function () {
 	document.querySelector('#btnPrev').addEventListener('click', function () {
 		c.previousMonth()
 	})
-
-	document.querySelector(`#day${new Date().getDay()}`).classList.add('active')
+	let newdate = new Date()
+	document.querySelector(`#day${newdate.getDay()}`).classList.add('active')
 
 	const dates = document.querySelectorAll(`td`)
 	for (const date of dates) {
+		let day = parseInt(date.textContent)
 		date.addEventListener('click', function () {
+			const names = document.querySelectorAll(`.week-names > div`)
+			for (const name of names) {
+				name.classList.remove('active')
+			}
+			document.querySelector('#showdate').innerHTML = `${day} / ${
+				newdate.getMonth() + 1
+			}`
 			document
-				.querySelector(`#day${new Date().getDay()}`)
-				.classList.remove('active')
-			document.querySelector('#showdate').innerHTML = `${
-				date.textContent
-			} / ${new Date().getMonth() + 1}`
-			document
-				.querySelector(`#day${parseInt(date.textContent) % 7}`)
+				.querySelector(
+					`#day${new Date(
+						newdate.getFullYear(),
+						newdate.getMonth(),
+						day
+					).getDay()}`
+				)
 				.classList.add('active')
 		})
 	}

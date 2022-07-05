@@ -1,13 +1,11 @@
-// const socket = io.connect();
-
 function createtalbe() {
-	let id = 0
+	let id = 1
 	let hour = 8
-	for (let y = 0; y <= 24; y++) {
+	for (let y = 0; y < 24; y++) {
 		document.querySelector('.time-interval').innerHTML += `
         <div>${hour % 24}:00</div>`
 		hour++
-		for (let x = 0; x <= 7; x++) {
+		for (let x = 0; x < 7; x++) {
 			document.querySelector('.content').innerHTML += `
             <div class="time" id="id${id}">
             <textarea></textarea>
@@ -84,32 +82,28 @@ document.addEventListener('drop', (event) => {
 document
 	.querySelector('#eventSubmit')
 	.addEventListener('click', async function () {
+		let id = 0
 		date = document.querySelector('#eventDate').value
-		id = document.querySelector('#eventTime').value
+		time = parseInt(document.querySelector('#eventTime').value)
+		mydate = new Date(date).getDay()
+		id = (time % 7) * mydate
 		content = document.querySelector('#eventContent').value
-		console.log(date)
 
-		const schs = document.querySelectorAll('.time')
-		// console.log(schs);
-		for (const sch of schs) {
-			sch.classList.add('active')
-			sch.querySelector(`#${id}`).innerHTML = `${content}`
-			console.log(id)
+		document.querySelector(`#id${id}`).classList.add('active')
+		document.querySelector(`#id${id}`).innerHTML = `${content}`
+
+		const formData = new FormData(document.querySelector('.eventForm'))
+		let res = await fetch('/event', {
+			method: 'POST',
+			body: formData
+		})
+
+		let json = await res.json()
+
+		if (json.result) {
+		} else {
 		}
-		// const formData = await document.querySelector('.eventForm').value
-		// console.log(formData);
-		// json= await JSON.stringify(formData);
-		// console.log(json);
-
-		// await fetch('/event', {
-		//   method: 'POST',
-		//   headers: {'Content-Type': 'application/json'},
-		//   body: JSON.stringify({
-		//     content: event
-		//   })
-		// })
-
-		// document.querySelector('.eventForm').reset()
+		document.querySelector('.eventForm').reset()
 	})
 
 createtalbe()
