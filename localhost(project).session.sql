@@ -71,4 +71,3 @@ INSERT INTO public.staffs
 VALUES(8, 2, 4, '0004', 'Him', 'salesman	', 'staff', '2001-01-04');
 
 
-select* from company where sraffs.company =689store
