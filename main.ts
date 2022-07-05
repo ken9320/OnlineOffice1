@@ -1,22 +1,23 @@
 import express from 'express'
 import expressSession from 'express-session'
+import formidable from 'formidable'
 import https from 'https'
 import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
 import fs from 'fs'
 import { logger } from './logger'
-// import { Client } from 'pg'
-// import dotenv from 'dotenv'
-// dotenv.config()
+import { Client } from 'pg'
+import dotenv from 'dotenv'
+dotenv.config()
 
-// export const client = new Client({
-// 	database: process.env.DB_NAME,
-// 	user: process.env.DB_USERNAME,
-// 	password: process.env.DB_PASSWORD
-// })
+export const client = new Client({
+	database: process.env.DB_NAME,
+	user: process.env.DB_USERNAME,
+	password: process.env.DB_PASSWORD
+})
 
-// client.connect()
+client.connect()
 
 // import path from "path";
 // import events from "./event.js";
@@ -131,6 +132,33 @@ io.on('connection', function (socket) {
 				room: user.room,
 				users: getRoomUsers(user.room)
 			})
+		}
+	})
+})
+
+const form = formidable()
+
+app.post('/event', function (req, res) {
+	form.parse(req, async (err, fields) => {
+		console.log(fields)
+		try {
+			let whatevent = fields.event
+			let whatdate = fields.date
+			let whattime = fields.time
+
+			let result = await client.query(
+				`
+            INSERT INTO schedule (staffid, event, date, time, created_at, updated_at) VALUES (000, $1, $2, $3, NOW(), NOW()) returning id`,
+				[whatevent, whatdate, whattime]
+			)
+
+			res.send({ result: true, res: result.rows })
+			res.end()
+			return
+		} catch (err) {
+			logger.error(err)
+			res.send({ result: false, res: [] })
+			return
 		}
 	})
 })

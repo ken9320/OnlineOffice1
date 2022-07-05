@@ -26,3 +26,4 @@ CREATE TABLE schedule (
     updated_at TIMESTAMP NOT NULL
 );
 
+SELECT * FROM schedule;

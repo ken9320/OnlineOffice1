@@ -37,25 +37,32 @@
 					<div id="divCal"></div>
 				</div>
 
-				<form class="eventForm" method="POST" action="/event">
+				<form
+					class="eventForm"
+					method="POST"
+					action="/event"
+					enctype="multipart/form-data"
+				>
 					<span>Event Date:</span>
 					<input
-						type="text"
+						type="date"
 						id="eventDate"
+						name="date"
 						onfocus="(this.type='date')"
-						onblur="(this.type='text')"
+						onblur="(this.type='date')"
 					/><br />
 					<span>Event Time:</span>
 					<input
-						type="number"
+						type="time"
 						id="eventTime"
+						name="time"
 						placeholder="HH"
 						max="23"
 						min="0"
 						maxlength="2"
 					/><br />
 					<span>Event:</span>
-					<input type="text" id="eventContent" />
+					<input type="text" id="eventContent" name="event" />
 					<input type="submit" id="eventSubmit" value="Submit" />
 				</form>
 			</aside>
