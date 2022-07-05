@@ -7,11 +7,12 @@ CREATE TABLE companys (
 CREATE TABLE staffs (
     id SERIAL PRIMARY KEY,
     company INTEGER NOT NULL,
+    
     FOREIGN KEY (company) REFERENCES companys (id),
     staffid INTEGER NOT NULL,
     staffPassword VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
-    
+
     department VARCHAR(255) NOT NULL,
     position VARCHAR(255) NOT NULL,
     entry_date DATE NOT NULL
@@ -64,3 +65,6 @@ VALUES(7, 2, 3, '0003', 'Angela', 'logistics ', 'staff', '2001-01-03');
 INSERT INTO public.staffs
 (id, company, staffid, staffpassword, "name", department, "position", entry_date)
 VALUES(8, 2, 4, '0004', 'Him', 'salesman	', 'staff', '2001-01-04');
+
+
+select* from company where sraffs.company =689store
