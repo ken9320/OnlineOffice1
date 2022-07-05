@@ -20,14 +20,17 @@ CREATE TABLE staffs (
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-   staff_id INTEGER NOT NULL,
+    staff_id INTEGER NOT NULL,
     FOREIGN key (staff_id) REFERENCES staffs (id),
+    div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
     time TIME NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
+
+ALTER TABLE schedule ADD COLUMN div_id VARCHAR(255);
 
 SELECT * FROM schedule;
 
