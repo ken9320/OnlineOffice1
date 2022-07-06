@@ -1,5 +1,6 @@
 import express from 'express'
 import expressSession from 'express-session'
+import formidable from 'formidable'
 import https from 'https'
 import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
@@ -8,7 +9,7 @@ import fs from 'fs'
 import { logger } from './ts/logger'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
-import { eventRouter } from './ts/eventRoutes'
+// import { eventRouter } from './ts/eventRoutes'
 dotenv.config()
 
 export const client = new Client({
@@ -68,20 +69,21 @@ app.use(eventRouter)
 
 app.post('/login', async (req, res) => {
 	try {
-		console.log(req.body)
-		console.log(typeof req.body.staffid)
+		// console.log(req.body)
+		// console.log(typeof req.body.staffid)
 
 		let stafflist = await client.query(
 			`select staffpassword from staffs where staffid=${req.body.staffid} `
 		)
-		console.log(stafflist.rows[0].staffpassword)
+		console.log(stafflist.rows[0].staffid)
 
 		if (
-			req.body.staffid === req.body.staffid &&
+			// req.body.staffid === req.body.staffid &&
 			req.body.password === stafflist.rows[0].staffpassword
 		) {
 			req.session['isAdmin'] = true
-			// console.log(req.session["isAdmin"]);
+			req.session['staffid'] = req.body.staffid
+			console.log(req.session);
 			res.redirect('/logined.html')
 			return
 		} else {
