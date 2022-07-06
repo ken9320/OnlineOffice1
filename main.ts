@@ -61,9 +61,38 @@ app.use((req, res, next) => {
 
 	next()
 })
-
 app.use(express.static('public'))
 app.use(express.urlencoded())
+const form = formidable()
+
+app.post('/login', async (req, res) => {
+	try {
+		console.log(req.body)
+		console.log(typeof req.body.staffid)
+
+		let stafflist = await client.query(
+			`select staffpassword from staffs where staffid=${req.body.staffid} `
+		)
+		console.log(stafflist.rows[0].staffpassword)
+
+		if (
+			req.body.staffid === req.body.staffid &&
+			req.body.password === stafflist.rows[0].staffpassword
+		) {
+			req.session['isAdmin'] = true
+			// console.log(req.session["isAdmin"]);
+			res.redirect('/logined.html')
+			return
+		} else {
+			console.log('HI')
+
+			res.redirect('/')
+		}
+	} catch (err) {
+		console.log(err)
+		res.status(500).send('Internal Server Error')
+	}
+})
 
 io.on('connect', (people) => {
 	people.join('chartRoom')
@@ -135,8 +164,6 @@ io.on('connection', function (socket) {
 		}
 	})
 })
-
-const form = formidable()
 
 app.post('/event', function (req, res) {
 	form.parse(req, async (err, fields) => {

@@ -40,31 +40,14 @@ INSERT INTO public.companys
 VALUES(2, 'ok shop', '2022-11-28');
 
 
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(1, 1, 1, '0001', 'Peter', 'CEO', 'CEO', '2000-01-01');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(2, 1, 2, '0002', 'Tom', 'HR', 'deptHead', '2000-01-02');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(3, 1, 3, '0003', 'Him', 'logistics ', 'staff', '2000-01-03');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(4, 1, 4, '0004', 'Ada', 'salesman', 'staff', '2000-01-04');
-INSERT INTO public.staffs
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(1, 1, 1001, '0001', 'Peter', 'CEO', 'CEO', '2000-01-01');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(2, 1, 1002, '0002', 'Tom', 'HR', 'deptHead', '2000-01-02');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(3, 1, 1003, '0003', 'Him', 'logistics ', 'staff', '2000-01-03');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(4, 1, 1004, '0004', 'Ada', 'salesman', 'staff', '2000-01-04');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(5, 2, 2001, '0001', 'Alex', 'CEO', 'CEO', '2001-01-01');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(6, 2, 2002, '0002', 'Angel', 'HR', 'deptHead', '2001-01-02');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(7, 2, 2003, '0003', 'Angela', 'logistics ', 'staff', '2001-01-03');
+INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(8, 2, 2004, '0004', 'Him', 'salesman	', 'staff', '2001-01-04');
 
-
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(5, 2, 1, '0001', 'Alex', 'CEO', 'CEO', '2001-01-01');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(6, 2, 2, '0002', 'Angel', 'HR', 'deptHead', '2001-01-02');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(7, 2, 3, '0003', 'Angela', 'logistics ', 'staff', '2001-01-03');
-INSERT INTO public.staffs
-(id, company, staffid, staffpassword, "name", department, "position", entry_date)
-VALUES(8, 2, 4, '0004', 'Him', 'salesman	', 'staff', '2001-01-04');
 
 
