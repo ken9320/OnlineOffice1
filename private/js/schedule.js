@@ -1,17 +1,17 @@
 function createtalbe() {
-	let id = 1
 	let hour = 8
 	for (let y = 0; y < 24; y++) {
+		let id = 1
 		document.querySelector('.time-interval').innerHTML += `
         <div>${hour % 24}:00</div>`
-		hour++
 		for (let x = 0; x < 7; x++) {
 			document.querySelector('.content').innerHTML += `
-            <div class="time" id="id${id}">
+            <div class="time" id="id${id * 100 + (hour % 24)}">
             <textarea></textarea>
             </div>`
 			id++
 		}
+		hour++
 	}
 
 	const times = document.querySelectorAll('.time')
@@ -107,3 +107,20 @@ document
 	})
 
 createtalbe()
+
+async function getevent() {
+	const res = await fetch('/event')
+	const events = await res.json()
+
+	console.log(events)
+	for (const event of events) {
+		document
+			.querySelector(`.content > #id${event.div_id}`)
+			.classList.add('active')
+		document.querySelector(`.content > #id${event.div_id}`).innerHTML = `
+            <textarea>${event.event}</textarea>
+            `
+		console.log(event.div_id)
+	}
+}
+getevent()

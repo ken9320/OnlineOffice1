@@ -1,14 +1,14 @@
 import express from 'express'
 import expressSession from 'express-session'
-import formidable from 'formidable'
 import https from 'https'
 import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
 import fs from 'fs'
-import { logger } from './logger'
+import { logger } from './ts/logger'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
+import { eventRouter } from './ts/eventRoutes'
 dotenv.config()
 
 export const client = new Client({
