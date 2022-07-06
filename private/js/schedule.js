@@ -6,40 +6,16 @@ function createtalbe() {
         <div>${hour % 24}:00</div>`
 		for (let x = 0; x < 7; x++) {
 			document.querySelector('.content').innerHTML += `
-            <div class="time" id="id${id * 100 + (hour % 24)}">
+            <div class="time" data-id="${id * 100 + (hour % 24)}" id="id${id * 100 + (hour % 24)}">
             <textarea></textarea>
             </div>`
 			id++
 		}
 		hour++
 	}
-
-	const times = document.querySelectorAll('.time')
-	for (const time of times) {
-		time.addEventListener('click', function () {
-			time.classList.add('active')
-			time.querySelector('textarea').focus()
-			time.querySelector('textarea').addEventListener(
-				'blur',
-				function () {
-					// e.stopPropagation()
-					// time.classList.remove('active')
-
-					const content = time.querySelector('textarea').value
-					const id = time.dataset.id
-					// document.querySelector(`#${id}`).innerHTML += `
-					// <textarea>${content}</textarea>`
-				}
-			)
-		})
-		// document.querySelector(`#${id}`).addEventListener("click", function () {
-		//     time.classList.remove('active')
-		// });
-	}
 }
 
 let dragged
-
 document.addEventListener('dragstart', (event) => {
 	dragged = event.target
 	event.target.classList.add('dragging')
@@ -79,48 +55,62 @@ document.addEventListener('drop', (event) => {
 	}
 })
 
-document
-	.querySelector('#eventSubmit')
-	.addEventListener('click', async function () {
-		let id = 0
-		date = document.querySelector('#eventDate').value
-		time = parseInt(document.querySelector('#eventTime').value)
-		mydate = new Date(date).getDay()
-		id = (time % 7) * mydate
-		content = document.querySelector('#eventContent').value
-
-		document.querySelector(`#id${id}`).classList.add('active')
-		document.querySelector(`#id${id}`).innerHTML = `${content}`
-
-		const formData = new FormData(document.querySelector('.eventForm'))
-		let res = await fetch('/event', {
-			method: 'POST',
-			body: formData
-		})
-
-		let json = await res.json()
-
-		if (json.result) {
-		} else {
-		}
-		document.querySelector('.eventForm').reset()
-	})
-
 createtalbe()
 
 async function getevent() {
 	const res = await fetch('/event')
 	const events = await res.json()
 
-	console.log(events)
+	// console.log(events)
 	for (const event of events) {
 		document
 			.querySelector(`.content > #id${event.div_id}`)
 			.classList.add('active')
 		document.querySelector(`.content > #id${event.div_id}`).innerHTML = `
-            <textarea>${event.event}</textarea>
+            <textarea class="active">${event.event}</textarea>
             `
-		console.log(event.div_id)
+		// console.log(event.div_id)
+	}
+
+	document
+	.querySelector('#eventSubmit')
+	.addEventListener('click', async function () {
+		const formData = new FormData(document.querySelector('.eventForm'))
+		let res = await fetch('/event', {
+			method: 'POST',
+			body: formData
+		})
+		let json = await res.json()
+		if (json.result) {
+			// location.reload(true);
+		} else {
+		}
+		document.querySelector('.eventForm').reset()
+	})
+
+	const times = document.querySelectorAll('.time')
+	for (const time of times) {
+		time.addEventListener('click', async function () {
+			time.classList.add('active')
+			time.querySelector('textarea').focus()
+			time.querySelector('textarea').addEventListener(
+				'blur',
+				async function () {
+					const content = time.querySelector('textarea').value
+					console.log(content)
+					const res = await fetch('/event/' + time.dataset.id, {
+						method: 'PATCH',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							content: content
+						})
+					})
+					getevent()
+				}
+			)
+		})
 	}
 }
 getevent()

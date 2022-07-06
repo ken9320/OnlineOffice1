@@ -61,9 +61,10 @@ app.use((req, res, next) => {
 
 	next()
 })
+
 app.use(express.static('public'))
 app.use(express.urlencoded())
-const form = formidable()
+app.use(eventRouter)
 
 app.post('/login', async (req, res) => {
 	try {
@@ -161,31 +162,6 @@ io.on('connection', function (socket) {
 				room: user.room,
 				users: getRoomUsers(user.room)
 			})
-		}
-	})
-})
-
-app.post('/event', function (req, res) {
-	form.parse(req, async (err, fields) => {
-		console.log(fields)
-		try {
-			let whatevent = fields.event
-			let whatdate = fields.date
-			let whattime = fields.time
-
-			let result = await client.query(
-				`
-            INSERT INTO schedule (staffid, event, date, time, created_at, updated_at) VALUES (000, $1, $2, $3, NOW(), NOW()) returning id`,
-				[whatevent, whatdate, whattime]
-			)
-
-			res.send({ result: true, res: result.rows })
-			res.end()
-			return
-		} catch (err) {
-			logger.error(err)
-			res.send({ result: false, res: [] })
-			return
 		}
 	})
 })
