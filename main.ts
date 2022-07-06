@@ -9,6 +9,7 @@ import { logger } from './ts/logger'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
+import { loginRoutes } from './ts/loginRoutes'
 
 dotenv.config()
 
@@ -67,36 +68,7 @@ app.use(express.static('public'))
 
 app.use(express.urlencoded())
 app.use(eventRouter)
-
-app.post('/login', async (req, res) => {
-	try {
-		console.log(req.body)
-		console.log(typeof req.body.staffid)
-
-		let stafflist = await client.query(
-			`select staffpassword from staffs where staffid=${req.body.staffid} `
-		)
-		console.log(stafflist.rows[0].staffid)
-
-		if (
-			// req.body.staffid === req.body.staffid &&
-			req.body.password === stafflist.rows[0].staffpassword
-		) {
-			req.session['isAdmin'] = true
-			req.session['staffid'] = req.body.staffid
-			console.log(req.session)
-			res.redirect('/logined.html')
-			return
-		} else {
-			console.log('HI')
-
-			res.redirect('/')
-		}
-	} catch (err) {
-		console.log(err)
-		res.status(500).send('Internal Server Error')
-	}
-})
+app.use(loginRoutes)
 
 io.on('connect', (people) => {
 	people.join('chartRoom')
