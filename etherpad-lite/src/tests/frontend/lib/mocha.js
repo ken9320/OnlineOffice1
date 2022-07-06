@@ -14924,8 +14924,9 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 										) {
 											/*istanbul ignore start*/ var _hunk$lines
 
-											/*istanbul ignore end*/ // Mine inserted
-											/*istanbul ignore start*/ ;(_hunk$lines =
+												/*istanbul ignore end*/ // Mine inserted
+												/*istanbul ignore start*/
+											;(_hunk$lines =
 												/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 												/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines /*istanbul ignore end*/,
 												/*istanbul ignore start*/ _toConsumableArray(
@@ -14940,8 +14941,9 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 										) {
 											/*istanbul ignore start*/ var _hunk$lines2
 
-											/*istanbul ignore end*/ // Theirs inserted
-											/*istanbul ignore start*/ ;(_hunk$lines2 =
+												/*istanbul ignore end*/ // Theirs inserted
+												/*istanbul ignore start*/
+											;(_hunk$lines2 =
 												/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 												/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines2 /*istanbul ignore end*/,
 												/*istanbul ignore start*/ _toConsumableArray(
@@ -15008,9 +15010,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 													theirChanges.length
 											)
 										) {
-											/*istanbul ignore start*/ var _hunk$lines3
+											/*istanbul ignore start*/ var _hunk$lines3 /*istanbul ignore start*/
 
-											/*istanbul ignore end*/ /*istanbul ignore start*/ ;(_hunk$lines3 =
+												/*istanbul ignore end*/
+											;(_hunk$lines3 =
 												/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 												/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines3 /*istanbul ignore end*/,
 												/*istanbul ignore start*/ _toConsumableArray(
@@ -15031,9 +15034,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 													myChanges.length
 											)
 										) {
-											/*istanbul ignore start*/ var _hunk$lines4
+											/*istanbul ignore start*/ var _hunk$lines4 /*istanbul ignore start*/
 
-											/*istanbul ignore end*/ /*istanbul ignore start*/ ;(_hunk$lines4 =
+												/*istanbul ignore end*/
+											;(_hunk$lines4 =
 												/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 												/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines4 /*istanbul ignore end*/,
 												/*istanbul ignore start*/ _toConsumableArray(
@@ -15049,9 +15053,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 											theirChanges
 										)
 									) {
-										/*istanbul ignore start*/ var _hunk$lines5
+										/*istanbul ignore start*/ var _hunk$lines5 /*istanbul ignore start*/
 
-										/*istanbul ignore end*/ /*istanbul ignore start*/ ;(_hunk$lines5 =
+											/*istanbul ignore end*/
+										;(_hunk$lines5 =
 											/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 											/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines5 /*istanbul ignore end*/,
 											/*istanbul ignore start*/ _toConsumableArray(
@@ -15071,9 +15076,10 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 											myChanges
 										)
 									if (theirChanges.merged) {
-										/*istanbul ignore start*/ var _hunk$lines6
+										/*istanbul ignore start*/ var _hunk$lines6 /*istanbul ignore start*/
 
-										/*istanbul ignore end*/ /*istanbul ignore start*/ ;(_hunk$lines6 =
+											/*istanbul ignore end*/
+										;(_hunk$lines6 =
 											/*istanbul ignore end*/ hunk.lines).push./*istanbul ignore start*/ apply(
 											/*istanbul ignore end*/ /*istanbul ignore start*/ _hunk$lines6 /*istanbul ignore end*/,
 											/*istanbul ignore start*/ _toConsumableArray(
@@ -15450,8 +15456,9 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 													) {
 														/*istanbul ignore start*/ var _curRange2
 
-														/*istanbul ignore end*/ // Overlapping
-														/*istanbul ignore start*/ ;(_curRange2 =
+															/*istanbul ignore end*/ // Overlapping
+															/*istanbul ignore start*/
+														;(_curRange2 =
 															/*istanbul ignore end*/ curRange).push./*istanbul ignore start*/ apply(
 															/*istanbul ignore end*/ /*istanbul ignore start*/ _curRange2 /*istanbul ignore end*/,
 															/*istanbul ignore start*/ _toConsumableArray(
@@ -23839,7 +23846,6 @@ OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 						}
 						return out
 					}
-
 					;(function () {
 						try {
 							Object.defineProperty(

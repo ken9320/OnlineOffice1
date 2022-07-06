@@ -22,7 +22,6 @@ let deleteCount = 0
 // get the API Key
 const filePath = path.join(__dirname, '../../APIKEY.txt')
 console.log('Deleting all group sessions, please be patient.')
-
 ;(async () => {
 	const settings = require('../tests/container/loadSettings').loadSettings()
 	const apikey = fs.readFileSync(filePath, { encoding: 'utf-8' })

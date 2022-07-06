@@ -5,7 +5,6 @@
 process.on('unhandledRejection', (err) => {
 	throw err
 })
-
 ;(async () => {
 	// This script requires that you have modified your settings.json file
 	// to work with a real database.  Please make a backup of your dirty.db

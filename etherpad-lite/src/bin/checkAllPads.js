@@ -11,7 +11,6 @@ process.on('unhandledRejection', (err) => {
 
 if (process.argv.length !== 2)
 	throw new Error('Use: node src/bin/checkAllPads.js')
-
 ;(async () => {
 	const db = require('../node/db/DB')
 	await db.init()

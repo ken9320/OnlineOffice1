@@ -6,7 +6,6 @@
 
 // Set up an error handler to display errors that happen during page load. This handler will be
 // overridden with a nicer handler by setupGlobalExceptionHandler() in pad_utils.js.
-
 ;(() => {
 	const originalHandler = window.onerror
 	window.onerror = (...args) => {

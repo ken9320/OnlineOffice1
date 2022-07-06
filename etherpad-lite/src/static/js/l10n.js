@@ -1,5 +1,4 @@
 'use strict'
-
 ;((document) => {
 	// Set language for l10n
 	let language = document.cookie.match(/language=((\w{2,3})(-\w+)?)/)

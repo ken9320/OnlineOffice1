@@ -34,7 +34,6 @@ const loadBroadcastSliderJS = (fireWhenAllScriptsAreLoaded) => {
 	$("[data-key='timeslider_returnToPad'] > a > span").html(
 		html10n.get('timeslider.toolbar.returnbutton')
 	)
-
 	;(() => {
 		// wrap this code in its own namespace
 		let sliderLength = 1000

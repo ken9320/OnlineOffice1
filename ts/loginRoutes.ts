@@ -1,23 +1,26 @@
 import express from 'express'
 import { client } from '../main'
-import { logger } from './logger'
+import { checkPassword } from './hash'
+// import { logger } from './logger'
 
 export const loginRoutes = express.Router()
 
 loginRoutes.post('/login', async (req, res) => {
 	try {
 		console.log(req.body)
-		console.log(typeof req.body.staffid)
+		console.log('staffid' + req.body.staffid)
 
 		let stafflist = await client.query(
-			`select staffpassword from staffs where staffid=$1 `,
+			`select * from staffs where staff_id=$1 `,
 			[req.body.staffid]
 		)
-		console.log(stafflist.rows[0].staffid)
+		console.log('stafflist.rows[0].staffid' + stafflist.rows[0].staff_id)
 
 		if (
-			// req.body.staffid === req.body.staffid &&
-			req.body.password === stafflist.rows[0].staffpassword
+			await checkPassword(
+				req.body.password,
+				stafflist.rows[0].staffpassword
+			)
 		) {
 			req.session['isAdmin'] = true
 			req.session['staffid'] = req.body.staffid
@@ -25,11 +28,14 @@ loginRoutes.post('/login', async (req, res) => {
 			res.redirect('/logined.html')
 			return
 		} else {
+			console.log('login failed')
+			// res.send({ result: false, res: 'staffid or password incorrect' })
 			res.redirect('/')
 		}
 	} catch (err) {
-		logger.log(err)
-		res.status(500).send('Internal Server Error')
+		// logger.log(err)
+		res.send({ result: false, res: 'staffid or password incorrect' })
+		// res.status(500).send('Internal Server Error')
 	}
 })
 

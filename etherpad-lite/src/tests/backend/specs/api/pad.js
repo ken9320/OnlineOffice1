@@ -746,7 +746,6 @@ describe(__filename, function () {
 				await pad.init()
 			}
 			await Promise.all([reInitPad(sourcePadId), reInitPad(newPad)])
-
 			;[srcHtml, dstHtml] = await Promise.all([
 				getHtml(sourcePadId),
 				getHtml(newPad)
