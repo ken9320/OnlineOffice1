@@ -14,20 +14,20 @@ async function manageevent() {
 	}
 
 	document
-	.querySelector('#eventSubmit')
-	.addEventListener('click', async function () {
-		const formData = new FormData(document.querySelector('.eventForm'))
-		let res = await fetch('/event', {
-			method: 'POST',
-			body: formData
+		.querySelector('#eventSubmit')
+		.addEventListener('click', async function () {
+			const formData = new FormData(document.querySelector('.eventForm'))
+			let res = await fetch('/event', {
+				method: 'POST',
+				body: formData
+			})
+			let json = await res.json()
+			if (json.result) {
+				// location.reload(true);
+			} else {
+			}
+			document.querySelector('.eventForm').reset()
 		})
-		let json = await res.json()
-		if (json.result) {
-			// location.reload(true);
-		} else {
-		}
-		document.querySelector('.eventForm').reset()
-	})
 
 	const times = document.querySelectorAll('.time')
 	for (const time of times) {
@@ -45,7 +45,7 @@ async function manageevent() {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify({
-							content: content,
+							content: content
 						})
 					})
 					manageevent()

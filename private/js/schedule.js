@@ -6,7 +6,9 @@ function createtalbe() {
         <div>${hour % 24}:00</div>`
 		for (let x = 0; x < 7; x++) {
 			document.querySelector('.content').innerHTML += `
-            <div class="time" data-id="${id * 100 + (hour % 24)}" id="id${id * 100 + (hour % 24)}">
+            <div class="time" data-id="${id * 100 + (hour % 24)}" id="id${
+				id * 100 + (hour % 24)
+			}">
             <textarea></textarea>
             </div>`
 			id++
@@ -56,4 +58,3 @@ document.addEventListener('drop', (event) => {
 })
 
 createtalbe()
-
