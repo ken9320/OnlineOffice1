@@ -11,8 +11,7 @@ reference (filename for require() plus function name)
 
 ## hooks.callAll
 
-`require("ep_etherpad-lite/static/js/plugingfw/hooks").callAll("hook_name",
-{argname:value})` will call all hook functions registered for `hook_name` with
+`require("ep_etherpad-lite/static/js/plugingfw/hooks").callAll("hook_name", {argname:value})` will call all hook functions registered for `hook_name` with
 `{argname:value}`.
 
 ## hooks.aCallAll

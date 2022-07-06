@@ -1,9 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Baloch Afghanistan",
-			"Sultanselim baloch"
-		]
+		"authors": ["Baloch Afghanistan", "Sultanselim baloch"]
 	},
 	"index.newPad": "دفترچه یادداشت تازه",
 	"index.createOpenPad": "یا ایجاد/بازکردن یک دفترچه یادداشت با نام:",

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 /**
  * Helpers for export requests
  */
@@ -19,67 +19,75 @@
  * limitations under the License.
  */
 
-const AttributeMap = require('../../static/js/AttributeMap');
-const Changeset = require('../../static/js/Changeset');
+const AttributeMap = require('../../static/js/AttributeMap')
+const Changeset = require('../../static/js/Changeset')
 
 exports.getPadPlainText = (pad, revNum) => {
-  const _analyzeLine = exports._analyzeLine;
-  const atext = ((revNum !== undefined) ? pad.getInternalRevisionAText(revNum) : pad.atext);
-  const textLines = atext.text.slice(0, -1).split('\n');
-  const attribLines = Changeset.splitAttributionLines(atext.attribs, atext.text);
-  const apool = pad.pool;
+	const _analyzeLine = exports._analyzeLine
+	const atext =
+		revNum !== undefined ? pad.getInternalRevisionAText(revNum) : pad.atext
+	const textLines = atext.text.slice(0, -1).split('\n')
+	const attribLines = Changeset.splitAttributionLines(
+		atext.attribs,
+		atext.text
+	)
+	const apool = pad.pool
 
-  const pieces = [];
-  for (let i = 0; i < textLines.length; i++) {
-    const line = _analyzeLine(textLines[i], attribLines[i], apool);
-    if (line.listLevel) {
-      const numSpaces = line.listLevel * 2 - 1;
-      const bullet = '*';
-      pieces.push(new Array(numSpaces + 1).join(' '), bullet, ' ', line.text, '\n');
-    } else {
-      pieces.push(line.text, '\n');
-    }
-  }
+	const pieces = []
+	for (let i = 0; i < textLines.length; i++) {
+		const line = _analyzeLine(textLines[i], attribLines[i], apool)
+		if (line.listLevel) {
+			const numSpaces = line.listLevel * 2 - 1
+			const bullet = '*'
+			pieces.push(
+				new Array(numSpaces + 1).join(' '),
+				bullet,
+				' ',
+				line.text,
+				'\n'
+			)
+		} else {
+			pieces.push(line.text, '\n')
+		}
+	}
 
-  return pieces.join('');
-};
-
+	return pieces.join('')
+}
 
 exports._analyzeLine = (text, aline, apool) => {
-  const line = {};
+	const line = {}
 
-  // identify list
-  let lineMarker = 0;
-  line.listLevel = 0;
-  if (aline) {
-    const [op] = Changeset.deserializeOps(aline);
-    if (op != null) {
-      const attribs = AttributeMap.fromString(op.attribs, apool);
-      let listType = attribs.get('list');
-      if (listType) {
-        lineMarker = 1;
-        listType = /([a-z]+)([0-9]+)/.exec(listType);
-        if (listType) {
-          line.listTypeName = listType[1];
-          line.listLevel = Number(listType[2]);
-        }
-      }
-      const start = attribs.get('start');
-      if (start) {
-        line.start = start;
-      }
-    }
-  }
-  if (lineMarker) {
-    line.text = text.substring(1);
-    line.aline = Changeset.subattribution(aline, 1);
-  } else {
-    line.text = text;
-    line.aline = aline;
-  }
-  return line;
-};
+	// identify list
+	let lineMarker = 0
+	line.listLevel = 0
+	if (aline) {
+		const [op] = Changeset.deserializeOps(aline)
+		if (op != null) {
+			const attribs = AttributeMap.fromString(op.attribs, apool)
+			let listType = attribs.get('list')
+			if (listType) {
+				lineMarker = 1
+				listType = /([a-z]+)([0-9]+)/.exec(listType)
+				if (listType) {
+					line.listTypeName = listType[1]
+					line.listLevel = Number(listType[2])
+				}
+			}
+			const start = attribs.get('start')
+			if (start) {
+				line.start = start
+			}
+		}
+	}
+	if (lineMarker) {
+		line.text = text.substring(1)
+		line.aline = Changeset.subattribution(aline, 1)
+	} else {
+		line.text = text
+		line.aline = aline
+	}
+	return line
+}
 
-
-exports._encodeWhitespace =
-  (s) => s.replace(/[^\x21-\x7E\s\t\n\r]/gu, (c) => `&#${c.codePointAt(0)};`);
+exports._encodeWhitespace = (s) =>
+	s.replace(/[^\x21-\x7E\s\t\n\r]/gu, (c) => `&#${c.codePointAt(0)};`)

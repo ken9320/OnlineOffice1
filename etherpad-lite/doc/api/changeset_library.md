@@ -7,7 +7,7 @@ provides tools to create, read, and apply changesets.
 ## Changeset
 
 ```javascript
-const Changeset = require('ep_etherpad-lite/static/js/Changeset');
+const Changeset = require('ep_etherpad-lite/static/js/Changeset')
 ```
 
 A changeset describes the difference between two revisions of a document. When a
@@ -24,7 +24,7 @@ A transmitted changeset looks like this:
 ## Attribute Pool
 
 ```javascript
-const AttributePool = require('ep_etherpad-lite/static/js/AttributePool');
+const AttributePool = require('ep_etherpad-lite/static/js/AttributePool')
 ```
 
 Changesets do not include any attribute key–value pairs. Instead, they use
@@ -40,5 +40,5 @@ historical attribute used in the pad.
 
 Detailed information about the changesets & Easysync protocol:
 
-* [Easysync Protocol](https://github.com/ether/etherpad-lite/blob/develop/doc/easysync/easysync-notes.pdf)
-* [Etherpad and EasySync Technical Manual](https://github.com/ether/etherpad-lite/blob/develop/doc/easysync/easysync-full-description.pdf)
+-   [Easysync Protocol](https://github.com/ether/etherpad-lite/blob/develop/doc/easysync/easysync-notes.pdf)
+-   [Etherpad and EasySync Technical Manual](https://github.com/ether/etherpad-lite/blob/develop/doc/easysync/easysync-full-description.pdf)

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -21,145 +21,149 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-const fs = require('fs');
-const marked = require('marked');
-const path = require('path');
-
+const fs = require('fs')
+const marked = require('marked')
+const path = require('path')
 
 const toHTML = (input, filename, template, cb) => {
-  const lexed = marked.lexer(input);
-  fs.readFile(template, 'utf8', (er, template) => {
-    if (er) return cb(er);
-    render(lexed, filename, template, cb);
-  });
-};
-module.exports = toHTML;
+	const lexed = marked.lexer(input)
+	fs.readFile(template, 'utf8', (er, template) => {
+		if (er) return cb(er)
+		render(lexed, filename, template, cb)
+	})
+}
+module.exports = toHTML
 
 const render = (lexed, filename, template, cb) => {
-  // get the section
-  const section = getSection(lexed);
+	// get the section
+	const section = getSection(lexed)
 
-  filename = path.basename(filename, '.md');
+	filename = path.basename(filename, '.md')
 
-  lexed = parseLists(lexed);
+	lexed = parseLists(lexed)
 
-  // generate the table of contents.
-  // this mutates the lexed contents in-place.
-  buildToc(lexed, filename, (er, toc) => {
-    if (er) return cb(er);
+	// generate the table of contents.
+	// this mutates the lexed contents in-place.
+	buildToc(lexed, filename, (er, toc) => {
+		if (er) return cb(er)
 
-    template = template.replace(/__FILENAME__/g, filename);
-    template = template.replace(/__SECTION__/g, section);
-    template = template.replace(/__TOC__/g, toc);
+		template = template.replace(/__FILENAME__/g, filename)
+		template = template.replace(/__SECTION__/g, section)
+		template = template.replace(/__TOC__/g, toc)
 
-    // content has to be the last thing we do with
-    // the lexed tokens, because it's destructive.
-    const content = marked.parser(lexed);
-    template = template.replace(/__CONTENT__/g, content);
+		// content has to be the last thing we do with
+		// the lexed tokens, because it's destructive.
+		const content = marked.parser(lexed)
+		template = template.replace(/__CONTENT__/g, content)
 
-    cb(null, template);
-  });
-};
-
+		cb(null, template)
+	})
+}
 
 // just update the list item text in-place.
 // lists that come right after a heading are what we're after.
 const parseLists = (input) => {
-  let state = null;
-  let depth = 0;
-  const output = [];
-  output.links = input.links;
-  input.forEach((tok) => {
-    if (state == null) {
-      if (tok.type === 'heading') {
-        state = 'AFTERHEADING';
-      }
-      output.push(tok);
-      return;
-    }
-    if (state === 'AFTERHEADING') {
-      if (tok.type === 'list_start') {
-        state = 'LIST';
-        if (depth === 0) {
-          output.push({type: 'html', text: '<div class="signature">'});
-        }
-        depth++;
-        output.push(tok);
-        return;
-      }
-      state = null;
-      output.push(tok);
-      return;
-    }
-    if (state === 'LIST') {
-      if (tok.type === 'list_start') {
-        depth++;
-        output.push(tok);
-        return;
-      }
-      if (tok.type === 'list_end') {
-        depth--;
-        if (depth === 0) {
-          state = null;
-          output.push({type: 'html', text: '</div>'});
-        }
-        output.push(tok);
-        return;
-      }
-      if (tok.text) {
-        tok.text = parseListItem(tok.text);
-      }
-    }
-    output.push(tok);
-  });
+	let state = null
+	let depth = 0
+	const output = []
+	output.links = input.links
+	input.forEach((tok) => {
+		if (state == null) {
+			if (tok.type === 'heading') {
+				state = 'AFTERHEADING'
+			}
+			output.push(tok)
+			return
+		}
+		if (state === 'AFTERHEADING') {
+			if (tok.type === 'list_start') {
+				state = 'LIST'
+				if (depth === 0) {
+					output.push({
+						type: 'html',
+						text: '<div class="signature">'
+					})
+				}
+				depth++
+				output.push(tok)
+				return
+			}
+			state = null
+			output.push(tok)
+			return
+		}
+		if (state === 'LIST') {
+			if (tok.type === 'list_start') {
+				depth++
+				output.push(tok)
+				return
+			}
+			if (tok.type === 'list_end') {
+				depth--
+				if (depth === 0) {
+					state = null
+					output.push({ type: 'html', text: '</div>' })
+				}
+				output.push(tok)
+				return
+			}
+			if (tok.text) {
+				tok.text = parseListItem(tok.text)
+			}
+		}
+		output.push(tok)
+	})
 
-  return output;
-};
-
+	return output
+}
 
 const parseListItem = (text) => {
-  text = text.replace(/\{([^}]+)\}/, '<span class="type">$1</span>');
-  // XXX maybe put more stuff here?
-  return text;
-};
-
+	text = text.replace(/\{([^}]+)\}/, '<span class="type">$1</span>')
+	// XXX maybe put more stuff here?
+	return text
+}
 
 // section is just the first heading
 const getSection = (lexed) => {
-  for (let i = 0, l = lexed.length; i < l; i++) {
-    const tok = lexed[i];
-    if (tok.type === 'heading') return tok.text;
-  }
-  return '';
-};
-
+	for (let i = 0, l = lexed.length; i < l; i++) {
+		const tok = lexed[i]
+		if (tok.type === 'heading') return tok.text
+	}
+	return ''
+}
 
 const buildToc = (lexed, filename, cb) => {
-  let toc = [];
-  let depth = 0;
+	let toc = []
+	let depth = 0
 
-  marked.setOptions({
-    headerIds: true,
-    headerPrefix: `${filename}_`,
-  });
+	marked.setOptions({
+		headerIds: true,
+		headerPrefix: `${filename}_`
+	})
 
-  lexed.forEach((tok) => {
-    if (tok.type !== 'heading') return;
-    if (tok.depth - depth > 1) {
-      return cb(new Error(`Inappropriate heading level\n${JSON.stringify(tok)}`));
-    }
+	lexed.forEach((tok) => {
+		if (tok.type !== 'heading') return
+		if (tok.depth - depth > 1) {
+			return cb(
+				new Error(`Inappropriate heading level\n${JSON.stringify(tok)}`)
+			)
+		}
 
-    depth = tok.depth;
+		depth = tok.depth
 
-    const slugger = new marked.Slugger();
-    const id = slugger.slug(`${filename}_${tok.text.trim()}`);
+		const slugger = new marked.Slugger()
+		const id = slugger.slug(`${filename}_${tok.text.trim()}`)
 
-    toc.push(`${new Array((depth - 1) * 2 + 1).join(' ')}* <a href="#${id}">${tok.text}</a>`);
+		toc.push(
+			`${new Array((depth - 1) * 2 + 1).join(' ')}* <a href="#${id}">${
+				tok.text
+			}</a>`
+		)
 
-    tok.text += `<span><a class="mark" href="#${id}" ` +
-                `id="${id}">#</a></span>`;
-  });
+		tok.text +=
+			`<span><a class="mark" href="#${id}" ` + `id="${id}">#</a></span>`
+	})
 
-  toc = marked.parse(toc.join('\n'));
-  cb(null, toc);
-};
+	toc = marked.parse(toc.join('\n'))
+	cb(null, toc)
+}

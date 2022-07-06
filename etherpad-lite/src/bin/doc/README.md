@@ -2,7 +2,6 @@ Here's how the node docs work.
 
 Each type of heading has a description block.
 
-
     ## module
 
         Stability: 3 - Stable
@@ -59,18 +58,18 @@ Each type of heading has a description block.
 
     This event is emitted on instances of SomeClass, not on the module itself.
 
-
-* Modules have (description, Properties, Functions, Classes, Examples)
-* Properties have (type, description)
-* Functions have (list of arguments, description)
-* Classes have (description, Properties, Methods, Events)
-* Events have (list of arguments, description)
-* Methods have (list of arguments, description)
-* Properties have (type, description)
+-   Modules have (description, Properties, Functions, Classes, Examples)
+-   Properties have (type, description)
+-   Functions have (list of arguments, description)
+-   Classes have (description, Properties, Methods, Events)
+-   Events have (list of arguments, description)
+-   Methods have (list of arguments, description)
+-   Properties have (type, description)
 
 # CLI usage
 
 Run the following from the etherpad-lite root directory:
+
 ```sh
 $ node src/bin/doc/generate doc/index.md --format=html --template=doc/template.html > out.html
 ```

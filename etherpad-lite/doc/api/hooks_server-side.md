@@ -1,7 +1,9 @@
 # Server-side hooks
+
 These hooks are called on server-side.
 
 ## loadSettings
+
 Called from: src/node/server.js
 
 Things in context:
@@ -11,6 +13,7 @@ Things in context:
 Use this hook to receive the global settings in your plugin.
 
 ## shutdown
+
 Called from: src/node/server.js
 
 Things in context: None
@@ -33,6 +36,7 @@ exports.shutdown = async (hookName, context) => {
 ```
 
 ## pluginUninstall
+
 Called from: src/static/js/pluginfw/installer.js
 
 Things in context:
@@ -42,6 +46,7 @@ Things in context:
 If this hook returns an error, the callback to the uninstall function gets an error as well. This mostly seems useful for handling additional features added in based on the installation of other plugins, which is pretty cool!
 
 ## pluginInstall
+
 Called from: src/static/js/pluginfw/installer.js
 
 Things in context:
@@ -58,7 +63,7 @@ Run during startup after the named plugin is initialized.
 
 Context properties:
 
-  * `logger`: An object with the following `console`-like methods: `debug`,
+-   `logger`: An object with the following `console`-like methods: `debug`,
     `info`, `log`, `warn`, `error`.
 
 ## `expressPreSession`
@@ -79,15 +84,15 @@ handler itself authenticates the user.
 
 Context properties:
 
-* `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
-  object.
+-   `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
+    object.
 
 Example:
 
 ```javascript
-exports.expressPreSession = async (hookName, {app}) => {
-  app.get('/hello-world', (req, res) => res.send('hello world'));
-};
+exports.expressPreSession = async (hookName, { app }) => {
+	app.get('/hello-world', (req, res) => res.send('hello world'))
+}
 ```
 
 ## `expressConfigure`
@@ -102,8 +107,8 @@ authentication is performed.
 
 Context properties:
 
-* `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
-  object.
+-   `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
+    object.
 
 ## `expressCreateServer`
 
@@ -114,10 +119,10 @@ other) except this hook's context includes the HTTP Server object.
 
 Context properties:
 
-* `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
-  object.
-* `server`: The [http.Server](https://nodejs.org/api/http.html#class-httpserver)
-  or [https.Server](https://nodejs.org/api/https.html#class-httpsserver) object.
+-   `app`: The Express [Application](https://expressjs.com/en/4x/api.html#app)
+    object.
+-   `server`: The [http.Server](https://nodejs.org/api/http.html#class-httpserver)
+    or [https.Server](https://nodejs.org/api/https.html#class-httpsserver) object.
 
 ## expressCloseServer
 
@@ -138,7 +143,8 @@ exports.expressCloseServer = async () => {
 };
 ```
 
-## eejsBlock_`<name>`
+## eejsBlock\_`<name>`
+
 Called from: src/node/eejs/index.js
 
 Things in context:
@@ -149,39 +155,40 @@ This hook gets called upon the rendering of an ejs template block. For any speci
 
 Available blocks in `pad.html` are:
 
- * `htmlHead` - after `<html>` and immediately before the title tag
- * `styles` - the style `<link>`s
- * `body` - the contents of the body tag
- * `editbarMenuLeft` - the left tool bar (consider using the toolbar controller instead of manually adding html here)
- * `editbarMenuRight` - right tool bar
- * `afterEditbar` - allows you to add stuff immediately after the toolbar
- * `userlist` - the contents of the userlist dropdown
- * `loading` - the initial loading message
- * `mySettings` - the left column of the settings dropdown ("My view"); intended for adding checkboxes only
- * `mySettings.dropdowns` - add your dropdown settings here
- * `globalSettings` - the right column of the settings dropdown ("Global view")
- * `importColumn` - import form
- * `exportColumn` - export form
- * `modals` - Contains all connectivity messages
- * `embedPopup` - the embed dropdown
- * `scripts` - Add your script tags here, if you really have to (consider use client-side hooks instead)
+-   `htmlHead` - after `<html>` and immediately before the title tag
+-   `styles` - the style `<link>`s
+-   `body` - the contents of the body tag
+-   `editbarMenuLeft` - the left tool bar (consider using the toolbar controller instead of manually adding html here)
+-   `editbarMenuRight` - right tool bar
+-   `afterEditbar` - allows you to add stuff immediately after the toolbar
+-   `userlist` - the contents of the userlist dropdown
+-   `loading` - the initial loading message
+-   `mySettings` - the left column of the settings dropdown ("My view"); intended for adding checkboxes only
+-   `mySettings.dropdowns` - add your dropdown settings here
+-   `globalSettings` - the right column of the settings dropdown ("Global view")
+-   `importColumn` - import form
+-   `exportColumn` - export form
+-   `modals` - Contains all connectivity messages
+-   `embedPopup` - the embed dropdown
+-   `scripts` - Add your script tags here, if you really have to (consider use client-side hooks instead)
 
 `timeslider.html` blocks:
 
- * `timesliderStyles`
- * `timesliderScripts`
- * `timesliderBody`
- * `timesliderTop`
- * `timesliderEditbarRight`
- * `modals`
+-   `timesliderStyles`
+-   `timesliderScripts`
+-   `timesliderBody`
+-   `timesliderTop`
+-   `timesliderEditbarRight`
+-   `modals`
 
 `index.html` blocks:
 
- * `indexCustomStyles` - contains the `index.css` `<link>` tag, allows you to add your own or to customize the one provided by the active skin
- * `indexWrapper` - contains the form for creating new pads
- * `indexCustomScripts` - contains the `index.js` `<script>` tag, allows you to add your own or to customize the one provided by the active skin
+-   `indexCustomStyles` - contains the `index.css` `<link>` tag, allows you to add your own or to customize the one provided by the active skin
+-   `indexWrapper` - contains the form for creating new pads
+-   `indexCustomScripts` - contains the `index.js` `<script>` tag, allows you to add your own or to customize the one provided by the active skin
 
 ## padInitToolbar
+
 Called from: src/node/hooks/express/specialpages.js
 
 Things in context:
@@ -192,9 +199,10 @@ Here you can add custom toolbar items that will be available in the toolbar conf
 
 Usage examples:
 
-* https://github.com/tiblu/ep_authorship_toggle
+-   https://github.com/tiblu/ep_authorship_toggle
 
 ## onAccessCheck
+
 Called from: src/node/db/SecurityManager.js
 
 Things in context:
@@ -221,46 +229,46 @@ key.
 
 Context properties:
 
-* `dbKey`: Database key to use when looking up the user's author ID if no hook
-  function returns an author ID. This is initialized to the user-supplied token
-  value (see the `token` context property), but hook functions can modify this
-  to control how author IDs are allocated to users. If no author ID is
-  associated with this database key, a new author ID will be randomly generated
-  and associated with the key. For security reasons, if this is modified it
-  should be modified to not look like a valid token (see the `token` context
-  property) unless the plugin intentionally wants the user to be able to
-  impersonate another user.
-* `token`: The user-supplied token, or nullish for an anonymous user. Tokens are
-  secret values that must not be disclosed to others. If non-null, the token is
-  guaranteed to be a string with the form `t.<base64url>` where `<base64url>` is
-  any valid non-empty base64url string (RFC 4648 section 5 with padding).
-  Example: `t.twim3X2_KGiRj8cJ-3602g==`.
-* `user`: If the user has authenticated, this is an object from `settings.users`
-  (or similar from an authentication plugin). Etherpad core and all good
-  authentication plugins set the `username` property of this object to a string
-  that uniquely identifies the authenticated user. This object is nullish if the
-  user has not authenticated.
+-   `dbKey`: Database key to use when looking up the user's author ID if no hook
+    function returns an author ID. This is initialized to the user-supplied token
+    value (see the `token` context property), but hook functions can modify this
+    to control how author IDs are allocated to users. If no author ID is
+    associated with this database key, a new author ID will be randomly generated
+    and associated with the key. For security reasons, if this is modified it
+    should be modified to not look like a valid token (see the `token` context
+    property) unless the plugin intentionally wants the user to be able to
+    impersonate another user.
+-   `token`: The user-supplied token, or nullish for an anonymous user. Tokens are
+    secret values that must not be disclosed to others. If non-null, the token is
+    guaranteed to be a string with the form `t.<base64url>` where `<base64url>` is
+    any valid non-empty base64url string (RFC 4648 section 5 with padding).
+    Example: `t.twim3X2_KGiRj8cJ-3602g==`.
+-   `user`: If the user has authenticated, this is an object from `settings.users`
+    (or similar from an authentication plugin). Etherpad core and all good
+    authentication plugins set the `username` property of this object to a string
+    that uniquely identifies the authenticated user. This object is nullish if the
+    user has not authenticated.
 
 Example:
 
 ```javascript
 exports.getAuthorId = async (hookName, context) => {
-  const {username} = context.user || {};
-  // If the user has not authenticated, or has "authenticated" as the guest
-  // user, do the default behavior (try another plugin if any, falling through
-  // to using the token as the database key).
-  if (!username || username === 'guest') return;
-  // The user is authenticated and has a username. Give the user a stable author
-  // ID so that they appear to be the same author even after clearing cookies or
-  // accessing the pad from another device. Note that this string is guaranteed
-  // to never have the form of a valid token; without that guarantee an
-  // unauthenticated user might be able to impersonate an authenticated user.
-  context.dbKey = `username=${username}`;
-  // Return a falsy but non-undefined value to stop Etherpad from calling any
-  // more getAuthorId hook functions and look up the author ID using the
-  // username-derived database key.
-  return '';
-};
+	const { username } = context.user || {}
+	// If the user has not authenticated, or has "authenticated" as the guest
+	// user, do the default behavior (try another plugin if any, falling through
+	// to using the token as the database key).
+	if (!username || username === 'guest') return
+	// The user is authenticated and has a username. Give the user a stable author
+	// ID so that they appear to be the same author even after clearing cookies or
+	// accessing the pad from another device. Note that this string is guaranteed
+	// to never have the form of a valid token; without that guarantee an
+	// unauthenticated user might be able to impersonate an authenticated user.
+	context.dbKey = `username=${username}`
+	// Return a falsy but non-undefined value to stop Etherpad from calling any
+	// more getAuthorId hook functions and look up the author ID using the
+	// username-derived database key.
+	return ''
+}
 ```
 
 ## `padCreate`
@@ -271,9 +279,9 @@ Called when a new pad is created.
 
 Context properties:
 
-* `pad`: The Pad object.
-* `authorId`: The ID of the author who created the pad.
-* `author` (**deprecated**): Synonym of `authorId`.
+-   `pad`: The Pad object.
+-   `authorId`: The ID of the author who created the pad.
+-   `author` (**deprecated**): Synonym of `authorId`.
 
 ## `padDefaultContent`
 
@@ -289,16 +297,16 @@ reading and modifying the context properties.
 
 Context properties:
 
-* `pad`: The newly created Pad object.
-* `authorId`: The author ID of the user that is creating the pad.
-* `type`: String identifying the content type. Currently this is `'text'` and
-  must not be changed. Future versions of Etherpad may add support for HTML,
-  jsdom objects, or other formats, so plugins must assert that this matches a
-  supported content type before reading `content`.
-* `content`: The pad's initial content. Change this property to change the pad's
-  initial content. If the content type is changed, the `type` property must also
-  be updated to match. Plugins must check the value of the `type` property
-  before reading this value.
+-   `pad`: The newly created Pad object.
+-   `authorId`: The author ID of the user that is creating the pad.
+-   `type`: String identifying the content type. Currently this is `'text'` and
+    must not be changed. Future versions of Etherpad may add support for HTML,
+    jsdom objects, or other formats, so plugins must assert that this matches a
+    supported content type before reading `content`.
+-   `content`: The pad's initial content. Change this property to change the pad's
+    initial content. If the content type is changed, the `type` property must also
+    be updated to match. Plugins must check the value of the `type` property
+    before reading this value.
 
 ## `padLoad`
 
@@ -308,7 +316,7 @@ Called when a pad is loaded, including after new pad creation.
 
 Context properties:
 
-* `pad`: The Pad object.
+-   `pad`: The Pad object.
 
 ## `padUpdate`
 
@@ -318,12 +326,12 @@ Called when an existing pad is updated.
 
 Context properties:
 
-* `pad`: The Pad object.
-* `authorId`: The ID of the author who updated the pad.
-* `author` (**deprecated**): Synonym of `authorId`.
-* `revs`: The index of the new revision.
-* `changeset`: The changeset of this revision (see [Changeset
-  Library](#index_changeset_library)).
+-   `pad`: The Pad object.
+-   `authorId`: The ID of the author who updated the pad.
+-   `author` (**deprecated**): Synonym of `authorId`.
+-   `revs`: The index of the new revision.
+-   `changeset`: The changeset of this revision (see [Changeset
+    Library](#index_changeset_library)).
 
 ## `padCopy`
 
@@ -334,22 +342,22 @@ records or perform some other plugin-specific initialization.
 
 Order of events when a pad is copied:
 
-  1. Destination pad is deleted if it exists and overwrite is permitted. This
-     causes the `padRemove` hook to run.
-  2. Pad-specific database records are copied in the database, except for
-     records with plugin-specific database keys.
-  3. A new Pad object is created for the destination pad. This causes the
-     `padLoad` hook to run.
-  4. This hook runs.
+1. Destination pad is deleted if it exists and overwrite is permitted. This
+   causes the `padRemove` hook to run.
+2. Pad-specific database records are copied in the database, except for
+   records with plugin-specific database keys.
+3. A new Pad object is created for the destination pad. This causes the
+   `padLoad` hook to run.
+4. This hook runs.
 
 Context properties:
 
-  * `srcPad`: The source Pad object.
-  * `dstPad`: The destination Pad object.
+-   `srcPad`: The source Pad object.
+-   `dstPad`: The destination Pad object.
 
 Usage examples:
 
-  * https://github.com/ether/ep_comments_page
+-   https://github.com/ether/ep_comments_page
 
 ## `padRemove`
 
@@ -360,11 +368,11 @@ up any plugin-specific pad records from the database.
 
 Context properties:
 
-  * `pad`: Pad object for the pad that is being deleted.
+-   `pad`: Pad object for the pad that is being deleted.
 
 Usage examples:
 
-  * https://github.com/ether/ep_comments_page
+-   https://github.com/ether/ep_comments_page
 
 ## `padCheck`
 
@@ -376,9 +384,10 @@ some way.
 
 Context properties:
 
-  * `pad`: The Pad object that is being checked.
+-   `pad`: The Pad object that is being checked.
 
 ## socketio
+
 Called from: src/node/hooks/express/socketio.js
 
 Things in context:
@@ -401,44 +410,45 @@ is deferred to the normal authentication and authorization checks.
 
 Example uses:
 
-* Always grant access to static content.
-* Process an OAuth callback.
-* Drop requests from IP addresses that have failed N authentication checks
-  within the past X minutes.
+-   Always grant access to static content.
+-   Process an OAuth callback.
+-   Drop requests from IP addresses that have failed N authentication checks
+    within the past X minutes.
 
 Return values:
 
-* `undefined` (or `[]`) defers the access decision to the next registered
-  `preAuthorize` hook function, or to the normal authentication and
-  authorization checks if no more `preAuthorize` hook functions remain.
-* `true` (or `[true]`) immediately grants access to the requested resource,
-  unless the request is for an `/admin` page in which case it is treated the
-  same as returning `undefined`. (This prevents buggy plugins from accidentally
-  granting admin access to the general public.)
-* `false` (or `[false]`) immediately denies the request. The `preAuthnFailure`
-  hook will be called to handle the failure.
+-   `undefined` (or `[]`) defers the access decision to the next registered
+    `preAuthorize` hook function, or to the normal authentication and
+    authorization checks if no more `preAuthorize` hook functions remain.
+-   `true` (or `[true]`) immediately grants access to the requested resource,
+    unless the request is for an `/admin` page in which case it is treated the
+    same as returning `undefined`. (This prevents buggy plugins from accidentally
+    granting admin access to the general public.)
+-   `false` (or `[false]`) immediately denies the request. The `preAuthnFailure`
+    hook will be called to handle the failure.
 
 Context properties:
 
-* `req`: The Express [Request](https://expressjs.com/en/4x/api.html#req) object.
-* `res`: The Express [Response](https://expressjs.com/en/4x/api.html#res)
-  object.
-* `next`: Callback to immediately hand off handling to the next Express
-  middleware/handler, or to the next matching route if `'route'` is passed as
-  the first argument. Do not call this unless you understand the consequences.
+-   `req`: The Express [Request](https://expressjs.com/en/4x/api.html#req) object.
+-   `res`: The Express [Response](https://expressjs.com/en/4x/api.html#res)
+    object.
+-   `next`: Callback to immediately hand off handling to the next Express
+    middleware/handler, or to the next matching route if `'route'` is passed as
+    the first argument. Do not call this unless you understand the consequences.
 
 Example:
 
 ```javascript
-exports.preAuthorize = async (hookName, {req}) => {
-  if (await ipAddressIsFirewalled(req)) return false;
-  if (requestIsForStaticContent(req)) return true;
-  if (requestIsForOAuthCallback(req)) return true;
-  // Defer the decision to the next step by returning undefined.
-};
+exports.preAuthorize = async (hookName, { req }) => {
+	if (await ipAddressIsFirewalled(req)) return false
+	if (requestIsForStaticContent(req)) return true
+	if (requestIsForOAuthCallback(req)) return true
+	// Defer the decision to the next step by returning undefined.
+}
 ```
 
 ## authorize
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -453,15 +463,15 @@ controlling access to specific paths.
 
 A plugin's authorize function is only called if all of the following are true:
 
-* The request is not for static content or an API endpoint. (Requests for static
-  content and API endpoints are always authorized, even if unauthenticated.)
-* The `requireAuthentication` and `requireAuthorization` settings are both true.
-* The user has already successfully authenticated.
-* The user is not an admin (admin users are always authorized).
-* The path being accessed is not an `/admin` path (`/admin` paths can only be
-  accessed by admin users, and admin users are always authorized).
-* An authorize function from a different plugin has not already caused
-  authorization to pass or fail.
+-   The request is not for static content or an API endpoint. (Requests for static
+    content and API endpoints are always authorized, even if unauthenticated.)
+-   The `requireAuthentication` and `requireAuthorization` settings are both true.
+-   The user has already successfully authenticated.
+-   The user is not an admin (admin users are always authorized).
+-   The path being accessed is not an `/admin` path (`/admin` paths can only be
+    accessed by admin users, and admin users are always authorized).
+-   An authorize function from a different plugin has not already caused
+    authorization to pass or fail.
 
 Note that the authorize hook cannot grant access to `/admin` pages. If admin
 access is desired, the `is_admin` user setting must be set to true. This can be
@@ -469,18 +479,18 @@ set in the settings file or by the authenticate hook.
 
 You can pass the following values to the provided callback:
 
-* `[true]` or `['create']` will grant access to modify or create the pad if the
-  request is for a pad, otherwise access is simply granted. Access to a pad will
-  be downgraded to modify-only if `settings.editOnly` is true or the user's
-  `canCreate` setting is set to `false`, and downgraded to read-only if the
-  user's `readOnly` setting is `true`.
-* `['modify']` will grant access to modify but not create the pad if the request
-  is for a pad, otherwise access is simply granted. Access to a pad will be
-  downgraded to read-only if the user's `readOnly` setting is `true`.
-* `['readOnly']` will grant read-only access.
-* `[false]` will deny access.
-* `[]` or `undefined` will defer the authorization decision to the next
-  authorization plugin (if any, otherwise deny).
+-   `[true]` or `['create']` will grant access to modify or create the pad if the
+    request is for a pad, otherwise access is simply granted. Access to a pad will
+    be downgraded to modify-only if `settings.editOnly` is true or the user's
+    `canCreate` setting is set to `false`, and downgraded to read-only if the
+    user's `readOnly` setting is `true`.
+-   `['modify']` will grant access to modify but not create the pad if the request
+    is for a pad, otherwise access is simply granted. Access to a pad will be
+    downgraded to read-only if the user's `readOnly` setting is `true`.
+-   `['readOnly']` will grant read-only access.
+-   `[false]` will deny access.
+-   `[]` or `undefined` will defer the authorization decision to the next
+    authorization plugin (if any, otherwise deny).
 
 Example:
 
@@ -495,6 +505,7 @@ exports.authorize = (hookName, context, cb) => {
 ```
 
 ## authenticate
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -552,6 +563,7 @@ exports.authenticate = (hook_name, context, cb) => {
 ```
 
 ## authFailure
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -570,13 +582,13 @@ appropriate upon authentication failure.
 
 A plugin's authFailure function is only called if all of the following are true:
 
-* There was an authentication or authorization failure.
-* The failure was not already handled by an authFailure function from another
-  plugin.
-* For authentication failures: The failure was not already handled by the
-  authnFailure hook.
-* For authorization failures: The failure was not already handled by the
-  authzFailure hook.
+-   There was an authentication or authorization failure.
+-   The failure was not already handled by an authFailure function from another
+    plugin.
+-   For authentication failures: The failure was not already handled by the
+    authnFailure hook.
+-   For authorization failures: The failure was not already handled by the
+    authzFailure hook.
 
 Calling the provided callback with `[true]` tells Etherpad that the failure was
 handled and no further error handling is required. Calling the callback with
@@ -597,6 +609,7 @@ exports.authFailure = (hookName, context, cb) => {
 ```
 
 ## preAuthzFailure
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -626,6 +639,7 @@ exports.preAuthzFailure = (hookName, context, cb) => {
 ```
 
 ## authnFailure
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -658,6 +672,7 @@ exports.authnFailure = (hookName, context, cb) => {
 ```
 
 ## authzFailure
+
 Called from: src/node/hooks/express/webaccess.js
 
 Things in context:
@@ -699,26 +714,26 @@ then the message will not be subject to further processing.
 
 Context properties:
 
-* `message`: The message being handled.
-* `sessionInfo`: Object describing the socket.io session with the following
-  properties:
-  * `authorId`: The user's author ID.
-  * `padId`: The real (not read-only) ID of the pad.
-  * `readOnly`: Whether the client has read-only access (true) or read/write
-    access (false).
-* `socket`: The socket.io Socket object.
-* `client`: (**Deprecated**; use `socket` instead.) Synonym of `socket`.
+-   `message`: The message being handled.
+-   `sessionInfo`: Object describing the socket.io session with the following
+    properties:
+    -   `authorId`: The user's author ID.
+    -   `padId`: The real (not read-only) ID of the pad.
+    -   `readOnly`: Whether the client has read-only access (true) or read/write
+        access (false).
+-   `socket`: The socket.io Socket object.
+-   `client`: (**Deprecated**; use `socket` instead.) Synonym of `socket`.
 
 Example:
 
 ```javascript
-exports.handleMessage = async (hookName, {message, socket}) => {
-  if (message.type === 'USERINFO_UPDATE') {
-    // Force the display name to the name associated with the account.
-    const user = socket.client.request.session.user || {};
-    if (user.name) message.data.userInfo.name = user.name;
-  }
-};
+exports.handleMessage = async (hookName, { message, socket }) => {
+	if (message.type === 'USERINFO_UPDATE') {
+		// Force the display name to the name associated with the account.
+		const user = socket.client.request.session.user || {}
+		if (user.name) message.data.userInfo.name = user.name
+	}
+}
 ```
 
 ## `handleMessageSecurity`
@@ -730,40 +745,44 @@ temporary write access to a pad.
 
 Supported return values:
 
-* `undefined`: No change in access status.
-* `'permitOnce'`: Override the user's read-only access for the current
-  `COLLABROOM` message only. Has no effect if the current message is not a
-  `COLLABROOM` message, or if the user already has write access to the pad.
-* `true`: (**Deprecated**; return `'permitOnce'` instead.) Override the user's
-  read-only access for all `COLLABROOM` messages from the same socket.io
-  connection (including the current message, if applicable) until the client's
-  next `CLIENT_READY` message. Has no effect if the user already has write
-  access to the pad. Read-only access is reset **after** each `CLIENT_READY`
-  message, so returning `true` has no effect for `CLIENT_READY` messages.
+-   `undefined`: No change in access status.
+-   `'permitOnce'`: Override the user's read-only access for the current
+    `COLLABROOM` message only. Has no effect if the current message is not a
+    `COLLABROOM` message, or if the user already has write access to the pad.
+-   `true`: (**Deprecated**; return `'permitOnce'` instead.) Override the user's
+    read-only access for all `COLLABROOM` messages from the same socket.io
+    connection (including the current message, if applicable) until the client's
+    next `CLIENT_READY` message. Has no effect if the user already has write
+    access to the pad. Read-only access is reset **after** each `CLIENT_READY`
+    message, so returning `true` has no effect for `CLIENT_READY` messages.
 
 Context properties:
 
-* `message`: The message being handled.
-* `sessionInfo`: Object describing the socket.io connection with the following
-  properties:
-  * `authorId`: The user's author ID.
-  * `padId`: The real (not read-only) ID of the pad.
-  * `readOnly`: Whether the client has read-only access (true) or read/write
-    access (false).
-* `socket`: The socket.io Socket object.
-* `client`: (**Deprecated**; use `socket` instead.) Synonym of `socket`.
+-   `message`: The message being handled.
+-   `sessionInfo`: Object describing the socket.io connection with the following
+    properties:
+    -   `authorId`: The user's author ID.
+    -   `padId`: The real (not read-only) ID of the pad.
+    -   `readOnly`: Whether the client has read-only access (true) or read/write
+        access (false).
+-   `socket`: The socket.io Socket object.
+-   `client`: (**Deprecated**; use `socket` instead.) Synonym of `socket`.
 
 Example:
 
 ```javascript
 exports.handleMessageSecurity = async (hookName, context) => {
-  const {message, sessionInfo: {readOnly}} = context;
-  if (!readOnly || message.type !== 'COLLABROOM') return;
-  if (await messageIsBenign(message)) return 'permitOnce';
-};
+	const {
+		message,
+		sessionInfo: { readOnly }
+	} = context
+	if (!readOnly || message.type !== 'COLLABROOM') return
+	if (await messageIsBenign(message)) return 'permitOnce'
+}
 ```
 
 ## clientVars
+
 Called from: src/node/handler/PadMessageHandler.js
 
 Things in context:
@@ -778,13 +797,14 @@ configuration. (Example: Add a tracking ID for an external analytics tool that
 is used client-side.)
 
 You can manipulate `clientVars` in two different ways:
-* Return an object. The object will be merged into `clientVars` via
-  `Object.assign()`, so any keys that already exist in `clientVars` will be
-  overwritten by the values in the returned object.
-* Modify `context.clientVars`. Beware: Other plugins might also be reading or
-  manipulating the same `context.clientVars` object. To avoid race conditions,
-  you are encouraged to return an object rather than modify
-  `context.clientVars`.
+
+-   Return an object. The object will be merged into `clientVars` via
+    `Object.assign()`, so any keys that already exist in `clientVars` will be
+    overwritten by the values in the returned object.
+-   Modify `context.clientVars`. Beware: Other plugins might also be reading or
+    manipulating the same `context.clientVars` object. To avoid race conditions,
+    you are encouraged to return an object rather than modify
+    `context.clientVars`.
 
 If needed, you can access the user's account information (if authenticated) via
 `context.socket.client.request.session.user`.
@@ -814,30 +834,33 @@ HTML.
 
 Context properties:
 
-* `apool`: Pool object.
-* `attribLine`: Line attributes.
-* `line`:
-* `lineContent`:
-* `text`: Line text.
-* `padId`: Writable (not read-only) pad identifier.
+-   `apool`: Pool object.
+-   `attribLine`: Line attributes.
+-   `line`:
+-   `lineContent`:
+-   `text`: Line text.
+-   `padId`: Writable (not read-only) pad identifier.
 
 Example:
 
 ```javascript
-const AttributeMap = require('ep_etherpad-lite/static/js/AttributeMap');
-const Changeset = require('ep_etherpad-lite/static/js/Changeset');
+const AttributeMap = require('ep_etherpad-lite/static/js/AttributeMap')
+const Changeset = require('ep_etherpad-lite/static/js/Changeset')
 
 exports.getLineHTMLForExport = async (hookName, context) => {
-  if (!context.attribLine) return;
-  const [op] = Changeset.deserializeOps(context.attribLine);
-  if (op == null) return;
-  const heading = AttributeMap.fromString(op.attribs, context.apool).get('heading');
-  if (!heading) return;
-  context.lineContent = `<${heading}>${context.lineContent}</${heading}>`;
-};
+	if (!context.attribLine) return
+	const [op] = Changeset.deserializeOps(context.attribLine)
+	if (op == null) return
+	const heading = AttributeMap.fromString(op.attribs, context.apool).get(
+		'heading'
+	)
+	if (!heading) return
+	context.lineContent = `<${heading}>${context.lineContent}</${heading}>`
+}
 ```
 
 ## exportHTMLAdditionalContent
+
 Called from: src/node/utils/ExportHtml.js
 
 Things in context:
@@ -856,6 +879,7 @@ exports.exportHTMLAdditionalContent = async (hookName, {padId}) => {
 ```
 
 ## stylesForExport
+
 Called from: src/node/utils/ExportHtml.js
 
 Things in context:
@@ -873,6 +897,7 @@ exports.stylesForExport = function(hook, padId, cb){
 ```
 
 ## aceAttribClasses
+
 Called from: src/static/js/linestylefilter.js
 
 This hook is called when attributes are investigated on a line. It is useful if
@@ -893,13 +918,14 @@ exports.aceAttribClasses = (hookName, attrs, cb) => {
 ```
 
 ## exportFileName
+
 Called from src/node/handler/ExportHandler.js
 
 Things in context:
 
 1. padId
 
-This hook will allow a plug-in developer to modify the file name of an exported pad.  This is useful if you want to export a pad under another name and/or hide the padId under export.  Note that the doctype or file extension cannot be modified for security reasons.
+This hook will allow a plug-in developer to modify the file name of an exported pad. This is useful if you want to export a pad under another name and/or hide the padId under export. Note that the doctype or file extension cannot be modified for security reasons.
 
 Example:
 
@@ -910,6 +936,7 @@ exports.exportFileName = function(hook, padId, callback){
 ```
 
 ## exportHtmlAdditionalTags
+
 Called from src/node/utils/ExportHtml.js
 
 Things in context:
@@ -919,6 +946,7 @@ Things in context:
 This hook will allow a plug-in developer to include more properties and attributes to support during HTML Export. If tags are stored as `['color', 'red']` on the attribute pool, use `exportHtmlAdditionalTagsWithData` instead. An Array should be returned.
 
 Example:
+
 ```
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTags = function(hook, pad, cb){
@@ -928,6 +956,7 @@ exports.exportHtmlAdditionalTags = function(hook, pad, cb){
 ```
 
 ## exportHtmlAdditionalTagsWithData
+
 Called from src/node/utils/ExportHtml.js
 
 Things in context:
@@ -937,6 +966,7 @@ Things in context:
 Identical to `exportHtmlAdditionalTags`, but for tags that are stored with a specific value (not simply `true`) on the attribute pool. For example `['color', 'red']`, instead of `['bold', true]`. This hook will allow a plug-in developer to include more properties and attributes to support during HTML Export. An Array of arrays should be returned. The exported HTML will contain tags like `<span data-color="red">` for the content where attributes are `['color', 'red']`.
 
 Example:
+
 ```
 // Add the props to be supported in export
 exports.exportHtmlAdditionalTagsWithData = function(hook, pad, cb){
@@ -974,8 +1004,8 @@ Called when exporting to an `.etherpad` file.
 
 Context properties:
 
-  * `pad`: The exported pad's Pad object.
-  * `data`: JSONable output object. This is pre-populated with records from core
+-   `pad`: The exported pad's Pad object.
+-   `data`: JSONable output object. This is pre-populated with records from core
     Etherpad as well as pad-specific records with prefixes from the
     `exportEtherpadAdditionalContent` hook. Registered hook functions can modify
     this object (but not replace the object) to perform any desired
@@ -983,7 +1013,7 @@ Context properties:
     plugin-specific records). All registered hook functions are executed
     concurrently, so care should be taken to avoid race conditions with other
     plugins.
-  * `dstPadId`: The pad ID that should be used when writing pad-specific records
+-   `dstPadId`: The pad ID that should be used when writing pad-specific records
     to `data` (instead of `pad.id`). This avoids leaking the writable pad ID
     when a user exports a read-only pad. This might be a dummy value; plugins
     should not assume that it is either the pad's real writable ID or its
@@ -997,16 +1027,16 @@ Called when importing from an `.etherpad` file.
 
 Context properties:
 
-  * `pad`: Temporary Pad object containing the pad's data read from the imported
+-   `pad`: Temporary Pad object containing the pad's data read from the imported
     `.etherpad` file. The `pad.db` object is a temporary in-memory database
     whose records will be copied to the real database after they are validated
     (see the `padCheck` hook). Registered hook functions MUST NOT use the real
     database to access (read or write) pad-specific records; they MUST instead
     use `pad.db`. All registered hook functions are executed concurrently, so
     care should be taken to avoid race conditions with other plugins.
-  * `data`: Raw JSONable object from the `.etherpad` file. This data must not be
+-   `data`: Raw JSONable object from the `.etherpad` file. This data must not be
     modified.
-  * `srcPadId`: The pad ID used for the pad-specific information in `data`.
+-   `srcPadId`: The pad ID used for the pad-specific information in `data`.
 
 ## `import`
 
@@ -1018,23 +1048,23 @@ function elected to convert the document to HTML.
 
 Context properties:
 
-* `destFile`: The destination HTML filename.
-* `fileEnding`: The lower-cased filename extension from `srcFile` **with leading
-  period** (examples: `'.docx'`, `'.html'`, `'.etherpad'`).
-* `padId`: The identifier of the destination pad.
-* `srcFile`: The document to convert.
-* `ImportError`: Subclass of Error that can be thrown to provide a specific
-  error message to the user. The constructor's first argument must be a string
-  matching one of the [known error
-  identifiers](https://github.com/ether/etherpad-lite/blob/1.8.16/src/static/js/pad_impexp.js#L80-L86).
+-   `destFile`: The destination HTML filename.
+-   `fileEnding`: The lower-cased filename extension from `srcFile` **with leading
+    period** (examples: `'.docx'`, `'.html'`, `'.etherpad'`).
+-   `padId`: The identifier of the destination pad.
+-   `srcFile`: The document to convert.
+-   `ImportError`: Subclass of Error that can be thrown to provide a specific
+    error message to the user. The constructor's first argument must be a string
+    matching one of the [known error
+    identifiers](https://github.com/ether/etherpad-lite/blob/1.8.16/src/static/js/pad_impexp.js#L80-L86).
 
 Example:
 
 ```javascript
-exports.import = async (hookName, {fileEnding, ImportError}) => {
-  // Reject all *.etherpad imports with a permission denied message.
-  if (fileEnding === '.etherpad') throw new ImportError('permission');
-};
+exports.import = async (hookName, { fileEnding, ImportError }) => {
+	// Reject all *.etherpad imports with a permission denied message.
+	if (fileEnding === '.etherpad') throw new ImportError('permission')
+}
 ```
 
 ## `userJoin`
@@ -1045,13 +1075,13 @@ Called after users have been notified that a new user has joined the pad.
 
 Context properties:
 
-* `authorId`: The user's author identifier.
-* `displayName`: The user's display name.
-* `padId`: The real (not read-only) identifier of the pad the user joined. This
-  MUST NOT be shared with any users that are connected with read-only access.
-* `readOnly`: Whether the user only has read-only access.
-* `readOnlyPadId`: The read-only identifier of the pad the user joined.
-* `socket`: The socket.io Socket object.
+-   `authorId`: The user's author identifier.
+-   `displayName`: The user's display name.
+-   `padId`: The real (not read-only) identifier of the pad the user joined. This
+    MUST NOT be shared with any users that are connected with read-only access.
+-   `readOnly`: Whether the user only has read-only access.
+-   `readOnlyPadId`: The read-only identifier of the pad the user joined.
+-   `socket`: The socket.io Socket object.
 
 Example:
 
@@ -1070,18 +1100,18 @@ certain actions after a pad has been edited.
 
 Context properties:
 
-* `authorId`: The user's author ID.
-* `padId`: The pad's real (not read-only) identifier.
-* `readOnly`: If truthy, the user only has read-only access.
-* `readOnlyPadId`: The pad's read-only identifier.
-* `socket`: The socket.io Socket object.
+-   `authorId`: The user's author ID.
+-   `padId`: The pad's real (not read-only) identifier.
+-   `readOnly`: If truthy, the user only has read-only access.
+-   `readOnlyPadId`: The pad's read-only identifier.
+-   `socket`: The socket.io Socket object.
 
 Example:
 
 ```javascript
-exports.userLeave = async (hookName, {author, padId}) => {
-  console.log(`${author} left pad ${padId}`);
-};
+exports.userLeave = async (hookName, { author, padId }) => {
+	console.log(`${author} left pad ${padId}`)
+}
 ```
 
 ## `chatNewMessage`
@@ -1093,10 +1123,10 @@ saved to the pad and relayed to all connected users.
 
 Context properties:
 
-* `message`: The chat message object. Plugins can mutate this object to change
-  the message text or add custom metadata to control how the message will be
-  rendered by the `chatNewMessage` client-side hook. The message's `authorId`
-  property can be trusted (the server overwrites any client-provided author ID
-  value with the user's actual author ID before this hook runs).
-* `padId`: The pad's real (not read-only) identifier.
-* `pad`: The pad's Pad object.
+-   `message`: The chat message object. Plugins can mutate this object to change
+    the message text or add custom metadata to control how the message will be
+    rendered by the `chatNewMessage` client-side hook. The message's `authorId`
+    property can be trusted (the server overwrites any client-provided author ID
+    value with the user's actual author ID before this hook runs).
+-   `padId`: The pad's real (not read-only) identifier.
+-   `pad`: The pad's Pad object.

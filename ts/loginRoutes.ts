@@ -2,7 +2,7 @@ import express from 'express'
 import { client } from '../main'
 import { logger } from './logger'
 
-export const loginRoutes = express.Router();
+export const loginRoutes = express.Router()
 
 loginRoutes.post('/login', async (req, res) => {
 	try {
@@ -10,7 +10,8 @@ loginRoutes.post('/login', async (req, res) => {
 		console.log(typeof req.body.staffid)
 
 		let stafflist = await client.query(
-			`select staffpassword from staffs where staffid=$1 `, [req.body.staffid]
+			`select staffpassword from staffs where staffid=$1 `,
+			[req.body.staffid]
 		)
 		console.log(stafflist.rows[0].staffid)
 
@@ -32,16 +33,19 @@ loginRoutes.post('/login', async (req, res) => {
 	}
 })
 
-export const isLogin = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    if (req.session['isAdmin']) {
-      next();
-    } else {
-      res.redirect('/')
-    }
+export const isLogin = (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	if (req.session['isAdmin']) {
+		next()
+	} else {
+		res.redirect('/')
+	}
 }
 
-
 loginRoutes.post('/logout', (req, res) => {
-    req.session['isAdmin'] = false
-    res.redirect('/')
-  })
+	req.session['isAdmin'] = false
+	res.redirect('/')
+})

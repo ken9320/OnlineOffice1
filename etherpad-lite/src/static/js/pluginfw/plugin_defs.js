@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 // This module contains processed plugin definitions. The data structures in this file are set by
 // plugins.js (server) or client_plugins.js (client).
@@ -8,13 +8,13 @@
 //   * hook_fn: Plugin-supplied hook function.
 //   * hook_fn_name: Name of the hook function, with the form <filename>:<functionName>.
 //   * part: The ep.json part object that declared the hook. See exports.plugins.
-exports.hooks = {};
+exports.hooks = {}
 
 // Whether the plugins have been loaded.
-exports.loaded = false;
+exports.loaded = false
 
 // Topologically sorted list of parts from exports.plugins.
-exports.parts = [];
+exports.parts = []
 
 // Maps the name of a plugin to the plugin's definition provided in ep.json. The ep.json object is
 // augmented with additional metadata:
@@ -25,4 +25,4 @@ exports.parts = [];
 //       - version
 //       - path
 //       - realPath
-exports.plugins = {};
+exports.plugins = {}

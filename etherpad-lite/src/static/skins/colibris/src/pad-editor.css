@@ -1,5 +1,5 @@
 #innerdocbody {
-  background: transparent;
-  color: #485365;
-  color: var(--text-color);
+	background: transparent;
+	color: #485365;
+	color: var(--text-color);
 }

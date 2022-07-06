@@ -4,6 +4,7 @@ Most of these hooks are called during or in order to set up the formatting
 process.
 
 ## documentReady
+
 Called from: src/templates/pad.html
 
 Things in context:
@@ -110,12 +111,14 @@ be parsed into a valid class string.
 Called from: src/static/js/linestylefilter.js
 
 Things in context:
+
 1. Attributes - Object of Attributes
 
 This hook is called when attributes are investigated on a line. It is useful if
 you want to add another attribute type or property type to a pad.
 
 Example:
+
 ```
 exports.aceAttribClasses = function(hook_name, attr, cb){
   attr.sub = 'tag:sub';
@@ -191,6 +194,7 @@ not scroll viewport. The return value of this hook should be a list of event
 names.
 
 Example:
+
 ```
 exports.aceRegisterNonScrollableEditEvents = function(){
   return [ 'repaginate', 'updatePageCount' ];
@@ -247,7 +251,7 @@ Can be used to register custom actions to the toolbar.
 
 Usage examples:
 
-* [https://github.com/tiblu/ep_authorship_toggle]()
+-   [https://github.com/tiblu/ep_authorship_toggle]()
 
 ## postTimesliderInit
 
@@ -293,27 +297,26 @@ avoid introducing an XSS vulnerability.
 
 Context properties:
 
-* `authorName`: The display name of the user that wrote the message.
-* `author`: The author ID of the user that wrote the message.
-* `text`: Sanitized message HTML, with URLs wrapped like `<a
-  href="url">url</a>`. (Note that `message.text` is not sanitized or processed
-  in any way.)
-* `message`: The raw message object as received from the server, except with
-  time correction and a default `authorId` property if missing. Plugins must not
-  modify this object. Warning: Unlike `text`, `message.text` is not
-  pre-sanitized or processed in any way.
-* `rendered` - Used to override the default message rendering. Initially set to
-  `null`. If the hook function sets this to a DOM element object or a jQuery
-  object, then that object will be used as the rendered message UI. Otherwise,
-  if this is set to `null`, then Etherpad will render a default UI for the
-  message using the other context properties.
-* `sticky` (boolean): Whether the gritter notification should fade out on its
-  own or just sit there until manually closed.
-* `timestamp`: When the chat message was sent (milliseconds since epoch),
-  corrected using the difference between the local clock and the server's clock.
-* `timeStr`: The message timestamp as a formatted string.
-* `duration`: How long (in milliseconds) to display the gritter notification (0
-  to disable).
+-   `authorName`: The display name of the user that wrote the message.
+-   `author`: The author ID of the user that wrote the message.
+-   `text`: Sanitized message HTML, with URLs wrapped like `<a href="url">url</a>`. (Note that `message.text` is not sanitized or processed
+    in any way.)
+-   `message`: The raw message object as received from the server, except with
+    time correction and a default `authorId` property if missing. Plugins must not
+    modify this object. Warning: Unlike `text`, `message.text` is not
+    pre-sanitized or processed in any way.
+-   `rendered` - Used to override the default message rendering. Initially set to
+    `null`. If the hook function sets this to a DOM element object or a jQuery
+    object, then that object will be used as the rendered message UI. Otherwise,
+    if this is set to `null`, then Etherpad will render a default UI for the
+    message using the other context properties.
+-   `sticky` (boolean): Whether the gritter notification should fade out on its
+    own or just sit there until manually closed.
+-   `timestamp`: When the chat message was sent (milliseconds since epoch),
+    corrected using the difference between the local clock and the server's clock.
+-   `timeStr`: The message timestamp as a formatted string.
+-   `duration`: How long (in milliseconds) to display the gritter notification (0
+    to disable).
 
 ## `chatSendMessage`
 
@@ -325,7 +328,7 @@ to control how the message will be rendered by the `chatNewMessage` hook.
 
 Context properties:
 
-* `message`: The message object that will be sent to the Etherpad server.
+-   `message`: The message object that will be sent to the Etherpad server.
 
 ## collectContentPre
 
@@ -349,7 +352,6 @@ attributeName=true.
 
 If you want to specify also a value, call cc.doAttrib(state,
 "attributeName::value") which results in an attribute attributeName=value.
-
 
 ## collectContentImage
 
@@ -393,7 +395,7 @@ This hook is called after the content of a node is collected by the usual
 methods. The cc object can be used to do a bunch of things that modify the
 content of the pad. See, for example, the heading1 plugin for etherpad original.
 
-## handleClientMessage_`name`
+## handleClientMessage\_`name`
 
 Called from: `src/static/js/collab_client.js`
 
@@ -455,10 +457,10 @@ Things in context:
 This hook allows you to validate/manipulate the text before it's sent to the
 server side. To change the text, either:
 
-* Set the `text` context property to the desired value and return `undefined`.
-* (Deprecated) Return a string. If a hook function changes the `text` context
-  property, the return value is ignored. If no hook function changes `text` but
-  multiple hook functions return a string, the first one wins.
+-   Set the `text` context property to the desired value and return `undefined`.
+-   (Deprecated) Return a string. If a hook function changes the `text` context
+    property, the return value is ignored. If no hook function changes `text` but
+    multiple hook functions return a string, the first one wins.
 
 Example:
 

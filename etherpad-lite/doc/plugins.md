@@ -7,8 +7,7 @@ execute its own functionality based on these events.
 Publicly available plugins can be found in the npm registry (see
 <https://npmjs.org>). Etherpad's naming convention for plugins is to prefix your
 plugins with `ep_`. So, e.g. it's `ep_flubberworms`. Thus you can install
-plugins from npm, using `npm install --no-save --legacy-peer-deps
-ep_flubberworm` in Etherpad's root directory.
+plugins from npm, using `npm install --no-save --legacy-peer-deps ep_flubberworm` in Etherpad's root directory.
 
 You can also browse to `http://yourEtherpadInstan.ce/admin/plugins`, which will
 list all installed plugins and those available on npm. It even provides
@@ -53,7 +52,7 @@ go into `locales/`. Tests go in `static/tests/backend/specs/` and
 `static/tests/frontend/specs/`.
 
 A Standard directory structure like this makes it easier to navigate through
-your code. That said, do note, that this is not actually *required* to make your
+your code. That said, do note, that this is not actually _required_ to make your
 plugin run. If you want to make use of our i18n system, you need to put your
 translations into `locales/`, though, in order to have them integrated. (See
 "Localization" for more info on how to localize your plugin.)
@@ -67,18 +66,18 @@ documentation of all available events to hook into can be found in chapter
 
 ```json
 {
-  "parts": [
-    {
-      "name": "nameThisPartHoweverYouWant",
-      "hooks": {
-        "authenticate": "ep_<plugin>/<file>:functionName1",
-        "expressCreateServer": "ep_<plugin>/<file>:functionName2"
-      },
-      "client_hooks": {
-        "acePopulateDOMLine": "ep_<plugin>/<file>:functionName3"
-      }
-    }
-  ]
+	"parts": [
+		{
+			"name": "nameThisPartHoweverYouWant",
+			"hooks": {
+				"authenticate": "ep_<plugin>/<file>:functionName1",
+				"expressCreateServer": "ep_<plugin>/<file>:functionName2"
+			},
+			"client_hooks": {
+				"acePopulateDOMLine": "ep_<plugin>/<file>:functionName3"
+			}
+		}
+	]
 }
 ```
 
@@ -106,18 +105,18 @@ Examples: Suppose the plugin name is `ep_example`. All of the following are
 equivalent, and will cause the `authorize` hook to call the `exports.authorize`
 function in `index.js` from the `ep_example` plugin:
 
-* `"authorize": "ep_example/index.js:authorize"`
-* `"authorize": "ep_example/index.js:"`
-* `"authorize": "ep_example/index.js"`
-* `"authorize": "ep_example/index:authorize"`
-* `"authorize": "ep_example/index:"`
-* `"authorize": "ep_example/index"`
-* `"authorize": "ep_example:authorize"`
-* `"authorize": "ep_example:"`
-* `"authorize": "ep_example"`
-* `"authorize": ":authorize"`
-* `"authorize": ":"`
-* `"authorize": ""`
+-   `"authorize": "ep_example/index.js:authorize"`
+-   `"authorize": "ep_example/index.js:"`
+-   `"authorize": "ep_example/index.js"`
+-   `"authorize": "ep_example/index:authorize"`
+-   `"authorize": "ep_example/index:"`
+-   `"authorize": "ep_example/index"`
+-   `"authorize": "ep_example:authorize"`
+-   `"authorize": "ep_example:"`
+-   `"authorize": "ep_example"`
+-   `"authorize": ":authorize"`
+-   `"authorize": ":"`
+-   `"authorize": ""`
 
 ### Client hooks and server hooks
 
@@ -138,13 +137,13 @@ tuning the appearance of the main UI in your plugin.
 For example, this is the markup with no plugins installed:
 
 ```html
-<div id="editorcontainerbox" class="">
+<div id="editorcontainerbox" class=""></div>
 ```
 
 and this is the contents after installing `someplugin`:
 
 ```html
-<div id="editorcontainerbox" class="ep_someplugin">
+<div id="editorcontainerbox" class="ep_someplugin"></div>
 ```
 
 This feature was introduced in Etherpad **1.8**.
@@ -192,8 +191,8 @@ The `"pre"` and `"post"` definitions, affect the order in which parts of a
 plugin are executed. This ensures that plugins and their hooks are executed in
 the correct order.
 
-`"pre"` lists parts that must be executed *before* the defining part. `"post"`
-lists parts that must be executed *after* the defining part.
+`"pre"` lists parts that must be executed _before_ the defining part. `"post"`
+lists parts that must be executed _after_ the defining part.
 
 You can, on a basic level, think of this as double-ended dependency listing. If
 you have a dependency on another plugin, you can make sure it loads before yours
@@ -204,7 +203,7 @@ Note that it would be far more sane to use `"pre"` in almost any case, but if
 you want to change config variables for another plugin, or maybe modify its
 environment, `"post"` could definitely be useful.
 
-Also, note that dependencies should *also* be listed in your package.json, so
+Also, note that dependencies should _also_ be listed in your package.json, so
 they can be `npm install`'d automagically when your plugin gets installed.
 
 ## Package definition
@@ -219,13 +218,13 @@ publish your plugin.
 
 ```json
 {
-  "name": "ep_PLUGINNAME",
-  "version": "0.0.1",
-  "description": "DESCRIPTION",
-  "author": "USERNAME (REAL NAME) <MAIL@EXAMPLE.COM>",
-  "contributors": [],
-  "dependencies": {"MODULE": "0.3.20"},
-  "engines": {"node": ">=12.17.0"}
+	"name": "ep_PLUGINNAME",
+	"version": "0.0.1",
+	"description": "DESCRIPTION",
+	"author": "USERNAME (REAL NAME) <MAIL@EXAMPLE.COM>",
+	"contributors": [],
+	"dependencies": { "MODULE": "0.3.20" },
+	"engines": { "node": ">=12.17.0" }
 }
 ```
 

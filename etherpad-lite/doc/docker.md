@@ -3,7 +3,9 @@
 The official Docker image is available on https://hub.docker.com/r/etherpad/etherpad.
 
 ## Downloading from Docker Hub
+
 If you are ok downloading a [prebuilt image from Docker Hub](https://hub.docker.com/r/etherpad/etherpad), these are the commands:
+
 ```bash
 # gets the latest published version
 docker pull etherpad/etherpad
@@ -19,11 +21,13 @@ All of the following instructions are as a member of the `docker` group.
 By default, the Etherpad Docker image is built and run in `production` mode: no development dependencies are installed, and asset bundling speeds up page load time.
 
 ### Rebuilding with custom settings
+
 Edit `<BASEDIR>/settings.json.docker` at your will. When rebuilding the image, this file will be copied inside your image and renamed to `settings.json`.
 
 **Each configuration parameter can also be set via an environment variable**, using the syntax `"${ENV_VAR}"` or `"${ENV_VAR:default_value}"`. For details, refer to `settings.json.template`.
 
 ### Rebuilding including some plugins
+
 If you want to install some plugins in your container, it is sufficient to list them in the ETHERPAD_PLUGINS build variable.
 The variable value has to be a space separated, double quoted list of plugin names (see examples).
 
@@ -39,8 +43,8 @@ either Abiword or Libreoffice via setting a build variable.
 For installing Abiword, set the `INSTALL_ABIWORD` build variable to any value.
 
 Also, you will need to configure the path to the abiword executable
-via setting the `abiword` property in `<BASEDIR>/settings.json.docker` to 
-`/usr/bin/abiword` or via setting the environment variable  `ABIWORD` to 
+via setting the `abiword` property in `<BASEDIR>/settings.json.docker` to
+`/usr/bin/abiword` or via setting the environment variable `ABIWORD` to
 `/usr/bin/abiword`.
 
 #### Via Libreoffice
@@ -49,18 +53,20 @@ For installing Libreoffice instead, set the `INSTALL_SOFFICE` build variable
 to any value.
 
 Also, you will need to configure the path to the libreoffice executable
-via setting the `soffice` property in `<BASEDIR>/settings.json.docker` to 
-`/usr/bin/soffice` or via setting the environment variable  `SOFFICE` to 
+via setting the `soffice` property in `<BASEDIR>/settings.json.docker` to
+`/usr/bin/soffice` or via setting the environment variable `SOFFICE` to
 `/usr/bin/soffice`.
 
 ### Examples
 
 Build a Docker image from the currently checked-out code:
+
 ```bash
 docker build --tag <YOUR_USERNAME>/etherpad .
 ```
 
 Include two plugins in the container:
+
 ```bash
 docker build --build-arg ETHERPAD_PLUGINS="ep_comments_page ep_author_neat" --tag <YOUR_USERNAME>/etherpad .
 ```
@@ -68,6 +74,7 @@ docker build --build-arg ETHERPAD_PLUGINS="ep_comments_page ep_author_neat" --ta
 ## Running your instance:
 
 To run your instance:
+
 ```bash
 docker run --detach --publish <DESIRED_PORT>:9001 <YOUR_USERNAME>/etherpad
 ```
@@ -90,7 +97,6 @@ The `settings.json.docker` available by default allows to control almost every s
 | `ADMIN_PASSWORD`   | the password for the `admin` user (leave unspecified if you do not want to create it)      |                                                                                                                                                                                                                                     |
 | `USER_PASSWORD`    | the password for the first user `user` (leave unspecified if you do not want to create it) |                                                                                                                                                                                                                                     |
 
-
 ### Database
 
 | Variable      | Description                                                    | Default                                                               |
@@ -105,7 +111,6 @@ The `settings.json.docker` available by default allows to control almost every s
 | `DB_FILENAME` | in case `DB_TYPE` is `DirtyDB` or `sqlite`, the database file. | `var/dirty.db`, `var/etherpad.sq3`                                    |
 
 If your database needs additional settings, you will have to use a personalized `settings.json.docker` and rebuild the container (or otherwise put the updated `settings.json` inside your image).
-
 
 ### Pad Options
 
@@ -122,7 +127,6 @@ If your database needs additional settings, you will have to use a personalized 
 | `PAD_OPTIONS_ALWAYS_SHOW_CHAT`   |             | `false` |
 | `PAD_OPTIONS_CHAT_AND_USERS`     |             | `false` |
 | `PAD_OPTIONS_LANG`               |             | `null`  |
-
 
 ### Shortcuts
 
@@ -151,21 +155,22 @@ If your database needs additional settings, you will have to use a personalized 
 | `PAD_SHORTCUTS_ENABLED_PAGE_UP`     |                                                  | `true`  |
 | `PAD_SHORTCUTS_ENABLED_PAGE_DOWN`   |                                                  | `true`  |
 
-
 ### Skins
 
 You can use the UI skin variants builder at `/p/test#skinvariantsbuilder`
 
 For the colibris skin only, you can choose how to render the three main containers:
-  * toolbar (top menu with icons)
-  * editor (containing the text of the pad)
-  * background (area outside of editor, mostly visible when using page style)
+
+-   toolbar (top menu with icons)
+-   editor (containing the text of the pad)
+-   background (area outside of editor, mostly visible when using page style)
 
 For each of the 3 containers you can choose 4 color combinations:
-   * super-light
-   * light
-   * dark
-   * super-dark
+
+-   super-light
+-   light
+-   dark
+-   super-dark
 
 For the editor container, you can also make it full width by adding `full-width-editor` variant (by default editor is rendered as a page, with a max-width of 900px).
 
@@ -174,7 +179,6 @@ For the editor container, you can also make it full width by adding `full-width-
 | `SKIN_NAME`     | either `no-skin`, `colibris` or an existing directory under `src/static/skins` | `colibris`                                                |
 | `SKIN_VARIANTS` | multiple skin variants separated by spaces                                     | `super-light-toolbar super-light-editor light-background` |
 
-
 ### Logging
 
 | Variable             | Description                                          | Default |
@@ -182,11 +186,10 @@ For the editor container, you can also make it full width by adding `full-width-
 | `LOGLEVEL`           | valid values are `DEBUG`, `INFO`, `WARN` and `ERROR` | `INFO`  |
 | `DISABLE_IP_LOGGING` | Privacy: disable IP logging                          | `false` |
 
-
 ### Advanced
 
 | Variable                          | Description                                                                                                                                                                                            | Default               |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------    |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------- |
 | `COOKIE_SAME_SITE`                | Value of the SameSite cookie property.                                                                                                                                                                 | `"Lax"`               |
 | `COOKIE_SESSION_LIFETIME`         | How long (ms) a user can be away before they must log in again.                                                                                                                                        | `864000000` (10 days) |
 | `COOKIE_SESSION_REFRESH_INTERVAL` | How often (ms) to write the latest cookie expiration time.                                                                                                                                             | `86400000` (1 day)    |
@@ -218,7 +221,6 @@ For the editor container, you can also make it full width by adding `full-width-
 | `LOAD_TEST`                       | Allow Load Testing tools to hit the Etherpad Instance. WARNING: this will disable security on the instance.                                                                                            | `false`               |
 | `DUMP_ON_UNCLEAN_EXIT`            | Enable dumping objects preventing a clean exit of Node.js. WARNING: this has a significant performance impact.                                                                                         | `false`               |
 | `EXPOSE_VERSION`                  | Expose Etherpad version in the web interface and in the Server http header. Do not enable on production machines.                                                                                      | `false`               |
-
 
 ### Examples
 

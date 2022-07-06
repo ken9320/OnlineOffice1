@@ -1,11 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Besnik b",
-			"Eraldkerciku",
-			"Kosovastar",
-			"Liridon"
-		]
+		"authors": ["Besnik b", "Eraldkerciku", "Kosovastar", "Liridon"]
 	},
 	"admin.page-title": "Paneli i Administratorit - Etherpad",
 	"admin_plugins": "Përgjegjës shtojcash",
