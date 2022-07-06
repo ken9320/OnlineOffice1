@@ -9,6 +9,7 @@ async function manageevent() {
 			.classList.add('active')
 		document.querySelector(`.content > #id${event.div_id}`).innerHTML = `
             <textarea class="active">${event.event}</textarea>
+            <button data-id="${event.div_id}">del</button>
             `
 		// console.log(event.div_id)
 	}
@@ -51,6 +52,18 @@ async function manageevent() {
 					manageevent()
 				}
 			)
+		})
+	}
+
+	const buttons = document.querySelectorAll('.content button')
+	for (const button of buttons) {
+		button.addEventListener('click', async function (e) {
+			e.stopPropagation()
+
+			const res = await fetch('/event/' + button.dataset.id, {
+				method: 'DELETE'
+			})
+			manageevent()
 		})
 	}
 }

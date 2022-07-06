@@ -65,3 +65,17 @@ eventRouter.patch('/event/:id', async (req, res) => {
 		return
 	}
 })
+
+eventRouter.delete('/event/:id', async (req, res) => {
+	const delId = req.params.id
+	console.log(delId)
+	try {
+		await client.query(`DELETE FROM schedule WHERE div_id=$1`, [delId])
+		res.end()
+		return
+	} catch (err) {
+		logger.error(err)
+		res.status(500).send('Internal Server Error')
+		return
+	}
+})
