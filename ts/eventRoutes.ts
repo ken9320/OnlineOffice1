@@ -6,7 +6,7 @@ import { logger } from './logger'
 export const eventRouter = express.Router()
 const form = formidable()
 
-eventRouter.use(express.urlencoded());
+eventRouter.use(express.json());
 
 eventRouter.post('/event', function (req, res) {
 	form.parse(req, async (err, fields) => {
@@ -49,10 +49,10 @@ eventRouter.get('/event', async (req, res) => {
 })
 
 eventRouter.patch('/event/:id', async (req, res) => {
+    
 	const editId = req.params.id
 	const editContent = req.body.content
-    console.log(editId, editContent);
-    
+    // console.log(editId,editContent);
 	try {
 		await client.query(`UPDATE schedule SET event = $1, updated_at = NOW() WHERE div_id = $2`, [editContent, editId])
         res.end();
@@ -63,3 +63,4 @@ eventRouter.patch('/event/:id', async (req, res) => {
 		return
 	}	
 })
+
