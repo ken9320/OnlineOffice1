@@ -83,7 +83,7 @@ app.post('/login', async (req, res) => {
 		) {
 			req.session['isAdmin'] = true
 			req.session['staffid'] = req.body.staffid
-			console.log(req.session);
+			console.log(req.session)
 			res.redirect('/logined.html')
 			return
 		} else {
