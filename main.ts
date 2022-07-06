@@ -9,6 +9,7 @@ import { logger } from './ts/logger'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
+
 dotenv.config()
 
 export const client = new Client({
@@ -64,12 +65,13 @@ app.use((req, res, next) => {
 
 app.use(express.static('public'))
 
+app.use(express.urlencoded())
 app.use(eventRouter)
 
 app.post('/login', async (req, res) => {
 	try {
-		// console.log(req.body)
-		// console.log(typeof req.body.staffid)
+		console.log(req.body)
+		console.log(typeof req.body.staffid)
 
 		let stafflist = await client.query(
 			`select staffpassword from staffs where staffid=${req.body.staffid} `
