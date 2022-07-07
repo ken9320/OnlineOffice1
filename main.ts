@@ -1,7 +1,7 @@
 import express from 'express'
 import expressSession from 'express-session'
 import https from 'https'
-import { Server as SocketIO } from 'socket.io'
+import {  Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
 import fs from 'fs'
@@ -10,6 +10,7 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
+
 
 dotenv.config()
 
@@ -70,13 +71,14 @@ app.use(express.urlencoded())
 app.use(eventRouter)
 app.use(loginRoutes)
 
-let roomList:any[] = [];
+// let roomList:any[] = [];
+
 let WebRTC = io.of('/WebRTC');
 WebRTC.on('connect', (people) => {
-	
-	
-	roomList.push(people.rooms)
-	console.log(roomList)
+	console.log(WebRTC.sockets.size)
+people.join('chartRoom')
+	console.log(people.id)
+	// console.log(app.use.(people));
 	people.emit('serverMsg', 'HI Users')
 	
 
@@ -90,7 +92,15 @@ WebRTC.on('connect', (people) => {
 		console.log(answer)
 		people.to('chartRoom').emit('answer', answer)
 	})
+
+	people.on('disconnect', () => {
+	console.log(WebRTC.sockets.size)
 })
+
+
+
+})
+
 
 const botName = 'ChatCord Bot'
 

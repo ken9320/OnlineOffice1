@@ -26,7 +26,7 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['isAdmin'] = true
 			req.session['staffid'] = req.body.staffid
 			req.session['companyid'] = stafflist.rows[0].company
-			console.log(req.session)
+			// console.log(req.session)
 			// console.log(req.session)
 			res.redirect('/logined.html')
 			return

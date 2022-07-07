@@ -51,15 +51,6 @@ CREATE TABLE staffs (
     updated_at TIMESTAMP NOT NULL
 );
 
-INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
-    ((SELECT id FROM companys WHERE companyName = '689store'), 1001, '0001', 'Peter', (SELECT id FROM department WHERE deptName = 'CEO'), (SELECT id FROM positions WHERE position = 'Boss'), '2000-01-01', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = '689store'), 1002, '0002', 'Tom', (SELECT  FROM department WHERE deptName = 'HR'), (SELECT id FROM positions WHERE position = 'manage'), '2000-01-02', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = '689store'), 1003, '0003', 'Him', (SELECT  FROM department WHERE deptName = 'logistics'), (SELECT id FROM positions WHERE position = 'staff'), '2000-01-03', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = '689store'), 1004, '0004', 'Ada', (SELECT  FROM department WHERE deptName = 'sales'), (SELECT id FROM positions WHERE position = 'staff'), '2000-01-04', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = 'ok shop'), 2001, '0001', 'Alex', (SELECT id FROM department WHERE deptName = 'CEO'), (SELECT id FROM positions WHERE position = 'Boss'), '2001-01-01', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = 'ok shop'), 2002, '0002', 'Angel', (SELECT id FROM department WHERE deptName = 'HR'), (SELECT id FROM positions WHERE position = 'manage'), '2001-01-02', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = 'ok shop'), 2003, '0003', 'Angela', (SELECT id FROM department WHERE deptName = 'logistics'), (SELECT id FROM positions WHERE position = 'staff'), '2001-01-03', NOW(), NOW()),
-    ((SELECT id FROM companys WHERE companyName = 'ok shop'), 2004, '0004', 'Him', (SELECT id FROM department WHERE deptName = 'sales'), (SELECT id FROM positions WHERE position = 'staff'), '2001-01-04', NOW(), NOW());
 
 INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
     (1, 1001, '0001', 'Peter', 1, (SELECT id FROM positions WHERE position = 'Boss'), '2000-01-01', NOW(), NOW()),
