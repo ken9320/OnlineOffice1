@@ -52,7 +52,7 @@ app.use(
 		saveUninitialized: true
 	})
 )
-
+let botName = 'ChatCord Bot'
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -60,8 +60,15 @@ app.use((req, res, next) => {
 	// console.log(req.ip);
 	// console.log(req.session);
 	// console.log(req.sessionID);
-
+	botName = req.session['companyname']
 	next()
+})
+
+app.get('/logined', (req, res) => {
+	console.log(req.session)
+	res.json({
+		session: req.session
+	})
 })
 
 app.use(express.static('public'))
@@ -87,8 +94,6 @@ WebRTC.on('connect', (people) => {
 		people.to('chartRoom').emit('answer', answer)
 	})
 })
-
-const botName = 'ChatCord Bot'
 
 // Run when client connects
 
