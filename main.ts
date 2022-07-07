@@ -1,7 +1,7 @@
 import express from 'express'
 import expressSession from 'express-session'
 import https from 'https'
-import {  Server as SocketIO } from 'socket.io'
+import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
 import fs from 'fs'
@@ -10,7 +10,6 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
-
 
 dotenv.config()
 
@@ -53,7 +52,7 @@ app.use(
 		saveUninitialized: true
 	})
 )
-
+let botName = 'ChatCord Bot'
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -61,8 +60,15 @@ app.use((req, res, next) => {
 	// console.log(req.ip);
 	// console.log(req.session);
 	// console.log(req.sessionID);
-
+	botName = req.session['companyname']
 	next()
+})
+
+app.get('/logined', (req, res) => {
+	console.log(req.session)
+	res.json({
+		session: req.session
+	})
 })
 
 app.use(express.static('public'))
@@ -73,15 +79,13 @@ app.use(loginRoutes)
 
 // let roomList:any[] = [];
 
-let WebRTC = io.of('/WebRTC');
+let WebRTC = io.of('/WebRTC')
 WebRTC.on('connect', (people) => {
 	console.log(WebRTC.sockets.size)
-people.join('chartRoom')
+	people.join('chartRoom')
 	console.log(people.id)
 	// console.log(app.use.(people));
 	people.emit('serverMsg', 'HI Users')
-	
-
 
 	people.on('offer', (offers) => {
 		console.log(offers)
@@ -94,16 +98,9 @@ people.join('chartRoom')
 	})
 
 	people.on('disconnect', () => {
-	console.log(WebRTC.sockets.size)
+		console.log(WebRTC.sockets.size)
+	})
 })
-
-
-
-})
-
-
-const botName = 'ChatCord Bot'
-
 // Run when client connects
 
 io.on('connection', function (socket) {

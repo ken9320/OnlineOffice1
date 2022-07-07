@@ -14,4 +14,3 @@ export async function checkPassword(
 	const match = await bcrypt.compare(plainPassword, hashPassword)
 	return match
 }
-

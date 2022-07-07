@@ -1,24 +1,24 @@
 CREATE TABLE companys (
     id SERIAL PRIMARY KEY,
     company_id  INTEGER NOT NULL,
-    companyName VARCHAR(255) NOT NULL,
-    SubscriptionExpiresday DATE NOT NULL,
+    companyname VARCHAR(255) NOT NULL,
+    subscriptionexpiresday DATE NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
 
 INSERT INTO companys
-(company_id, companyName, SubscriptionExpiresday, created_at, updated_at) VALUES
+(company_id, companyname, subscriptionsxpiresday, created_at, updated_at) VALUES
     (1000, '689store', '2022-12-30', NOW(), NOW()),
     (2000, 'ok shop', '2022-11-28', NOW(), NOW());
 
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
     dept_id INTEGER NOT NULL,
-    deptName VARCHAR(255) NOT NULL
+    deptname VARCHAR(255) NOT NULL
 );
 
-INSERT INTO department (dept_id, deptName) VALUES
+INSERT INTO department (dept_id, deptname) VALUES
     (100, 'CEO'),
     (200, 'HR'),
     (300, 'logistics'),
@@ -40,7 +40,7 @@ CREATE TABLE staffs (
     company INTEGER NOT NULL,
     FOREIGN KEY (company) REFERENCES companys(id),
     staff_id INTEGER NOT NULL,
-    staffPassword VARCHAR(255) NOT NULL,
+    staffpassword VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     dept INTEGER NOT NULL,
     FOREIGN KEY (dept) REFERENCES department(id),
@@ -81,14 +81,14 @@ ALTER TABLE schedule ADD COLUMN div_id VARCHAR(255);
 SELECT * FROM schedule;
 
 
- UPDATE staffs SET staffPassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='1001';
- UPDATE staffs SET staffPassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='2001';
- UPDATE staffs SET staffPassword='$2a$10$recc4DSvLFXCEXzZxHkQYuR7U7S.pERjLj5v5WA6kFYsEdiXcs4d6'  where staff_id='1002';
- UPDATE staffs SET staffPassword='$2a$10$recc4DSvLFXCEXzZxHkQYuR7U7S.pERjLj5v5WA6kFYsEdiXcs4d6'  where staff_id='2002';
- UPDATE staffs SET staffPassword='$2a$10$5vEnzCzotkwDAent1evRUOde/HpQ5x3gJ2UzvJ.Lf59IlZ0q1PSwm'  where staff_id='1003';
- UPDATE staffs SET staffPassword='$2a$10$5vEnzCzotkwDAent1evRUOde/HpQ5x3gJ2UzvJ.Lf59IlZ0q1PSwm'  where staff_id='2003';
- UPDATE staffs SET staffPassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='2004';
- UPDATE staffs SET staffPassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='1004';
+ UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='1001';
+ UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='2001';
+ UPDATE staffs SET staffpassword='$2a$10$recc4DSvLFXCEXzZxHkQYuR7U7S.pERjLj5v5WA6kFYsEdiXcs4d6'  where staff_id='1002';
+ UPDATE staffs SET staffpassword='$2a$10$recc4DSvLFXCEXzZxHkQYuR7U7S.pERjLj5v5WA6kFYsEdiXcs4d6'  where staff_id='2002';
+ UPDATE staffs SET staffpassword='$2a$10$5vEnzCzotkwDAent1evRUOde/HpQ5x3gJ2UzvJ.Lf59IlZ0q1PSwm'  where staff_id='1003';
+ UPDATE staffs SET staffpassword='$2a$10$5vEnzCzotkwDAent1evRUOde/HpQ5x3gJ2UzvJ.Lf59IlZ0q1PSwm'  where staff_id='2003';
+ UPDATE staffs SET staffpassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='2004';
+ UPDATE staffs SET staffpassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='1004';
 
 
 
