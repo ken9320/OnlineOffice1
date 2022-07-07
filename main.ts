@@ -11,6 +11,7 @@ import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 
+
 dotenv.config()
 
 export const client = new Client({
@@ -83,7 +84,9 @@ let WebRTC = io.of('/WebRTC')
 WebRTC.on('connect', (people) => {
 	console.log(WebRTC.sockets.size)
 	people.join('chartRoom')
-	console.log(people.id)
+	console.log(people.handshake.headers.cookie)
+	let session  =  require ( 'express-session' )
+	console.log(session)
 	// console.log(app.use.(people));
 	people.emit('serverMsg', 'HI Users')
 
