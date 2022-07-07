@@ -1,5 +1,5 @@
 // import socket from "./socket.js";
-let socket = io.connect()
+let socket = io.connect('/WebRTC')
 
 socket.on('serverMsg', (msg) => {
 	console.log(msg)
