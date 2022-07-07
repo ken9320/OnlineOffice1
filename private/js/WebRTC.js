@@ -102,7 +102,7 @@ window.addEventListener('load', () => {
 	document
 		.querySelector('#hangupButton')
 		.addEventListener('click', function () {
-			console.log("close call");
+			console.log('close call')
 			peerConnection.close()
 		})
 })

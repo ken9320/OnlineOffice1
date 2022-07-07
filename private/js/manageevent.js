@@ -1,7 +1,7 @@
 async function manageevent() {
+	//get
 	const res = await fetch('/event')
 	const events = await res.json()
-
 	// console.log(events)
 	for (const event of events) {
 		document
@@ -13,7 +13,7 @@ async function manageevent() {
             `
 		// console.log(event.div_id)
 	}
-
+	//post
 	document
 		.querySelector('#eventSubmit')
 		.addEventListener('click', async function () {
@@ -29,7 +29,7 @@ async function manageevent() {
 			}
 			document.querySelector('.eventForm').reset()
 		})
-
+	//update
 	const times = document.querySelectorAll('.time')
 	for (const time of times) {
 		time.addEventListener('click', async function () {
@@ -54,7 +54,7 @@ async function manageevent() {
 			)
 		})
 	}
-
+	//delete
 	const buttons = document.querySelectorAll('.content button')
 	for (const button of buttons) {
 		button.addEventListener('click', async function (e) {

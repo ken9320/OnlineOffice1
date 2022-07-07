@@ -1,26 +1,26 @@
 .readonly .acl-write {
-  display: none;
+	display: none;
 }
 .exportlink {
-  margin-bottom: 10px;
-  display: block;
+	margin-bottom: 10px;
+	display: block;
 }
 .exporttype:before {
-  margin-right: 10px !important;
+	margin-right: 10px !important;
 }
 
 /* hidden element */
 #importstatusball,
 #importmessagesuccess,
 #importmessageabiword {
-  display: none;
+	display: none;
 }
 
 #importmessageabiword {
-  color: #900;
-  font-size: small;
+	color: #900;
+	font-size: small;
 }
 
 #importsubmitinput {
-  margin-top: 10px;
+	margin-top: 10px;
 }

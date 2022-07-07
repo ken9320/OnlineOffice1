@@ -1,9 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Conquistador",
-			"Vlad5250"
-		]
+		"authors": ["Conquistador", "Vlad5250"]
 	},
 	"index.newPad": "Novi blokić",
 	"index.createOpenPad": "ili napravite/otvorite blokić s imenom:",

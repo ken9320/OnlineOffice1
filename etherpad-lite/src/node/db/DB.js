@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * The DB Module provides a database initialized with the settings
@@ -21,40 +21,48 @@
  * limitations under the License.
  */
 
-const ueberDB = require('ueberdb2');
-const settings = require('../utils/Settings');
-const log4js = require('log4js');
-const stats = require('../stats');
+const ueberDB = require('ueberdb2')
+const settings = require('../utils/Settings')
+const log4js = require('log4js')
+const stats = require('../stats')
 
-const logger = log4js.getLogger('ueberDB');
+const logger = log4js.getLogger('ueberDB')
 
 /**
  * The UeberDB Object that provides the database functions
  */
-exports.db = null;
+exports.db = null
 
 /**
  * Initializes the database with the settings provided by the settings module
  */
 exports.init = async () => {
-  exports.db = new ueberDB.Database(settings.dbType, settings.dbSettings, null, logger);
-  await exports.db.init();
-  if (exports.db.metrics != null) {
-    for (const [metric, value] of Object.entries(exports.db.metrics)) {
-      if (typeof value !== 'number') continue;
-      stats.gauge(`ueberdb_${metric}`, () => exports.db.metrics[metric]);
-    }
-  }
-  for (const fn of ['get', 'set', 'findKeys', 'getSub', 'setSub', 'remove']) {
-    const f = exports.db[fn];
-    exports[fn] = async (...args) => await f.call(exports.db, ...args);
-    Object.setPrototypeOf(exports[fn], Object.getPrototypeOf(f));
-    Object.defineProperties(exports[fn], Object.getOwnPropertyDescriptors(f));
-  }
-};
+	exports.db = new ueberDB.Database(
+		settings.dbType,
+		settings.dbSettings,
+		null,
+		logger
+	)
+	await exports.db.init()
+	if (exports.db.metrics != null) {
+		for (const [metric, value] of Object.entries(exports.db.metrics)) {
+			if (typeof value !== 'number') continue
+			stats.gauge(`ueberdb_${metric}`, () => exports.db.metrics[metric])
+		}
+	}
+	for (const fn of ['get', 'set', 'findKeys', 'getSub', 'setSub', 'remove']) {
+		const f = exports.db[fn]
+		exports[fn] = async (...args) => await f.call(exports.db, ...args)
+		Object.setPrototypeOf(exports[fn], Object.getPrototypeOf(f))
+		Object.defineProperties(
+			exports[fn],
+			Object.getOwnPropertyDescriptors(f)
+		)
+	}
+}
 
 exports.shutdown = async (hookName, context) => {
-  if (exports.db != null) await exports.db.close();
-  exports.db = null;
-  logger.log('Database closed');
-};
+	if (exports.db != null) await exports.db.close()
+	exports.db = null
+	logger.log('Database closed')
+}
