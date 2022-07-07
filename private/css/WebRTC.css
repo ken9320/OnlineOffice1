@@ -46,7 +46,11 @@ main {
 	background-clip: content-box, border-box;
 }
 
- video {
+video {
 	width: 200px;
 	height: 150px;
+}
+
+#room{
+	width: 100%;
 }

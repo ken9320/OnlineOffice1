@@ -23,7 +23,7 @@ client.connect()
 
 // import path from "path";
 // import events from "./event.js";
-let peopleID = ''
+
 logger.info('Client connected')
 const app = express()
 
@@ -70,12 +70,16 @@ app.use(express.urlencoded())
 app.use(eventRouter)
 app.use(loginRoutes)
 
-io.on('connect', (people) => {
-	people.join('chartRoom')
-	console.log('Have connect request')
+let roomList:any[] = [];
+let WebRTC = io.of('/WebRTC');
+WebRTC.on('connect', (people) => {
+	
+	
+	roomList.push(people.rooms)
+	console.log(roomList)
 	people.emit('serverMsg', 'HI Users')
-	peopleID = people.id
-	console.log(peopleID)
+	
+
 
 	people.on('offer', (offers) => {
 		console.log(offers)
@@ -91,7 +95,7 @@ io.on('connect', (people) => {
 const botName = 'ChatCord Bot'
 
 // Run when client connects
-// let webRTC = io.of('')
+
 io.on('connection', function (socket) {
 	socket.on('joinRoom', ({ username, room }) => {
 		const user = userJoin(socket.id, username, room)
