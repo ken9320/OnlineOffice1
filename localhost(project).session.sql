@@ -40,7 +40,7 @@ CREATE TABLE staffs (
     company INTEGER NOT NULL,
     FOREIGN KEY (company) REFERENCES companys(id),
     staff_id INTEGER NOT NULL,
-    staffPassword VARCHAR(255) NOT NULL,
+    staffpassword VARCHAR(255) NOT NULL,
     name VARCHAR(255) NOT NULL,
     dept INTEGER NOT NULL,
     FOREIGN KEY (dept) REFERENCES department(id),
