@@ -119,6 +119,7 @@ io.on('connect', (people) => {
 const botName = 'ChatCord Bot'
 
 // Run when client connects
+// let webRTC = io.of('')
 io.on('connection', function (socket) {
 	socket.on('joinRoom', ({ username, room }) => {
 		const user = userJoin(socket.id, username, room)
