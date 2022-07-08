@@ -62,8 +62,10 @@ INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entr
     (2, 2003, '0003', 'Angela', 3, (SELECT id FROM positions WHERE position = 'staff'), '2001-01-03', NOW(), NOW()),
     (2, 2004, '0004', 'Him', 4, (SELECT id FROM positions WHERE position = 'staff'), '2001-01-04', NOW(), NOW());
 
+SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;
 
- SELECT * FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;
+
+SELECT * FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
@@ -75,11 +77,6 @@ CREATE TABLE schedule (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
-
-ALTER TABLE schedule ADD COLUMN div_id VARCHAR(255);
-
-SELECT * FROM schedule;
-
 
  UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='1001';
  UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='2001';

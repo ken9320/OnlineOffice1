@@ -3,6 +3,7 @@ async function getinfo() {
 	const result = await res.json()
 	console.log(result)
 
+	document.querySelector('#company').innerHTML = result.session.companyname
 	document.querySelector('#name').innerHTML = result.session.staffname
 	document.querySelector('#id').innerHTML = result.session.staffid
 	document.querySelector('#dept').innerHTML = result.session.deptname
