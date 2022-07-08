@@ -1,10 +1,9 @@
 import express from 'express'
-import formidable from 'formidable'
+import { form } from './middlewares'
 import { client } from '../main'
 import { logger } from './logger'
 
 export const eventRouter = express.Router()
-const form = formidable()
 
 eventRouter.use(express.json())
 
@@ -26,25 +25,26 @@ eventRouter.post('/event', function (req, res) {
             INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES (000, $1, $2, $3, $4, NOW(), NOW()) returning id`,
 				[whatevent, whatdate, whattime, whatdiv]
 			)
-			// res.send({ result: true, res: result.rows })
-			res.redirect('/schedule.html')
-			res.end()
 			return
 		} catch (err) {
 			logger.error(err)
-			// res.send({ result: false, res: [] })
+			res.send({ result: false, res: [] })
 			return
 		}
 	})
+	res.redirect('/schedule.html')
 })
 
 eventRouter.get('/event', async (req, res) => {
 	let result
 	try {
-		result = await client.query('SELECT * FROM schedule;')
+		result = await client.query(
+			'SELECT * FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;'
+		)
 		res.send(result.rows)
 	} catch (err) {
-		res.send([])
+		logger.error(err)
+		res.status(500).send('Internal Server Error')
 	}
 })
 
@@ -60,7 +60,7 @@ eventRouter.patch('/event/:id', async (req, res) => {
 		res.end()
 		return
 	} catch (err) {
-		console.error(err)
+		logger.error(err)
 		res.status(500).send('Internal Server Error')
 		return
 	}

@@ -32,7 +32,7 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['deptid'] = stafflist.rows[0].dept_id
 			req.session['deptname'] = stafflist.rows[0].deptname
 			req.session['position'] = stafflist.rows[0].position
-			req.session['admin'] = stafflist.rows[0].manager
+			req.session['isManager'] = stafflist.rows[0].manager
 			console.log('login session: ' + req.session)
 			// res.send(req.session)
 			// console.log(req.session)

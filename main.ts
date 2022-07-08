@@ -10,7 +10,7 @@ import { Client } from 'pg'
 import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
-
+import { registerRouter } from './ts/registerRoutes'
 
 dotenv.config()
 
@@ -77,6 +77,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded())
 app.use(eventRouter)
 app.use(loginRoutes)
+app.use(registerRouter)
 
 // let roomList:any[] = [];
 
@@ -85,7 +86,7 @@ WebRTC.on('connect', (people) => {
 	console.log(WebRTC.sockets.size)
 	people.join('chartRoom')
 	console.log(people.handshake.headers.cookie)
-	let session  =  require ( 'express-session' )
+	let session = require('express-session')
 	console.log(session)
 	// console.log(app.use.(people));
 	people.emit('serverMsg', 'HI Users')
