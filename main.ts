@@ -111,15 +111,14 @@ WebRTC.on('connect', (people) => {
 		) //WebRTC的ROOM ${companyname}內所有人
 	}
 
-	people.on('Iamready', async () => {
+	people.on('Iamready', async (e) => {
+	
 		// join ready room
 		people.join(`${companyname}ready`)
+		people.emit('joinroomsuccess', `${people.id}`);//自己
 		//send how many people at room with out 自己
-		await io
-			.of('/WebRTC')
-			.in(`${companyname}ready`)
-			.allSockets()
-			.then((items) => {
+		await io.of('/WebRTC').in(`${companyname}ready`).allSockets().then((items) => {
+		
 				let namelist: string[] = []
 				items.forEach((item) => {
 						namelist.push(item)
@@ -128,8 +127,9 @@ WebRTC.on('connect', (people) => {
 				WebRTC.in(`${companyname}ready`).emit(
 					'namelist',
 					`${namelist}`
+					
 				) 
-			
+				console.log(namelist)
 			})
 	})
 
