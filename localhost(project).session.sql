@@ -8,7 +8,7 @@ CREATE TABLE companys (
 );
 
 INSERT INTO companys
-(company_id, companyname, subscriptionsxpiresday, created_at, updated_at) VALUES
+(company_id, companyname, subscriptionexpiresday, created_at, updated_at) VALUES
     (1000, '689store', '2022-12-30', NOW(), NOW()),
     (2000, 'ok shop', '2022-11-28', NOW(), NOW());
 
@@ -67,7 +67,7 @@ INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entr
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-    FOREIGN key (staff_id) REFERENCES staffs (staff_id),
+    FOREIGN key (id) REFERENCES staffs (id),
     div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
@@ -94,14 +94,6 @@ SELECT * FROM schedule;
 
 
 
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(1, 1, 1001, '0001', 'Peter', 'CEO', 'CEO', '2000-01-01');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(2, 1, 1002, '0002', 'Tom', 'HR', 'deptHead', '2000-01-02');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(3, 1, 1003, '0003', 'Him', 'logistics ', 'staff', '2000-01-03');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(4, 1, 1004, '0004', 'Ada', 'salesman', 'staff', '2000-01-04');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(5, 2, 2001, '0001', 'Alex', 'CEO', 'CEO', '2001-01-01');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(6, 2, 2002, '0002', 'Angel', 'HR', 'deptHead', '2001-01-02');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(7, 2, 2003, '0003', 'Angela', 'logistics ', 'staff', '2001-01-03');
-INSERT INTO public.staffs (id, company, staffid, staffpassword, "name", department, "position", entry_date) VALUES(8, 2, 2004, '0004', 'Him', 'salesman	', 'staff', '2001-01-04');
 
 
 

@@ -54,6 +54,8 @@ app.use(
 	})
 )
 let botName = 'ChatCord Bot'
+let staffid = "";
+let companyid = "";
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -62,6 +64,8 @@ app.use((req, res, next) => {
 	// console.log(req.session);
 	// console.log(req.sessionID);
 	botName = req.session['companyname']
+	staffid = req.session['staffid']
+	companyid = req.session['companyid']
 	next()
 })
 
@@ -83,11 +87,10 @@ app.use(loginRoutes)
 let WebRTC = io.of('/WebRTC')
 WebRTC.on('connect', (people) => {
 	console.log(WebRTC.sockets.size)
+	console.log(staffid)
+	console.log(companyid)
 	people.join('chartRoom')
-	console.log(people.handshake.headers.cookie)
-	let session  =  require ( 'express-session' )
-	console.log(session)
-	// console.log(app.use.(people));
+
 	people.emit('serverMsg', 'HI Users')
 
 	people.on('offer', (offers) => {
