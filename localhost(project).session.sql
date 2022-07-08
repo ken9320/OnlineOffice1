@@ -69,7 +69,7 @@ SELECT * FROM staffs join companys ON staffs.company = companys.id join departme
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-    FOREIGN key (staff_id) REFERENCES staffs (staff_id),
+    FOREIGN key (id) REFERENCES staffs (id),
     div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
@@ -86,6 +86,10 @@ CREATE TABLE schedule (
  UPDATE staffs SET staffpassword='$2a$10$5vEnzCzotkwDAent1evRUOde/HpQ5x3gJ2UzvJ.Lf59IlZ0q1PSwm'  where staff_id='2003';
  UPDATE staffs SET staffpassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='2004';
  UPDATE staffs SET staffpassword='$2a$10$QOI6M57pvf6r50zT2rreKunEDNzkcxVh18bqgVjIgJH7Tk.O09XFa'  where staff_id='1004';
+
+
+
+
 
 
 
