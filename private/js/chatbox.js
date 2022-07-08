@@ -16,8 +16,7 @@ async function chatset() {
 	const result = await res.json()
 
 	let username = result.session.staffname
-	let room = result.session.deptname
-	let company = result.session.companyname
+	let room = result.session.companyname
 
 	const socket = io.connect()
 
