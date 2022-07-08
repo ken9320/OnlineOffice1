@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>XXX Compary online office</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="css/chatbox.css" />
+		<link rel="stylesheet" href="css/logined.css" />
+		<link rel="stylesheet" href="css/admin.css" />
+	</head>
+	<body>
+		<div class="main">
+			<aside>
+				<div class="personalinfo" data-id="">
+					<h1 id="company">company</h1>
+					<br />
+					<form class="register" method="POST" action="/register">
+						<h4>New Employer</h4>
+						<p>
+							<input type="file" name="photo" />
+							Name: <br />
+							<input
+								type="text"
+								name="name"
+								placeholder="Name"
+							/><br />
+							Employee-ID: <br />
+							<input
+								type="number"
+								name="id"
+								placeholder="Employee-ID"
+							/><br />
+							Department: <br />
+							<input
+								type="number"
+								name="dept"
+								placeholder="Department id"
+							/><br />
+							Position: <br />
+							<input
+								type="number"
+								name="position"
+								placeholder="Position id"
+							/><br />
+							Login Password: <br />
+							<input
+								type="text"
+								name="password"
+								placeholder="Login Password"
+							/>
+							Entry Date:
+							<input type="date" name="entryDate" /><br />
+							<br />
+							<input
+								type="submit"
+								value="register"
+								id="register"
+							/>
+						</p>
+					</form>
+				</div>
+			</aside>
+			<main>
+				<nav class="navbar navbar-expand-lg bg-light">
+					<div class="container-fluid">
+						<a class="navbar-brand" href="/admin.html">Home</a>
+						<button
+							class="navbar-toggler"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#navbarNavDropdown"
+							aria-controls="navbarNavDropdown"
+							aria-expanded="false"
+							aria-label="Toggle navigation"
+						>
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div
+							class="collapse navbar-collapse"
+							id="navbarNavDropdown"
+						>
+							<ul class="navbar-nav">
+								<li class="nav-item">
+									<a
+										class="nav-link active"
+										aria-current="page"
+										href="/schedule(a).html"
+										>Schedule</a
+									>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="WebRTC(a).html"
+										>Meeting</a
+									>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#">Sent File</a>
+								</li>
+								<li class="nav-item dropdown">
+									<a
+										class="nav-link dropdown-toggle"
+										href="#"
+										id="navbarDropdownMenuLink"
+										role="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false"
+									>
+										File
+									</a>
+									<ul
+										class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink"
+									>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department001</a
+											>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department002</a
+											>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department003</a
+											>
+										</li>
+									</ul>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="/staffinfo.html"
+										>Staff Information</a
+									>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+				<div class="showinfo">
+					<h2>Current Employee</h2>
+					<input type="text" class="cursearch" name="cursearch" />
+				</div>
+				<div class="fire">
+					<h2>Old Employee</h2>
+					<input type="text" class="firesearch" name="firesearch" />
+				</div>
+			</main>
+		</div>
+
+		<button class="open-button" type="button">Chat</button>
+		<div class="chat-container">
+			<header class="chat-header">
+				<h1>chat</h1>
+				<a id="leave-btn" class="btn">X</a>
+			</header>
+			<main class="chat-main">
+				<div class="chat-sidebar">
+					<h3>Room Name:</h3>
+					<h2 id="room-name"></h2>
+					<h3>Users</h3>
+					<ul id="users"></ul>
+				</div>
+				<div class="chat-messages"></div>
+			</main>
+			<div class="chat-form-container">
+				<form id="chat-form">
+					<input
+						id="msg"
+						type="text"
+						placeholder="Enter Message"
+						required
+						autocomplete="off"
+					/>
+					<button class="btn">Send</button>
+				</form>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+			integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+			crossorigin="anonymous"
+		></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/admin.js"></script>
+		<script src="js/chatbox.js"></script>
+		<script src="js/logined.js"></script>
+	</body>
+</html>

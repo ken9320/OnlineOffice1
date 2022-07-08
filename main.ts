@@ -11,6 +11,7 @@ import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
+import { isLogin, isManager } from './ts/middlewares'
 
 dotenv.config()
 
@@ -54,8 +55,8 @@ app.use(
 	})
 )
 let botName = 'ChatCord Bot'
-let staffid = "";
-let companyid = "";
+let staffid = ''
+let companyid = ''
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -159,4 +160,5 @@ io.on('connection', function (socket) {
 	})
 })
 
-app.use(express.static('private'))
+app.use(isLogin, express.static('private'))
+app.use(isManager, express.static('manager'))

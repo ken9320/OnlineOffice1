@@ -36,26 +36,23 @@ loginRoutes.post('/login', async (req, res) => {
 			console.log('login session: ' + req.session)
 			// res.send(req.session)
 			// console.log(req.session)
-			res.redirect('/logined.html')
+			// res.redirect('/logined.html')
+			if (req.session['isManager']) {
+				res.redirect('/admin.html')
+				return
+			} else if (req.session['isAdmin']) {
+				res.redirect('/logined.html')
+				return
+			}
 			return
+		} else {
+			res.redirect('/?error=staffid or password incorrect')
 		}
 	} catch (err) {
 		logger.error(err)
 		res.status(500).send('Internal Server Error')
 	}
 })
-
-export const isLogin = (
-	req: express.Request,
-	res: express.Response,
-	next: express.NextFunction
-) => {
-	if (req.session['isAdmin']) {
-		next()
-	} else {
-		res.redirect('/')
-	}
-}
 
 loginRoutes.post('/logout', (req, res) => {
 	req.session['isAdmin'] = false

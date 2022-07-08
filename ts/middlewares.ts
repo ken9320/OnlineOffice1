@@ -9,8 +9,18 @@ export const isLogin = (
 ) => {
 	if (req.session['isAdmin']) {
 		next()
-	} else if (req.session['isManager']) {
-		res.redirect('/admin.html')
+	} else {
+		res.redirect('/')
+	}
+}
+
+export const isManager = (
+	req: express.Request,
+	res: express.Response,
+	next: express.NextFunction
+) => {
+	if (req.session['isManager']) {
+		next()
 	} else {
 		res.redirect('/')
 	}
