@@ -11,7 +11,6 @@ import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 
-
 dotenv.config()
 
 export const client = new Client({
@@ -54,8 +53,9 @@ app.use(
 	})
 )
 let botName = 'ChatCord Bot'
-let staffid = "";
-let companyid = "";
+let staffid = ''
+// let companyid = ''
+let companyname = ''
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -63,9 +63,10 @@ app.use((req, res, next) => {
 	// console.log(req.ip);
 	// console.log(req.session);
 	// console.log(req.sessionID);
+	companyname = req.session['companyname']
 	botName = req.session['companyname']
 	staffid = req.session['staffid']
-	companyid = req.session['companyid']
+	// companyid = req.session['companyid']
 	next()
 })
 
@@ -86,25 +87,69 @@ app.use(loginRoutes)
 
 let WebRTC = io.of('/WebRTC')
 WebRTC.on('connect', (people) => {
-	console.log(WebRTC.sockets.size)
-	console.log(staffid)
-	console.log(companyid)
-	people.join('chartRoom')
+	people.emit('serverMsg', `HI Users ${companyname}`)
 
-	people.emit('serverMsg', 'HI Users')
+	joinroom()
+
+	async function joinroom() {
+		people.join(`${companyname}`)
+		people.emit('joinroomsuccess', `${people.id}`);//自己
+		// await io.of("/WebRTC").in(`${companyname}`).allSockets().then(items=>{ //in room name list
+		// 	let count :string[]= [];
+		//     items.forEach(item=>{
+		// 		count.push(item)
+		//         console.log(count)
+		// 		console.log(count.length)
+
+		//     })
+		// });
+		WebRTC.in(`${companyname}`).emit(
+			'joinroomsuccess',
+			`${companyname} + ${staffid}`
+		) //WebRTC的ROOM ${companyname}內所有人
+	}
+
+	people.on('Iamready', async () => {
+		// join ready room
+		people.join(`${companyname}ready`)
+		//send how many people at room with out 自己
+		await io
+			.of('/WebRTC')
+			.in(`${companyname}ready`)
+			.allSockets()
+			.then((items) => {
+				let namelist: string[] = []
+				items.forEach((item) => {
+						namelist.push(item)
+					
+				})
+				WebRTC.in(`${companyname}ready`).emit(
+					'namelist',
+					`${namelist}`
+				) 
+			
+			})
+	})
+
+	// console.log(WebRTC.sockets.size)
+
+	// people.join('chartRoom')
 
 	people.on('offer', (offers) => {
 		console.log(offers)
-		people.to('chartRoom').emit('offer', offers)
+		people.to(`${companyname}`).emit('offer', offers)
 	})
 
 	people.on('answer', (answer) => {
 		console.log(answer)
-		people.to('chartRoom').emit('answer', answer)
+		people.to(`${companyname}`).emit('answer', answer)
 	})
 
 	people.on('disconnect', () => {
-		console.log(WebRTC.sockets.size)
+		console.log(people.rooms.size)
+		people.broadcast
+			.in(`${companyname}`)
+			.emit(`leave`, `${staffid} is leave`)
 	})
 })
 // Run when client connects
