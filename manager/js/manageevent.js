@@ -4,14 +4,15 @@ async function manageevent() {
 	const events = await res.json()
 	// console.log(events)
 	for (const event of events) {
-		document
-			.querySelector(`.content > #id${event.div_id}`)
-			.classList.add('active')
-		document.querySelector(`.content > #id${event.div_id}`).innerHTML = `
-            <textarea class="active">${event.event}</textarea>
-            <button data-id="${event.div_id}">del</button>
-            `
 		// console.log(event.div_id)
+		divid = event.div_id.split('+')
+		document
+			.querySelector(`.content > #id${divid[1]}`)
+			.classList.add('active')
+		document.querySelector(`.content > #id${divid[1]}`).innerHTML = `
+            <textarea class="active">${event.event}</textarea>
+            <button data-id="${divid[1]}">del</button>
+            `
 	}
 	//post
 	document
@@ -60,6 +61,7 @@ async function manageevent() {
 		button.addEventListener('click', async function (e) {
 			e.stopPropagation()
 
+			console.log(button.dataset.id)
 			const res = await fetch('/event/' + button.dataset.id, {
 				method: 'DELETE'
 			})

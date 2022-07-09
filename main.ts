@@ -11,7 +11,7 @@ import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
-import { isLogin, isManager } from './ts/middlewares'
+import { isLogin, isManager, stripe } from './ts/middlewares'
 
 dotenv.config()
 
@@ -40,13 +40,8 @@ const credentials = {
 }
 const server = https.createServer(credentials, app)
 
-const io = new SocketIO(server) //io is for socketIO communicate
+export const io = new SocketIO(server) //io is for socketIO communicate
 
-// io.listen(8000)
-// const socket =
-server.listen(8000, function () {
-	console.log('https server listening on port 8000')
-})
 app.use(
 	expressSession({
 		secret: 'Yin',
@@ -79,6 +74,48 @@ app.get('/logined', (req, res) => {
 	})
 })
 
+app.post('/create-checkout-session', async (req, res) => {
+	const session = await stripe.checkout.sessions.create({
+		line_items: [
+			{
+				// Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+				price: 'price_1LJKZUDBzJ7zDZp9TnOxWSUE'
+			}
+		],
+		mode: 'subscription',
+		success_url: `https://192.168.68.117:8000/success.html`,
+		cancel_url: `https://192.168.68.117:8000/`
+	})
+	if (session.url != null) {
+		res.redirect(session.url, 303)
+	} else {
+		res.redirect('/')
+	}
+})
+
+const endpointSecret =
+	'whsec_9773db9bcbf7a040fbf8c7c78f16ca1a51a8c279db87254643d3d2155184f05c'
+app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+	console.log('body: ' + JSON.stringify(req.body))
+	console.log(req.body)
+	const payload = req.body
+	const sig = req.headers['stripe-signature'] as string
+
+	let event
+	try {
+		event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
+		if (event.type === 'charge.succeeded') {
+			console.log('Charge succeeded')
+			console.log(event.data.object)
+		}
+	} catch (err) {
+		res.status(400).send(`Webhook Error: ${err.message}`)
+		return
+	}
+
+	res.status(200)
+})
+
 app.use(express.static('public'))
 
 app.use(express.urlencoded())
@@ -96,7 +133,7 @@ WebRTC.on('connect', (people) => {
 
 	async function joinroom() {
 		people.join(`${companyname}`)
-		people.emit('joinroomsuccess', `${people.id}`);//自己
+		people.emit('joinroomsuccess', `${people.id}`) //自己
 		// await io.of("/WebRTC").in(`${companyname}`).allSockets().then(items=>{ //in room name list
 		// 	let count :string[]= [];
 		//     items.forEach(item=>{
@@ -113,23 +150,20 @@ WebRTC.on('connect', (people) => {
 	}
 
 	people.on('Iamready', async (e) => {
-	
 		// join ready room
 		people.join(`${companyname}ready`)
-		people.emit('joinroomsuccess', `${people.id}`);//自己
+		people.emit('joinroomsuccess', `${people.id}`) //自己
 		//send how many people at room with out 自己
-		await io.of('/WebRTC').in(`${companyname}ready`).allSockets().then((items) => {
-		
+		await io
+			.of('/WebRTC')
+			.in(`${companyname}ready`)
+			.allSockets()
+			.then((items) => {
 				let namelist: string[] = []
 				items.forEach((item) => {
-						namelist.push(item)
-					
+					namelist.push(item)
 				})
-				WebRTC.in(`${companyname}ready`).emit(
-					'namelist',
-					`${namelist}`
-					
-				) 
+				WebRTC.in(`${companyname}ready`).emit('namelist', `${namelist}`)
 				console.log(namelist)
 			})
 	})
@@ -209,3 +243,9 @@ io.on('connection', function (socket) {
 
 app.use(isLogin, express.static('private'))
 app.use(isManager, express.static('manager'))
+
+// io.listen(8000)
+// const socket =
+server.listen(8000, function () {
+	console.log('https server listening on port 8000')
+})

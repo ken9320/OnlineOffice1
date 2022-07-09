@@ -78,6 +78,14 @@ CREATE TABLE schedule (
     updated_at TIMESTAMP NOT NULL
 );
 
+SELECT * FROM schedule ORDER BY id;
+
+SELECT * FROM schedule WHERE staffid = 1001;
+
+DELETE FROM schedule WHERE div_id= '1401614';
+
+INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES (1001, 'test', '2000-01-01', '00:00:00', '000', NOW(), NOW());
+
  UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='1001';
  UPDATE staffs SET staffpassword='$2a$10$ByJqLgH5NXa7hBOYL2x3z.V7ogU9kAP5OXpI6XwQyDLYgDb/TItdG'  where staff_id='2001';
  UPDATE staffs SET staffpassword='$2a$10$recc4DSvLFXCEXzZxHkQYuR7U7S.pERjLj5v5WA6kFYsEdiXcs4d6'  where staff_id='1002';

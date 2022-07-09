@@ -7,6 +7,13 @@ export const eventRouter = express.Router()
 
 eventRouter.use(express.json())
 
+let stfid: number
+let divid: string
+eventRouter.use((req, res, next) => {
+	stfid = req.session['staffid']
+	next()
+})
+
 eventRouter.post('/event', function (req, res) {
 	form.parse(req, async (err, fields) => {
 		console.log(fields)
@@ -19,11 +26,12 @@ eventRouter.post('/event', function (req, res) {
 				new Date(
 					fields.date.toString().concat(' ', fields.time.toString())
 				).getHours()
+			divid = stfid.toString() + '+' + whatdiv
 
 			await client.query(
 				`
-            INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES (000, $1, $2, $3, $4, NOW(), NOW()) returning id`,
-				[whatevent, whatdate, whattime, whatdiv]
+            INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())`,
+				[stfid, whatevent, whatdate, whattime, divid]
 			)
 			return
 		} catch (err) {
@@ -39,7 +47,8 @@ eventRouter.get('/event', async (req, res) => {
 	let result
 	try {
 		result = await client.query(
-			'SELECT * FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;'
+			'SELECT * FROM schedule WHERE staffid = $1;',
+			[stfid]
 		)
 		res.send(result.rows)
 	} catch (err) {
@@ -51,11 +60,12 @@ eventRouter.get('/event', async (req, res) => {
 eventRouter.patch('/event/:id', async (req, res) => {
 	const editId = req.params.id
 	const editContent = req.body.content
-	// console.log(editId,editContent);
+	divid = stfid.toString() + '+' + editId
+	console.log(editId, editContent, divid)
 	try {
 		await client.query(
 			`UPDATE schedule SET event = $1, updated_at = NOW() WHERE div_id = $2`,
-			[editContent, editId]
+			[editContent, divid]
 		)
 		res.end()
 		return
@@ -68,10 +78,11 @@ eventRouter.patch('/event/:id', async (req, res) => {
 
 eventRouter.delete('/event/:id', async (req, res) => {
 	const delId = req.params.id
-	console.log(delId)
+	divid = stfid.toString() + '+' + delId
+	// console.log(delId,divid)
 	try {
-		await client.query(`DELETE FROM schedule WHERE div_id=$1`, [delId])
-		res.end()
+		await client.query(`DELETE FROM schedule WHERE div_id=$1`, [divid])
+		res.redirect('/schedule.html')
 		return
 	} catch (err) {
 		logger.error(err)

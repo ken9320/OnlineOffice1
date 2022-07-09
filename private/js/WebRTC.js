@@ -54,7 +54,7 @@ async function calleveryone() {
 
 socket.on('namelist', (list) => {
 	namelist = list.split(',')
-	
+
 	console.log(namelist)
 	console.log(namelist.length)
 	if (namelist.length === 1) {
@@ -66,14 +66,15 @@ socket.on('namelist', (list) => {
 		for (let i = 1; i < namelist.length; i++) {
 			//create multiple peerConnection and HTML
 			let peerConnection = `peerConnection${i}`
-			
-			if(!document.querySelector(`#${peerConnection}`)){//check this id do not have in html
-				document.querySelector('#mainbody').innerHTML += `<video autoplay playsinline id="${peerConnection}"></video>`
+
+			if (!document.querySelector(`#${peerConnection}`)) {
+				//check this id do not have in html
+				document.querySelector(
+					'#mainbody'
+				).innerHTML += `<video autoplay playsinline id="${peerConnection}"></video>`
 			}
 			peerConnection = new RTCPeerConnection(configuration)
-			
 		}
-		document.querySelector('#callButton').disabled = true;
+		document.querySelector('#callButton').disabled = true
 	}
-	
 })

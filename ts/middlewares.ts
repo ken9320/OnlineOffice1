@@ -1,6 +1,7 @@
 import express from 'express'
 import fs from 'fs'
 import formidable from 'formidable'
+import Stripe from 'stripe'
 
 export const isLogin = (
 	req: express.Request,
@@ -35,3 +36,10 @@ export const form = formidable({
 	maxFileSize: 20 * 1024 * 1024 ** 2,
 	filter: (part) => part.mimetype?.startsWith('image/') || false
 })
+
+export const stripe = new Stripe(
+	'sk_test_51LJJVmDBzJ7zDZp91TXBsZzOtx09bt9CQzd4i0JgqUIiywK563qoSlUmVaAepS43teZp1obNH1ZaEJCWiSiFBqIg00bAtznTUP',
+	{
+		apiVersion: '2020-08-27'
+	}
+)
