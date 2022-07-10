@@ -2,9 +2,11 @@ async function manageevent() {
 	//get
 	const res = await fetch('/event')
 	const events = await res.json()
-	// console.log(events)
+	console.log('hi')
+	console.log(events)
+
 	for (const event of events) {
-		// console.log(event.div_id)
+		console.log(event.div_id)
 		divid = event.div_id.split('+')
 		document
 			.querySelector(`.content > #id${divid[1]}`)

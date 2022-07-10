@@ -5,6 +5,7 @@ function createtalbe() {
 		document.querySelector('.time-interval').innerHTML += `
         <div>${hour % 24}:00</div>`
 		for (let x = 0; x < 7; x++) {
+			if (id == 7) id = 0
 			document.querySelector('.content').innerHTML += `
             <div class="time" data-id="${id * 100 + (hour % 24)}" id="id${
 				id * 100 + (hour % 24)

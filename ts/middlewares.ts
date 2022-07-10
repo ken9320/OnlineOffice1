@@ -21,6 +21,7 @@ export const isManager = (
 	next: express.NextFunction
 ) => {
 	if (req.session['isManager']) {
+		// req.session['isAdmin'] = false;
 		next()
 	} else {
 		res.redirect('/')

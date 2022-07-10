@@ -82,7 +82,9 @@ SELECT * FROM schedule ORDER BY id;
 
 SELECT * FROM schedule WHERE staffid = 1001;
 
-DELETE FROM schedule WHERE div_id= '1401614';
+DELETE FROM schedule WHERE div_id= '000';
+
+DELETE FROM schedule WHERE staffid = 1001;
 
 INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES (1001, 'test', '2000-01-01', '00:00:00', '000', NOW(), NOW());
 
