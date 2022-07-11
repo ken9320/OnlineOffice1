@@ -24,7 +24,7 @@ body {
 	grid-template-columns: 150px;
 	grid-template-rows: 60px;
 	width: 80vw;
-	height: 120vh;
+	height: 80%;
 }
 
 .timetable .week-names {

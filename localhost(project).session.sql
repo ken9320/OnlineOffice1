@@ -67,6 +67,11 @@ SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.pos
 
 SELECT * FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id;
 
+SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id IN (SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE (positions.position LIKE 'l%' OR department.deptname LIKE 'l%') AND company_id=1000);
+           
+SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE positions.position LIKE 's%' OR department.deptname LIKE 'l%';
+
+
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
     FOREIGN key (id) REFERENCES staffs (id),

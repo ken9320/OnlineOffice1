@@ -24,7 +24,7 @@
 					<form class="register" method="POST" action="/register">
 						<h4>New Employer</h4>
 						<p>
-							<input type="file" name="photo" />
+							<input type="file" name="photo" /><br />
 							Name: <br />
 							<input
 								type="text"
@@ -54,7 +54,7 @@
 								type="text"
 								name="password"
 								placeholder="Login Password"
-							/>
+							/><br />
 							Entry Date:
 							<input type="date" name="entryDate" /><br />
 							<br />
@@ -146,11 +146,11 @@
 				</nav>
 				<div class="showinfo">
 					<h2>Current Employee</h2>
-					<input type="text" class="cursearch" name="cursearch" />
+					<input type="text" class="cursearch" />
 				</div>
 				<div class="fire">
 					<h2>Old Employee</h2>
-					<input type="text" class="firesearch" name="firesearch" />
+					<input type="text" class="firesearch" />
 				</div>
 			</main>
 		</div>
@@ -197,6 +197,5 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="js/admin.js"></script>
 		<script src="js/chatbox.js"></script>
-		<script src="js/logined.js"></script>
 	</body>
 </html>

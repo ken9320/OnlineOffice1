@@ -24,3 +24,16 @@ body {
 .staffId {
 	width: 100%;
 }
+
+.main {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+h1 {
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 10px;
+	border-radius: 10px;
+	color: aliceblue;
+}

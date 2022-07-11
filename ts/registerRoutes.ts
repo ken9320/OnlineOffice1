@@ -1,5 +1,5 @@
 import express from 'express'
-import { form } from './middlewares'
+import { form, isManager } from './middlewares'
 import { client } from '../main'
 import { logger } from './logger'
 import { hashPassword } from './hash'
@@ -8,13 +8,24 @@ export const registerRouter = express.Router()
 
 registerRouter.use(express.json())
 
-registerRouter.get('/register', async (req, res) => {
+registerRouter.get('/register', isManager, async (req, res) => {
 	let result
+	let search
 	try {
 		result = await client.query(`
             SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id = ${req.session['companyid']};
            `)
-		res.send(result.rows)
+
+		if (req.query.search != null) {
+			search = await client.query(
+				`
+            SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id IN (SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE (positions.position LIKE $1 OR department.deptname LIKE $1) AND company_id=$2);`,
+				[req.query.search + '%', req.session['companyid']]
+			)
+			res.send(search.rows)
+		} else {
+			res.send(result.rows)
+		}
 		return
 	} catch (err) {
 		logger.error(err)
@@ -23,7 +34,7 @@ registerRouter.get('/register', async (req, res) => {
 	}
 })
 
-registerRouter.post('/register', async (req, res) => {
+registerRouter.post('/register', isManager, async (req, res) => {
 	form.parse(req, async (err, fields: { [T: string]: string }, files) => {
 		try {
 			let comid = req.session['companyid']

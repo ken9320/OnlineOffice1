@@ -1,7 +1,29 @@
-async function registeremployee() {
-	const res = await fetch('/register')
-	const infos = await res.json()
+window.onload = function () {
+	const socket = io.connect()
+	socket.on('getinfo', async (info) => {
+		document.querySelector('#company').innerHTML = info.companyname
+		if (document.querySelector('.cursearch') != null) {
+			let searchQuery = ''
 
+			document
+				.querySelector('.cursearch')
+				.addEventListener('change', function () {
+					searchQuery = document.querySelector('.cursearch').value
+					console.log(searchQuery)
+					postemployee(searchQuery)
+				})
+		}
+	})
+	// postemployee()
+	registeremployee()
+}
+
+async function postemployee(searchQuery) {
+	const res =
+		searchQuery != null
+			? await fetch('/register?search=' + encodeURIComponent(searchQuery))
+			: await fetch('/register')
+	const infos = await res.json()
 	//get
 	let i = 0
 	for (const info of infos) {
@@ -17,7 +39,11 @@ async function registeremployee() {
 		i++
 	}
 	console.log(infos)
+}
 
+async function registeremployee() {
+	const res = await fetch('/register')
+	const infos = await res.json()
 	//post
 	document
 		.querySelector('#register')
@@ -32,4 +58,3 @@ async function registeremployee() {
 			document.querySelector('.register').reset()
 		})
 }
-registeremployee()

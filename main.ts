@@ -67,24 +67,24 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.get('/logined', (req, res) => {
-	console.log(req.session)
-	res.json({
-		session: req.session
-	})
-})
+// app.get('/logined', (req, res) => {
+// 	console.log(req.session)
+// 	res.json({
+// 		session: req.session
+// 	})
+// })
 
 app.post('/create-checkout-session', async (req, res) => {
 	const session = await stripe.checkout.sessions.create({
 		line_items: [
 			{
 				// Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-				price: 'price_1LJKZUDBzJ7zDZp9TnOxWSUE'
+				price: 'price_1LKDFjDBzJ7zDZp9UmDCKh20'
 			}
 		],
 		mode: 'subscription',
-		success_url: `https://192.168.68.117:8000/success.html`,
-		cancel_url: `https://192.168.68.117:8000/`
+		success_url: `https://localhost:8000/success.html`,
+		cancel_url: `https://localhost:8000/`
 	})
 	if (session.url != null) {
 		res.redirect(session.url, 303)
@@ -96,24 +96,27 @@ app.post('/create-checkout-session', async (req, res) => {
 const endpointSecret =
 	'whsec_9773db9bcbf7a040fbf8c7c78f16ca1a51a8c279db87254643d3d2155184f05c'
 app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
-	console.log('body: ' + JSON.stringify(req.body))
-	console.log(req.body)
+	// console.log('body: ' + JSON.stringify(req.body))
+	// console.log(req.body)
 	const payload = req.body
 	const sig = req.headers['stripe-signature'] as string
 
 	let event
 	try {
 		event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
-		if (event.type === 'charge.succeeded') {
-			console.log('Charge succeeded')
-			console.log(event.data.object)
+		// console.log(`before if: ${event.data.object}`)
+		// console.log(event)
+		// console.log(event.type)
+		if (event.type === 'invoice.payment_succeeded') {
+			console.log('Payment succeeded')
+			// console.log("after if: "+event.data.object)
 		}
 	} catch (err) {
 		res.status(400).send(`Webhook Error: ${err.message}`)
 		return
 	}
 
-	res.status(200)
+	res.status(200).end()
 })
 
 app.use(express.static('public'))
@@ -198,7 +201,7 @@ io.on('connection', function (socket) {
 		socket.join(user.room)
 
 		// Welcome current user
-		socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'))
+		socket.emit('message', formatMessage(botName, '你真係好鍾意返工!'))
 
 		// Broadcast when a user connects
 		socket.broadcast

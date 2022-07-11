@@ -15,34 +15,37 @@
 	</head>
 
 	<body>
-		<div class="loginbox">
-			<span></span>
-			<form action="/login" method="post" class="login">
-				<div class="mb-3">
-					<label class="form-label">Staff Id</label>
-					<input
-						type="text"
-						class="form-control"
-						name="staffid"
-						placeholder="Staff Id"
-					/>
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Password</label>
-					<input
-						type="password"
-						class="form-control"
-						name="password"
-						placeholder="password"
-					/>
-				</div>
+		<div class="main">
+			<h1>i office system</h1>
+			<div class="loginbox">
+				<span></span>
+				<form action="/login" method="post" class="login">
+					<div class="mb-3">
+						<label class="form-label">Staff Id</label>
+						<input
+							type="text"
+							class="form-control"
+							name="staffid"
+							placeholder="Staff Id"
+						/>
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Password</label>
+						<input
+							type="password"
+							class="form-control"
+							name="password"
+							placeholder="password"
+						/>
+					</div>
 
-				<button type="submit" class="btn btn-primary">Login</button>
+					<button type="submit" class="btn btn-primary">Login</button>
+				</form>
+			</div>
+			<form action="/create-checkout-session" method="post">
+				<input type="submit" value="pay now" class="btn btn-primary" />
 			</form>
 		</div>
-		<form action="/create-checkout-session" method="post">
-			<input type="submit" value="pay now" />
-		</form>
 		<script type="module" src="main.js"></script>
 	</body>
 </html>
