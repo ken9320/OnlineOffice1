@@ -1,5 +1,5 @@
 import express from 'express'
-import { client } from '../main'
+import { client } from './middlewares'
 import { checkPassword } from './hash'
 import { logger } from './logger'
 import { io } from '../main'
@@ -36,8 +36,6 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['isManager'] = stafflist.rows[0].manager
 			// console.log('login session: ' + req.session)
 			// res.send(req.session)
-			// console.log(req.session)
-			// res.redirect('/logined.html')
 			io.on('connection', (socket) => {
 				socket.emit('getinfo', req.session)
 			})

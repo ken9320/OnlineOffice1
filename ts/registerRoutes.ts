@@ -1,6 +1,6 @@
 import express from 'express'
 import { form, isManager } from './middlewares'
-import { client } from '../main'
+import { client } from './middlewares'
 import { logger } from './logger'
 import { hashPassword } from './hash'
 

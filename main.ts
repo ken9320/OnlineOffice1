@@ -6,23 +6,12 @@ import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
 import fs from 'fs'
 import { logger } from './ts/logger'
-import { Client } from 'pg'
-import dotenv from 'dotenv'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
-import { isLogin, isManager, stripe } from './ts/middlewares'
-
-dotenv.config()
-
-export const client = new Client({
-	database: process.env.DB_NAME,
-	user: process.env.DB_USERNAME,
-	password: process.env.DB_PASSWORD
-})
+import { client, isLogin, isManager, stripe } from './ts/middlewares'
 
 client.connect()
-
 // import path from "path";
 // import events from "./event.js";
 
@@ -192,8 +181,8 @@ WebRTC.on('connect', (people) => {
 			.emit(`leave`, `${staffid} is leave`)
 	})
 })
-// Run when client connects
 
+// Run when client connects
 io.on('connection', function (socket) {
 	socket.on('joinRoom', ({ username, room }) => {
 		const user = userJoin(socket.id, username, room)

@@ -1,6 +1,7 @@
 aside {
 	width: 15%;
 	background-image: linear-gradient(#95949b 40%, #3e3e3e);
+	min-width: 100px;
 }
 
 aside > div {

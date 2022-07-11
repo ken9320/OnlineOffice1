@@ -1,6 +1,5 @@
 import express from 'express'
-import { form } from './middlewares'
-import { client } from '../main'
+import { client, form } from './middlewares'
 import { logger } from './logger'
 
 export const eventRouter = express.Router()
