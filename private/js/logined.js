@@ -1,21 +1,10 @@
-const socket = io.connect()
-socket.on('getinfo', (info) => {
-	document.querySelector('#company').innerHTML = info.companyname
-	document.querySelector('#name').innerHTML = info.staffname
-	document.querySelector('#id').innerHTML = info.staffid
-	document.querySelector('#dept').innerHTML = info.deptname
-	document.querySelector('#position').innerHTML = info.position
+let showinfo
+const socketinfo = io.connect('/chat')
+socketinfo.on('sessionsend', (data) => {
+	showinfo = data
+	document.querySelector('#company').innerHTML = showinfo.companyname
+	document.querySelector('#name').innerHTML = showinfo.staffname
+	document.querySelector('#id').innerHTML = showinfo.staffid
+	document.querySelector('#dept').innerHTML = showinfo.deptname
+	document.querySelector('#position').innerHTML = showinfo.position
 })
-
-// async function getinfo() {
-// 	const res = await fetch('/logined')
-// 	const result = await res.json()
-// 	console.log(result)
-
-// 	document.querySelector('#company').innerHTML = result.session.companyname
-// 	document.querySelector('#name').innerHTML = result.session.staffname
-// 	document.querySelector('#id').innerHTML = result.session.staffid
-// 	document.querySelector('#dept').innerHTML = result.session.deptname
-// 	document.querySelector('#position').innerHTML = result.session.position
-// }
-// getinfo()

@@ -2,8 +2,6 @@ import express from 'express'
 import { client } from './middlewares'
 import { checkPassword } from './hash'
 import { logger } from './logger'
-import { io } from '../main'
-
 export const loginRoutes = express.Router()
 
 loginRoutes.post('/login', async (req, res) => {
@@ -35,10 +33,6 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['position'] = stafflist.rows[0].position
 			req.session['isManager'] = stafflist.rows[0].manager
 			// console.log('login session: ' + req.session)
-			// res.send(req.session)
-			io.on('connection', (socket) => {
-				socket.emit('getinfo', req.session)
-			})
 			if (req.session['isManager']) {
 				res.redirect('/admin.html')
 				return

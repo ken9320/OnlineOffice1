@@ -40,7 +40,7 @@ app.use(
 )
 let botName = 'ChatCord Bot'
 let staffid = ''
-// let companyid = ''
+let sessions = {}
 let companyname = ''
 app.use((req, res, next) => {
 	// console.log(req.url);
@@ -52,6 +52,7 @@ app.use((req, res, next) => {
 	companyname = req.session['companyname']
 	botName = req.session['companyname']
 	staffid = req.session['staffid']
+	sessions = req.session
 	// companyid = req.session['companyid']
 	next()
 })
@@ -183,7 +184,10 @@ WebRTC.on('connect', (people) => {
 })
 
 // Run when client connects
-io.on('connection', function (socket) {
+let chat = io.of('/chat')
+chat.on('connection', function (socket) {
+	socket.emit('sessionsend', sessions)
+
 	socket.on('joinRoom', ({ username, room }) => {
 		const user = userJoin(socket.id, username, room)
 
@@ -201,7 +205,7 @@ io.on('connection', function (socket) {
 			)
 
 		// Send users and room info
-		io.to(user.room).emit('roomUsers', {
+		chat.to(user.room).emit('roomUsers', {
 			room: user.room,
 			users: getRoomUsers(user.room)
 		})
@@ -211,7 +215,7 @@ io.on('connection', function (socket) {
 	socket.on('chatMessage', (msg) => {
 		const user = getCurrentUser(socket.id)
 
-		io.to(user.room).emit('message', formatMessage(user.username, msg))
+		chat.to(user.room).emit('message', formatMessage(user.username, msg))
 	})
 
 	// Runs when client disconnects
@@ -219,13 +223,13 @@ io.on('connection', function (socket) {
 		const user = userLeave(socket.id)
 
 		if (user) {
-			io.to(user.room).emit(
+			chat.to(user.room).emit(
 				'message',
 				formatMessage(botName, `${user.username} has left the chat`)
 			)
 
 			// Send users and room info
-			io.to(user.room).emit('roomUsers', {
+			chat.to(user.room).emit('roomUsers', {
 				room: user.room,
 				users: getRoomUsers(user.room)
 			})

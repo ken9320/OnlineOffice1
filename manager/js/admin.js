@@ -1,7 +1,31 @@
 window.onload = function () {
-	const socket = io.connect()
-	socket.on('getinfo', async (info) => {
-		document.querySelector('#company').innerHTML = info.companyname
+	const socket = io.connect('/chat')
+	socket.on('sessionsend', async (data) => {
+		// 	console.log(data);
+		// })
+		// socket.on('getinfo', async (info) => {
+		// console.log(info)
+		document.querySelector('#company').innerHTML = data.companyname
+		const res = await fetch('/register')
+		const infos = await res.json()
+		num = infos.length
+		document.querySelector('#genid').addEventListener('click', () => {
+			let depid = document.querySelector('#dept').value
+			let eid = parseInt(data.companyid) + parseInt(depid) * 100 + num
+			let showeid = document.querySelector('#eid')
+			showeid.value = eid
+			let chars =
+				'0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+			let passwordLength = 8
+			let password = ''
+			for (let i = 0; i < passwordLength; i++) {
+				let randomNumber = Math.floor(Math.random() * chars.length)
+				password += chars.substring(randomNumber, randomNumber + 1)
+			}
+			let showpassword = document.querySelector('#password')
+			showpassword.value = password
+		})
+
 		if (document.querySelector('.cursearch') != null) {
 			let searchQuery = ''
 
@@ -54,7 +78,6 @@ async function registeremployee() {
 				body: formData
 			})
 			let json = await res.json()
-
 			document.querySelector('.register').reset()
 		})
 }

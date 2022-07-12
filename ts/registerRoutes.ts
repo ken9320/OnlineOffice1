@@ -41,9 +41,10 @@ registerRouter.post('/register', isManager, async (req, res) => {
 			let stfid = fields.id
 			let pwd = await hashPassword(fields.password)
 			let name = fields.name
-			let dept = fields.dept
-			let posit = fields.position
+			let dept = parseInt(fields.dept)
+			let posit = parseInt(fields.position)
 			let entryday = fields.entryDate
+			// console.log(fields);
 
 			await client.query(
 				`INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES

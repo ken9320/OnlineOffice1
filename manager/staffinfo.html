@@ -31,29 +31,31 @@
 								name="name"
 								placeholder="Name"
 							/><br />
-							Employee-ID: <br />
-							<input
-								type="number"
-								name="id"
-								placeholder="Employee-ID"
-							/><br />
 							Department: <br />
-							<input
-								type="number"
-								name="dept"
-								placeholder="Department id"
-							/><br />
+							<select name="dept" id="dept">
+								<option value="1">CEO</option>
+								<option value="2">HR</option>
+								<option value="3">logistics</option>
+								<option value="4">sales</option></select
+							><br />
 							Position: <br />
+							<select name="position" id="position">
+								<option value="1">Boss</option>
+								<option value="2">manager</option>
+								<option value="3">staff</option></select
+							><br />
+							Employee-ID: <br />
+							<input id="eid" name="id" readonly /><br />
 							<input
-								type="number"
-								name="position"
-								placeholder="Position id"
+								type="button"
+								value="gen id"
+								id="genid"
 							/><br />
 							Login Password: <br />
 							<input
-								type="text"
+								id="password"
 								name="password"
-								placeholder="Login Password"
+								readonly
 							/><br />
 							Entry Date:
 							<input type="date" name="entryDate" /><br />
