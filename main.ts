@@ -39,9 +39,10 @@ app.use(
 	})
 )
 let botName = 'ChatCord Bot'
-let staffid = ''
+// let staffid = ''
 let sessions = {}
-let companyname = ''
+// let companyname = ''
+let selfInfo: {[key: string]: any} = {};
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -49,9 +50,13 @@ app.use((req, res, next) => {
 	// console.log(req.ip);
 	// console.log(req.session);
 	// console.log(req.sessionID);
-	companyname = req.session['companyname']
+	
 	botName = req.session['companyname']
-	staffid = req.session['staffid']
+
+	selfInfo.position = req.session['position']
+	selfInfo.staffName= req.session['staffname']
+	selfInfo.companyname = req.session['companyname']
+
 	sessions = req.session
 	// companyid = req.session['companyid']
 	next()
@@ -120,44 +125,35 @@ app.use(registerRouter)
 
 let WebRTC = io.of('/WebRTC')
 WebRTC.on('connect', (people) => {
-	people.emit('serverMsg', `HI Users ${companyname}`)
+	let socketidlist: string[] = []
 
-	joinroom()
+	joinCompanyRoom()
 
-	async function joinroom() {
-		people.join(`${companyname}`)
-		people.emit('joinroomsuccess', `${people.id}`) //自己
-		// await io.of("/WebRTC").in(`${companyname}`).allSockets().then(items=>{ //in room name list
-		// 	let count :string[]= [];
-		//     items.forEach(item=>{
-		// 		count.push(item)
-		//         console.log(count)
-		// 		console.log(count.length)
-
-		//     })
-		// });
-		WebRTC.in(`${companyname}`).emit(
-			'joinroomsuccess',
-			`${companyname} + ${staffid}`
-		) //WebRTC的ROOM ${companyname}內所有人
+	async function joinCompanyRoom() {
+		console.log(`${selfInfo.staffName} Joined Company Room`)
+		people.join(selfInfo.companyname)//分公司房
+		selfInfo.stocketioID = people.id
+		//selfInfo {position ,staffName, companyname,stocketioID}
+		people.emit('selfInfo', selfInfo) //每次重新入網址收自己info
 	}
 
 	people.on('Iamready', async (e) => {
-		// join ready room
-		people.join(`${companyname}ready`)
-		people.emit('joinroomsuccess', `${people.id}`) //自己
-		//send how many people at room with out 自己
+		//people join ready room
+		people.join(`${selfInfo.companyname}ready`)
+		people.emit('joinreadyroomsuccess', `${selfInfo.staffName} joed ready room`) //自己	
+		
 		await io
 			.of('/WebRTC')
-			.in(`${companyname}ready`)
+			.in(`${selfInfo.companyname}ready`)
 			.allSockets()
 			.then((items) => {
-				let namelist: string[] = []
+				
 				items.forEach((item) => {
-					namelist.push(item)
+					socketidlist.push(item)
 				})
-				WebRTC.in(`${companyname}ready`).emit('namelist', `${namelist}`)
-				console.log(namelist)
+				WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+				//當有人入房，所有人會收到一張最新人員名單
+				console.log(socketidlist)
 			})
 	})
 
@@ -165,21 +161,40 @@ WebRTC.on('connect', (people) => {
 
 	// people.join('chartRoom')
 
-	people.on('offer', (offers) => {
-		console.log(offers)
-		people.to(`${companyname}`).emit('offer', offers)
+	people.on('sendOffer', (offerData) => {
+		let sendto =  offerData[1]
+		
+		WebRTC.to(sendto).emit('receiveOffer', offerData);
+		
+		// people.to(`${selfInfo.companyname}`).emit('offer', offers)
 	})
 
-	people.on('answer', (answer) => {
-		console.log(answer)
-		people.to(`${companyname}`).emit('answer', answer)
+	people.on('sendAnswer', (answerData) => {
+		let sendto =  answerData[1]
+		console.log(answerData[0])
+		WebRTC.to(sendto).emit('receiveAnswer', answerData);
+	})
+
+	people.on('hangup', (hangupID) =>{
+		console.log(hangupID)
+		// let indexofleave  = socketidlist.indexOf(hangupID)
+		// socketidlist.splice(indexofleave,0)
+		socketidlist = []
+		WebRTC.in(`${selfInfo.companyname}ready`).emit('leave', hangupID)
+		WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+		console.log(socketidlist)
+		people.join(selfInfo.companyname)
 	})
 
 	people.on('disconnect', () => {
-		console.log(people.rooms.size)
-		people.broadcast
-			.in(`${companyname}`)
-			.emit(`leave`, `${staffid} is leave`)
+		// let leave : string= people.id
+		// let indexofleave  = socketidlist.indexOf(leave)
+		// socketidlist.splice(indexofleave,0)
+		socketidlist = []
+		WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+		console.log(socketidlist)
+		WebRTC.in(`${selfInfo.companyname}ready`).emit('leave', people.id)
+		
 	})
 })
 
