@@ -48,7 +48,8 @@ CREATE TABLE staffs (
     FOREIGN KEY (position) REFERENCES positions(id),
     entry_date DATE NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    updated_at TIMESTAMP NOT NULL,
+    photo VARCHAR(255)
 );
 
 ALTER TABLE staffs ADD COLUMN photo VARCHAR(255);

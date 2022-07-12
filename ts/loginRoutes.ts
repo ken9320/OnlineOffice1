@@ -32,6 +32,7 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['deptname'] = stafflist.rows[0].deptname
 			req.session['position'] = stafflist.rows[0].position
 			req.session['isManager'] = stafflist.rows[0].manager
+			req.session['photo'] = stafflist.rows[0].photo
 			// console.log('login session: ' + req.session)
 			if (req.session['isManager']) {
 				res.redirect('/admin.html')
