@@ -1,15 +1,14 @@
 aside {
-	width: 15%;
-	background-image: linear-gradient(#95949b 40%, #3e3e3e);
-	min-width: 100px;
+	min-width: 15%;
+	background-image: linear-gradient(#5389c0 30%, #211cc5);
 }
 
 aside > div {
 	margin-left: 10px;
 }
 
-p > img {
-	max-width: 90%;
+#photo > img {
+	width: 70%;
 	margin: 10px;
 	padding-bottom: 15px;
 }
@@ -22,7 +21,7 @@ p {
 .main {
 	flex: 1;
 	display: flex;
-	background-color: #525252;
+	background-color: #25599c;
 	min-height: 100vh;
 }
 
@@ -42,7 +41,7 @@ main {
 	border-radius: 10px;
 	border: double 5px transparent;
 	background-image: linear-gradient(#ffffff, #ffffff),
-		linear-gradient(45deg, #000000, #ffffff);
+		linear-gradient(45deg, #c02121, #2519ca);
 	background-origin: border-box;
 	background-clip: content-box, border-box;
 }

@@ -38,7 +38,7 @@ window.onload = function () {
 				})
 		}
 	})
-	// postemployee()
+	postemployee()
 	registeremployee()
 }
 
@@ -52,8 +52,9 @@ async function postemployee(searchQuery) {
 	let i = 0
 	for (const info of infos) {
 		document.querySelector(
-			'.showinfo'
+			'.cur'
 		).innerHTML += `<div class="info" data-id="${i}">
+		<img src="/ing/${info.photo}"/><br>
         Department: ${info.deptname} <br>
         Name: ${info.name} <br>
         Position: ${info.position} <br>
@@ -78,6 +79,7 @@ async function registeremployee() {
 				body: formData
 			})
 			let json = await res.json()
+			console.log(formData)
 			document.querySelector('.register').reset()
 		})
 }

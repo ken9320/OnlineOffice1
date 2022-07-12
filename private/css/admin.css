@@ -11,3 +11,16 @@ h2 {
 input {
 	width: 80%;
 }
+
+.cursearch{
+	position:sticky;
+}
+
+.cur{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+img{
+	width: 50%;
+}

@@ -13,13 +13,13 @@ registerRouter.get('/register', isManager, async (req, res) => {
 	let search
 	try {
 		result = await client.query(`
-            SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id = ${req.session['companyid']};
+            SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position, photo FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id = ${req.session['companyid']};
            `)
 
 		if (req.query.search != null) {
 			search = await client.query(
 				`
-            SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id IN (SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE (positions.position LIKE $1 OR department.deptname LIKE $1) AND company_id=$2);`,
+            SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.position, photo FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE company_id IN (SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE (positions.position LIKE $1 OR department.deptname LIKE $1) AND company_id=$2);`,
 				[req.query.search + '%', req.session['companyid']]
 			)
 			res.send(search.rows)
@@ -44,12 +44,12 @@ registerRouter.post('/register', isManager, async (req, res) => {
 			let dept = parseInt(fields.dept)
 			let posit = parseInt(fields.position)
 			let entryday = fields.entryDate
-			// console.log(fields);
+			let photo = files.photo != null && !Array.isArray(files.photo) ? files.photo.newFilename : null
 
 			await client.query(
-				`INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
-            ((SELECT id FROM companys WHERE company_id = '${comid}'), $1, $2, $3, $4, $5, $6, NOW(), NOW())`,
-				[stfid, pwd, name, dept, posit, entryday]
+				`INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, photo, created_at, updated_at) VALUES
+            ((SELECT id FROM companys WHERE company_id = '${comid}'), $1, $2, $3, $4, $5, $6, $7, NOW(), NOW())`,
+				[stfid, pwd, name, dept, posit, entryday, photo]
 			)
 
 			return
@@ -58,7 +58,7 @@ registerRouter.post('/register', isManager, async (req, res) => {
 			return
 		}
 	})
-	res.redirect('/staffinfo.html')
+	// res.redirect('/staffinfo.html')
 })
 
 registerRouter.patch('/register/:id', async (req, res) => {})

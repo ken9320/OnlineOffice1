@@ -78,8 +78,8 @@ app.post('/create-checkout-session', async (req, res) => {
 			}
 		],
 		mode: 'subscription',
-		success_url: `https://localhost:8000/success.html`,
-		cancel_url: `https://localhost:8000/`
+		success_url: `https://192.168.80.87:8000/success.html`,
+		cancel_url: `https://192.168.80.87:8000/?error=payment faile`
 	})
 	if (session.url != null) {
 		res.redirect(session.url, 303)
@@ -254,6 +254,7 @@ chat.on('connection', function (socket) {
 
 app.use(isLogin, express.static('private'))
 app.use(isManager, express.static('manager'))
+app.use('/ing',express.static('img'))
 
 // io.listen(8000)
 // const socket =
