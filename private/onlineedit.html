@@ -12,7 +12,7 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="css/chatbox.css" />
-		<link rel="stylesheet" href="css/logined.css" />
+		<link rel="stylesheet" href="css/onlineedit.css" />
 	</head>
 	<body>
 		<div class="main">
@@ -68,50 +68,54 @@
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="onlineedit.html"
-										>Sent File</a
+										>Online Edit</a
 									>
-								</li>
-								<li class="nav-item dropdown">
-									<a
-										class="nav-link dropdown-toggle"
-										href="#"
-										id="navbarDropdownMenuLink"
-										role="button"
-										data-bs-toggle="dropdown"
-										aria-expanded="false"
-									>
-										File
-									</a>
-									<ul
-										class="dropdown-menu"
-										aria-labelledby="navbarDropdownMenuLink"
-									>
-										<li>
-											<a class="dropdown-item" href="#"
-												>department001</a
-											>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#"
-												>department002</a
-											>
-										</li>
-										<li>
-											<a class="dropdown-item" href="#"
-												>department003</a
-											>
-										</li>
-									</ul>
 								</li>
 							</ul>
 						</div>
 					</div>
 				</nav>
 				<div class="mainbody">
-					<div class="file" id="marktingPad">Marketing</div>
-					<div class="file" id="hrPad">HR</div>
-					<div class="file" id="adminPad">Admin</div>
-					<div class="file" id="acPad">Accounting</div>
+					<div class="card" style="width: 18rem;">
+						<img src="img/what-is-marketing.png" class="card-img-top" alt="MarketingPad">
+						<div class="card-body">
+						  <h5 class="card-title">Marketing Department</h5>
+						  <p class="card-text">市場部</p>
+						  <a href="/etherpad/p/mktPad" class="btn btn-primary">Go To Pad</a>
+						</div>
+					  </div>
+					  <div class="card" style="width: 18rem;">
+						<img src="img/human-resource-management-808x455.png" class="card-img-top" alt="hrDepartment">
+						<div class="card-body">
+						  <h5 class="card-title">HR Department</h5>
+						  <p class="card-text">人力資源部</p>
+						  <a href="/etherpad/p/hrPad" class="btn btn-primary">Go To Pad</a>
+						</div>
+					  </div>
+					  <div class="card" style="width: 18rem;">
+						<img src="img/invoice-808x455.png" class="card-img-top" alt="acDepartment">
+						<div class="card-body">
+						  <h5 class="card-title">Accounting Department</h5>
+						  <p class="card-text">會計部</p>
+						  <a href="/etherpad/p/acPad" class="btn btn-primary">Go To Pad</a>
+						</div>
+					  </div>
+					  <div class="card" style="width: 18rem;">
+						<img src="img/company-phase-registering-company-10-808x452.png" class="card-img-top" alt="...">
+						<div class="card-body">
+						  <h5 class="card-title">Administration Department</h5>
+						  <p class="card-text">行政部</p>
+						  <a href="/etherpad/p/adminPad" class="btn btn-primary">Go To Pad</a>
+						</div>
+					  </div>
+					  <div class="card" style="width: 18rem;">
+						<img src="img/add-photo-icon-12.jpeg" class="card-img-top" alt="...">
+						<div class="card-body">
+						  <h5 class="card-title">Add New Pad</h5>
+						  <p class="card-text">加個新檔案</p>
+						  <a href="/etherpad/" class="btn btn-primary">Add</a>
+						</div>
+					  </div>
 				</div>
 			</main>
 		</div>
