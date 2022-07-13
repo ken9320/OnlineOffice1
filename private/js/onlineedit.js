@@ -1,23 +1,13 @@
-const mktBtn = document.getElementById('marketingPad')
-
-mktBtn.addEventListener('click', function () {
-	document.location.href = ''
-})
-
-const hrBtn = document.getElementById('hrPad')
-
-hrtBtn.addEventListener('click', function () {
-	document.location.href = ''
-})
-
-const adminBtn = document.getElementById('adminPad')
-
-adminBtn.addEventListener('click', function () {
-	document.location.href = ''
-})
-
-const acBtn = document.getElementById('acPad')
-
-acBtn.addEventListener('click', function () {
-	document.location.href = ''
+const socketinfo = io.connect('/chat')
+socketinfo.on('sessionsend', (data) => {
+	document.querySelector('#photo').innerHTML = `<img src="ing/${data.photo}">`
+	document.querySelector('#company').innerHTML = data.companyname
+	document.querySelector('#name').innerHTML = data.staffname
+	document.querySelector('#id').innerHTML = data.staffid
+	document.querySelector('#dept').innerHTML = data.deptname
+	document.querySelector('#position').innerHTML = data.position
+	// console.log(data.isManager)
+	if (!data.isManager){
+		document.querySelector('#admin').classList.add('hidden')
+	}
 })
