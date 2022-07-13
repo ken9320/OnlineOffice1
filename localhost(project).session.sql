@@ -60,7 +60,8 @@ CREATE TABLE staffs (
     photo VARCHAR(255)
 );
 
-ALTER TABLE staffs ADD COLUMN photo VARCHAR(255);
+ALTER TABLE staffs ADD COLUMN photo VARCHAR(255)
+;
 
 INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
     (1, 1001, '0001', 'Peter', 1, (SELECT id FROM positions WHERE position = 'Boss'), '2000-01-01', NOW(), NOW()),
