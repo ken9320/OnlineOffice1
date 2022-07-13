@@ -13,6 +13,7 @@
 		/>
 		<link rel="stylesheet" href="css/chatbox.css" />
 		<link rel="stylesheet" href="css/onlineedit.css" />
+		<link rel="stylesheet" href="css/logined.css" />
 	</head>
 	<body>
 		<div class="main">
@@ -21,14 +22,14 @@
 					<h1 id="company">company</h1>
 					<br />
 					<p>
-						<img src="img/icon-person250x250.png" /><br />
+						<span id="photo">
+							<img src="img/icon-person250x250.png" /></span
+						><br />
 						Name: <span id="name">testing001</span><br />
 						Employee-ID: <span id="id">000000</span><br />
 						Department: <span id="dept">Boss</span><br />
 						Position: <span id="position">Normal</span>
 					</p>
-					<form class="loginForm" method="POST" action="/logout">
-						<input type="submit" value="logout" />
 					</form>
 				</div>
 			</aside>
@@ -69,6 +70,11 @@
 								<li class="nav-item">
 									<a class="nav-link" href="onlineedit.html"
 										>Online Edit</a
+									>
+								</li>
+								<li class="nav-item">
+									<a id="admin" class="nav-link" href="/staffinfo.html"
+										>Staff Information</a
 									>
 								</li>
 							</ul>
@@ -161,6 +167,5 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="js/chatbox.js"></script>
 		<script src="js/logined.js"></script>
-		<script src="js/onlineedit.js"></script>
 	</body>
 </html>
