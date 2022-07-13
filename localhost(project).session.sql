@@ -142,7 +142,7 @@ SELECT company_id FROM staffs join companys ON staffs.company = companys.id join
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-  
+   staffid INTEGER NOT NULL,
     div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
