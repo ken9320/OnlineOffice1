@@ -13,6 +13,7 @@
 		/>
 		<link rel="stylesheet" href="css/chatbox.css" />
 		<link rel="stylesheet" href="css/logined.css" />
+		<link rel="stylesheet" href="css/admin.css" />
 	</head>
 	<body>
 		<div class="main">
@@ -20,25 +21,58 @@
 				<div class="personalinfo" data-id="">
 					<h1 id="company">company</h1>
 					<br />
-					<p>
-						<span id="photo">
-							<img src="img/icon-person250x250.png" /></span
-						><br />
-						Name: <span id="name">testing001</span><br />
-						Employee-ID: <span id="id">000000</span><br />
-						Department: <span id="dept">Boss</span><br />
-						Position: <span id="position">Normal</span>
-					</p>
-					<form class="loginForm" method="POST" action="/logout">
-						<input type="submit" value="logout" />
+					<form class="register" method="POST" action="/register">
+						<h4>New Employer</h4>
+						<p>
+							<input type="file" name="photo" /><br />
+							Name: <br />
+							<input
+								type="text"
+								name="name"
+								placeholder="Name"
+							/><br />
+							Department: <br />
+							<select name="dept" id="dept">
+								<option value="1">CEO</option>
+								<option value="2">HR</option>
+								<option value="3">logistics</option>
+								<option value="4">sales</option></select
+							><br />
+							Position: <br />
+							<select name="position" id="position">
+								<option value="1">Boss</option>
+								<option value="2">manager</option>
+								<option value="3">staff</option></select
+							><br />
+							Employee-ID: <br />
+							<input id="eid" name="id" readonly /><br />
+							<input
+								type="button"
+								value="gen id"
+								id="genid"
+							/><br />
+							Login Password: <br />
+							<input
+								id="password"
+								name="password"
+								readonly
+							/><br />
+							Entry Date:
+							<input type="date" name="entryDate" /><br />
+							<br />
+							<input
+								type="submit"
+								value="register"
+								id="register"
+							/>
+						</p>
 					</form>
 				</div>
 			</aside>
-
 			<main>
 				<nav class="navbar navbar-expand-lg bg-light">
 					<div class="container-fluid">
-						<a class="navbar-brand" href="/logined.html">Home</a>
+						<a class="navbar-brand" href="/admin.html">Home</a>
 						<button
 							class="navbar-toggler"
 							type="button"
@@ -59,20 +93,52 @@
 									<a
 										class="nav-link active"
 										aria-current="page"
-										href="/schedule.html"
+										href="/schedule(a).html"
 										>Schedule</a
 									>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="WebRTC.html"
+									<a class="nav-link" href="WebRTC(a).html"
 										>Meeting</a
 									>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="/onlineedit.html">OnlineEdit</a>
+									<a class="nav-link" href="#">Sent File</a>
+								</li>
+								<li class="nav-item dropdown">
+									<a
+										class="nav-link dropdown-toggle"
+										href="#"
+										id="navbarDropdownMenuLink"
+										role="button"
+										data-bs-toggle="dropdown"
+										aria-expanded="false"
+									>
+										File
+									</a>
+									<ul
+										class="dropdown-menu"
+										aria-labelledby="navbarDropdownMenuLink"
+									>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department001</a
+											>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department002</a
+											>
+										</li>
+										<li>
+											<a class="dropdown-item" href="#"
+												>department003</a
+											>
+										</li>
+									</ul>
 								</li>
 								<li class="nav-item">
-									<a id="admin" class="nav-link" href="/staffinfo.html"
+									<a class="nav-link" href="/staffinfo.html"
 										>Staff Information</a
 									>
 								</li>
@@ -80,16 +146,19 @@
 						</div>
 					</div>
 				</nav>
-				<div class="mainbody">
-					<div class="file">file01</div>
-					<div class="file">file02</div>
-					<div class="file">file03</div>
-					<div class="file">file04</div>
-					<div class="file">file05</div>
-					<div class="file">file06</div>
+				<div class="showinfo">
+					<h2>Current Employee</h2>
+					<input type="text" class="cursearch" />
+					<div class="cur"></div>
+				</div>
+				<div class="fire">
+					<h2>Old Employee</h2>
+					<input type="text" class="firesearch" />
+					<div class="fire"></div>
 				</div>
 			</main>
 		</div>
+
 		<button class="open-button" type="button">Chat</button>
 		<div class="chat-container">
 			<header class="chat-header">
@@ -98,9 +167,9 @@
 			</header>
 			<main class="chat-main">
 				<div class="chat-sidebar">
-					<h3><i class="fas fa-comments"></i> Room Name:</h3>
+					<h3>Room Name:</h3>
 					<h2 id="room-name"></h2>
-					<h3><i class="fas fa-users"></i> Users</h3>
+					<h3>Users</h3>
 					<ul id="users"></ul>
 				</div>
 				<div class="chat-messages"></div>
@@ -130,7 +199,7 @@
 			crossorigin="anonymous"
 		></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/admin.js"></script>
 		<script src="js/chatbox.js"></script>
-		<script src="js/logined.js"></script>
 	</body>
 </html>

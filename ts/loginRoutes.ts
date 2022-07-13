@@ -17,6 +17,11 @@ loginRoutes.post('/login', async (req, res) => {
 		)
 		// console.log('stafflist.rows[0].staffid: ' + stafflist.rows[0].staff_id)
 		// console.log('stafflist.rows[0].staffPassword: ' + stafflist.rows[0].staffpassword)
+		// console.log(stafflist.rows[0].payment)
+		if (!stafflist.rows[0].payment) {
+			res.redirect('/?error=Not pay yet')
+			return
+		}
 		if (stafflist.rows.length == 0) {
 			res.redirect('/?error=staffid or password incorrect')
 			return
@@ -34,10 +39,11 @@ loginRoutes.post('/login', async (req, res) => {
 			req.session['isManager'] = stafflist.rows[0].manager
 			req.session['photo'] = stafflist.rows[0].photo
 			// console.log('login session: ' + req.session)
-			if (req.session['isManager']) {
-				res.redirect('/admin.html')
-				return
-			} else if (req.session['isAdmin']) {
+			// if (req.session['isManager']) {
+			// 	res.redirect('/admin.html')
+			// 	return
+			// } else 
+			if (req.session['isAdmin']) {
 				res.redirect('/logined.html')
 				return
 			}

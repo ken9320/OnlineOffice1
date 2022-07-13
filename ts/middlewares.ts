@@ -4,6 +4,7 @@ import formidable from 'formidable'
 import Stripe from 'stripe'
 import { Client } from 'pg'
 import dotenv from 'dotenv'
+import nodemailer from 'nodemailer'
 
 dotenv.config()
 
@@ -54,3 +55,13 @@ export const stripe = new Stripe(
 		apiVersion: '2020-08-27'
 	}
 )
+
+export const transporter = nodemailer.createTransport({
+	host: 'smtp.gmail.com',
+	port: 587,
+	secure: false,
+	auth: {
+		user: 'tom23400@gmail.com',
+		pass: 'sjomcrorpqxkaidj'
+	}
+})

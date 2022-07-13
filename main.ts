@@ -9,7 +9,13 @@ import { logger } from './ts/logger'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
-import { client, isLogin, isManager, stripe } from './ts/middlewares'
+import {
+	client,
+	isLogin,
+	isManager,
+	stripe,
+	transporter
+} from './ts/middlewares'
 
 client.connect()
 // import path from "path";
@@ -42,7 +48,7 @@ let botName = 'ChatCord Bot'
 // let staffid = ''
 let sessions = {}
 // let companyname = ''
-let selfInfo: {[key: string]: any} = {};
+let selfInfo: { [key: string]: any } = {}
 app.use((req, res, next) => {
 	// console.log(req.url);
 	// console.log(req.headers);
@@ -50,11 +56,11 @@ app.use((req, res, next) => {
 	// console.log(req.ip);
 	// console.log(req.session);
 	// console.log(req.sessionID);
-	
+
 	botName = req.session['companyname']
 
 	selfInfo.position = req.session['position']
-	selfInfo.staffName= req.session['staffname']
+	selfInfo.staffName = req.session['staffname']
 	selfInfo.companyname = req.session['companyname']
 
 	sessions = req.session
@@ -78,8 +84,8 @@ app.post('/create-checkout-session', async (req, res) => {
 			}
 		],
 		mode: 'subscription',
-		success_url: `https://192.168.68.117:8000/success.html`,
-		cancel_url: `https://192.168.68.117:8000/?error=payment faile`
+		success_url: `https://127.0.0.1:8000/success.html`,
+		cancel_url: `https://127.0.0.1:8000/?error=payment faile`
 	})
 	if (session.url != null) {
 		res.redirect(session.url, 303)
@@ -90,29 +96,44 @@ app.post('/create-checkout-session', async (req, res) => {
 
 const endpointSecret =
 	'whsec_9773db9bcbf7a040fbf8c7c78f16ca1a51a8c279db87254643d3d2155184f05c'
-app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
-	// console.log('body: ' + JSON.stringify(req.body))
-	// console.log(req.body)
-	const payload = req.body
-	const sig = req.headers['stripe-signature'] as string
+app.post(
+	'/webhook',
+	express.raw({ type: 'application/json' }),
+	async (req, res) => {
+		// console.log('body: ' + JSON.stringify(req.body))
+		// console.log(req.body)
+		const payload = req.body
+		const sig = req.headers['stripe-signature'] as string
 
-	let event
-	try {
-		event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
-		// console.log(`before if: ${event.data.object}`)
-		// console.log(event)
-		// console.log(event.type)
-		if (event.type === 'invoice.payment_succeeded') {
-			console.log('Payment succeeded')
-			// console.log("after if: "+event.data.object)
+		let event
+		try {
+			event = stripe.webhooks.constructEvent(payload, sig, endpointSecret)
+			// console.log(`before if: ${event.data.object}`)
+			// console.log(event)
+			// console.log(event.type)
+			if (event.type === 'invoice.payment_succeeded') {
+				console.log('Payment succeeded')
+				// console.log(event.data.object["customer_email"])
+				console.log(event.data.object['customer_name'])
+				await client.query(
+					`UPDATE companys SET payment = TRUE, updated_at = NOW() WHERE companyname = '${event.data.object['customer_name']}'`
+				)
+				transporter.sendMail({
+					to: event.data.object['customer_email'],
+					subject: 'payment_succeeded',
+					from: 'tom23400@gmail.com',
+					text: 'Payment succeeded can use service'
+				})
+				// console.log("after if: "+event.data.object)
+			}
+		} catch (err) {
+			res.status(400).send(`Webhook Error: ${err.message}`)
+			return
 		}
-	} catch (err) {
-		res.status(400).send(`Webhook Error: ${err.message}`)
-		return
-	}
 
-	res.status(200).end()
-})
+		res.status(200).end()
+	}
+)
 
 app.use(express.static('public'))
 
@@ -131,7 +152,7 @@ WebRTC.on('connect', (people) => {
 
 	async function joinCompanyRoom() {
 		console.log(`${selfInfo.staffName} Joined Company Room`)
-		people.join(selfInfo.companyname)//分公司房
+		people.join(selfInfo.companyname) //分公司房
 		selfInfo.stocketioID = people.id
 		//selfInfo {position ,staffName, companyname,stocketioID}
 		people.emit('selfInfo', selfInfo) //每次重新入網址收自己info
@@ -140,18 +161,23 @@ WebRTC.on('connect', (people) => {
 	people.on('Iamready', async (e) => {
 		//people join ready room
 		people.join(`${selfInfo.companyname}ready`)
-		people.emit('joinreadyroomsuccess', `${selfInfo.staffName} joed ready room`) //自己	
-		
+		people.emit(
+			'joinreadyroomsuccess',
+			`${selfInfo.staffName} joed ready room`
+		) //自己
+
 		await io
 			.of('/WebRTC')
 			.in(`${selfInfo.companyname}ready`)
 			.allSockets()
 			.then((items) => {
-				
 				items.forEach((item) => {
 					socketidlist.push(item)
 				})
-				WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+				WebRTC.in(`${selfInfo.companyname}ready`).emit(
+					'namelist',
+					socketidlist
+				)
 				//當有人入房，所有人會收到一張最新人員名單
 				console.log(socketidlist)
 			})
@@ -162,20 +188,20 @@ WebRTC.on('connect', (people) => {
 	// people.join('chartRoom')
 
 	people.on('sendOffer', (offerData) => {
-		let sendto =  offerData[1]
-		
-		WebRTC.to(sendto).emit('receiveOffer', offerData);
-		
+		let sendto = offerData[1]
+
+		WebRTC.to(sendto).emit('receiveOffer', offerData)
+
 		// people.to(`${selfInfo.companyname}`).emit('offer', offers)
 	})
 
 	people.on('sendAnswer', (answerData) => {
-		let sendto =  answerData[1]
+		let sendto = answerData[1]
 		console.log(answerData[0])
-		WebRTC.to(sendto).emit('receiveAnswer', answerData);
+		WebRTC.to(sendto).emit('receiveAnswer', answerData)
 	})
 
-	people.on('hangup', (hangupID) =>{
+	people.on('hangup', (hangupID) => {
 		console.log(hangupID)
 		// let indexofleave  = socketidlist.indexOf(hangupID)
 		// socketidlist.splice(indexofleave,0)
@@ -266,7 +292,7 @@ chat.on('connection', function (socket) {
 
 app.use(isLogin, express.static('private'))
 app.use(isManager, express.static('manager'))
-app.use('/ing',express.static('img'))
+app.use('/ing', express.static('img'))
 
 // io.listen(8000)
 // const socket =

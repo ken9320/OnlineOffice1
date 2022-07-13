@@ -44,7 +44,10 @@ registerRouter.post('/register', isManager, async (req, res) => {
 			let dept = parseInt(fields.dept)
 			let posit = parseInt(fields.position)
 			let entryday = fields.entryDate
-			let photo = files.photo != null && !Array.isArray(files.photo) ? files.photo.newFilename : null
+			let photo =
+				files.photo != null && !Array.isArray(files.photo)
+					? files.photo.newFilename
+					: null
 
 			await client.query(
 				`INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, photo, created_at, updated_at) VALUES

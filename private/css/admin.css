@@ -12,15 +12,15 @@ input {
 	width: 80%;
 }
 
-.cursearch{
-	position:sticky;
+.cursearch {
+	position: sticky;
 }
 
-.cur{
-    display: flex;
-    flex-wrap: wrap;
+.cur {
+	display: flex;
+	flex-wrap: wrap;
 }
 
-img{
+img {
 	width: 100px;
 }

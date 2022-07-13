@@ -1,0 +1,40 @@
+aside {
+	width: 15%;
+	background-image: linear-gradient(#95949b 40%, #3e3e3e);
+	min-width: 100px;
+}
+
+aside > div {
+	margin-left: 10px;
+}
+
+p > img {
+	max-width: 90%;
+	margin: 10px;
+	padding-bottom: 15px;
+}
+
+p {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.main {
+	flex: 1;
+	display: flex;
+	background-color: #525252;
+	min-height: 100vh;
+}
+
+main {
+	width: 85%;
+}
+
+.mainbody {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.card {
+	margin: 10px;
+}
