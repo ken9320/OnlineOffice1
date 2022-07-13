@@ -10,6 +10,8 @@ let stfid: number
 let divid: string
 eventRouter.use((req, res, next) => {
 	stfid = req.session['staffid']
+
+	console.log(stfid)
 	next()
 })
 
@@ -17,6 +19,7 @@ eventRouter.post('/event', function (req, res) {
 	form.parse(req, async (err, fields) => {
 		console.log(fields)
 		try {
+			console.log(stfid)
 			let whatevent = fields.event
 			let whatdate = fields.date
 			let whattime = fields.time
