@@ -17,6 +17,11 @@ loginRoutes.post('/login', async (req, res) => {
 		)
 		// console.log('stafflist.rows[0].staffid: ' + stafflist.rows[0].staff_id)
 		// console.log('stafflist.rows[0].staffPassword: ' + stafflist.rows[0].staffpassword)
+		// console.log(stafflist.rows[0].payment)
+		if (!stafflist.rows[0].payment) {
+			res.redirect('/?error=Not pay yet')
+			return
+		}
 		if (stafflist.rows.length == 0) {
 			res.redirect('/?error=staffid or password incorrect')
 			return

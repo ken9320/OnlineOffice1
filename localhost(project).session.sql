@@ -7,6 +7,14 @@ CREATE TABLE companys (
     updated_at TIMESTAMP NOT NULL
 );
 
+ALTER TABLE companys ADD COLUMN payment boolean;
+
+UPDATE companys SET payment = true WHERE company_id = 1000;
+UPDATE companys SET payment = FALSE WHERE company_id = 2000;
+
+UPDATE companys SET payment = TRUE, updated_at = NOW() WHERE companyname = 'ok shop';
+
+
 INSERT INTO companys
 (company_id, companyname, subscriptionexpiresday, created_at, updated_at) VALUES
     (1000, '689store', '2022-12-30', NOW(), NOW()),

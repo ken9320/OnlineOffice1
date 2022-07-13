@@ -1,4 +1,3 @@
-
 const socketinfo = io.connect('/chat')
 socketinfo.on('sessionsend', (data) => {
 	document.querySelector('#photo').innerHTML = `<img src="ing/${data.photo}">`
