@@ -180,20 +180,32 @@ WebRTC.on('connect', (people) => {
 		// let indexofleave  = socketidlist.indexOf(hangupID)
 		// socketidlist.splice(indexofleave,0)
 		socketidlist = []
-		WebRTC.in(`${selfInfo.companyname}ready`).emit('leave', hangupID)
-		WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
-		console.log(socketidlist)
+		people.leave(`${selfInfo.companyname}ready`)
 		people.join(selfInfo.companyname)
+		WebRTC.to(`${selfInfo.companyname}ready`).emit('leaved', people.id)
+		
+		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+		// console.log(socketidlist)
+		
 	})
+// people.on('leaveRoom',(leaveID)=>{
+// 	WebRTC.in(`${selfInfo.companyname}ready`).emit('haveLeave', leaveID)
 
-	people.on('disconnect', () => {
+
+
+// 	people.join(selfInfo.companyname)
+// 	socketidlist = []
+// })
+
+
+	people.on('disconnect', () => { //for use F5
 		// let leave : string= people.id
 		// let indexofleave  = socketidlist.indexOf(leave)
 		// socketidlist.splice(indexofleave,0)
-		socketidlist = []
-		WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
-		console.log(socketidlist)
-		WebRTC.in(`${selfInfo.companyname}ready`).emit('leave', people.id)
+		// socketidlist = []
+		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
+		// console.log(socketidlist)
+		// WebRTC.to(`${selfInfo.companyname}ready`).emit('leave', people.id)
 		
 	})
 })
