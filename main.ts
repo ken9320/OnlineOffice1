@@ -12,7 +12,6 @@ import { registerRouter } from './ts/registerRoutes'
 import {
 	client,
 	isLogin,
-	isManager,
 	stripe,
 	transporter
 } from './ts/middlewares'
@@ -278,7 +277,7 @@ chat.on('connection', function (socket) {
 })
 
 app.use(isLogin, express.static('private'))
-app.use(isManager, express.static('manager'))
+// app.use(isManager, express.static('manager'))
 app.use('/ing', express.static('img'))
 
 // io.listen(8000)

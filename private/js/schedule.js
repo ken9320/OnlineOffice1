@@ -1,13 +1,3 @@
-window.onload = function () {
-	const socketinfo = io.connect('/chat')
-	socketinfo.on('sessionsend', (data) => {
-		console.log(data.isManager)
-		if (!data.isManager){
-			document.querySelector('#admin').classList.add('hidden')
-		}
-	})
-
-}
 	createtalbe()
 	drag()
 
@@ -72,3 +62,15 @@ function drag(){
 		}
 	})
 }
+
+// window.onload = function () {
+
+	const socketinfo = io.connect('/chat')
+	socketinfo.on('sessionsend', (data) => {
+		console.log(data.isManager)
+		if (!data.isManager){
+			document.querySelector('#admin').classList.add('hidden')
+		}
+	})
+
+// }	
