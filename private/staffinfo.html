@@ -6,70 +6,73 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>XXX Compary online office</title>
 		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Roboto:400|Roboto+Condensed:400|Fjalla+One:400"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
-		/>
-		<link rel="stylesheet" href="css/calendar.css" />
-		<link
 			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
 			rel="stylesheet"
 			integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 			crossorigin="anonymous"
 		/>
-		<link rel="stylesheet" href="css/schedule.css" />
 		<link rel="stylesheet" href="css/chatbox.css" />
 		<link rel="stylesheet" href="css/logined.css" />
+		<link rel="stylesheet" href="css/admin.css" />
 	</head>
 	<body>
 		<div class="main">
 			<aside>
-				<div class="calendar-wrapper">
-					<button id="btnPrev" type="button">Prev</button>
-					<button id="btnNext" type="button">Next</button>
-					<div id="divCal"></div>
+				<div class="personalinfo" data-id="">
+					<h1 id="company">company</h1>
+					<br />
+					<form class="register" method="POST" action="/register">
+						<h4>New Employer</h4>
+						<p>
+							<input type="file" name="photo" /><br />
+							Name: <br />
+							<input
+								type="text"
+								name="name"
+								placeholder="Name"
+							/><br />
+							Department: <br />
+							<select name="dept" id="dept">
+								<option value="1">CEO</option>
+								<option value="2">HR</option>
+								<option value="3">logistics</option>
+								<option value="4">sales</option></select
+							><br />
+							Position: <br />
+							<select name="position" id="position">
+								<option value="1">Boss</option>
+								<option value="2">manager</option>
+								<option value="3">staff</option></select
+							><br />
+							Employee-ID: <br />
+							<input id="eid" name="id" readonly /><br />
+							<input
+								type="button"
+								value="gen id"
+								id="genid"
+							/><br />
+							Login Password: <br />
+							<input
+								id="password"
+								name="password"
+								readonly
+							/><br />
+							Entry Date:
+							<input type="date" name="entryDate" /><br />
+							<br />
+							<input
+								type="submit"
+								value="register"
+								id="register"
+							/>
+						</p>
+					</form>
 				</div>
-
-				<form
-					class="eventForm"
-					method="POST"
-					action="/event"
-					enctype="multipart/form-data"
-				>
-					<span>Event Date:</span>
-					<input
-						type="date"
-						id="eventDate"
-						name="date"
-						onfocus="(this.type='date')"
-						onblur="(this.type='date')"
-					/><br />
-					<span>Event Time:</span>
-					<input
-						type="time"
-						id="eventTime"
-						name="time"
-						placeholder="HH"
-						max="23"
-						min="0"
-						maxlength="2"
-					/><br />
-					<span>Event:</span>
-					<input type="text" id="eventContent" name="event" />
-					<input type="submit" id="eventSubmit" value="Submit" />
-				</form>
 			</aside>
 			<main>
 				<nav class="navbar navbar-expand-lg bg-light">
 					<div class="container-fluid">
-						<a class="navbar-brand" href="/logined.html">Home</a>
+						<a class="navbar-brand" href="/admin.html">Home</a>
 						<button
 							class="navbar-toggler"
 							type="button"
@@ -90,12 +93,12 @@
 									<a
 										class="nav-link active"
 										aria-current="page"
-										href="/schedule.html"
+										href="/schedule(a).html"
 										>Schedule</a
 									>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="WebRTC.html"
+									<a class="nav-link" href="WebRTC(a).html"
 										>Meeting</a
 									>
 								</li>
@@ -135,7 +138,7 @@
 									</ul>
 								</li>
 								<li class="nav-item">
-									<a id="admin" class="nav-link" href="/staffinfo.html"
+									<a class="nav-link" href="/staffinfo.html"
 										>Staff Information</a
 									>
 								</li>
@@ -143,20 +146,15 @@
 						</div>
 					</div>
 				</nav>
-
-				<div class="timetable">
-					<div id="showdate"></div>
-					<div class="week-names">
-						<div id="day1">monday</div>
-						<div id="day2">tuesday</div>
-						<div id="day3">wednesday</div>
-						<div id="day4">thursday</div>
-						<div id="day5">friday</div>
-						<div id="day6">saturday</div>
-						<div id="day0">sunday</div>
-					</div>
-					<div class="time-interval"></div>
-					<div class="content"></div>
+				<div class="showinfo">
+					<h2>Current Employee</h2>
+					<input type="text" class="cursearch" />
+					<div class="cur"></div>
+				</div>
+				<div class="fire">
+					<h2>Old Employee</h2>
+					<input type="text" class="firesearch" />
+					<div class="fire"></div>
 				</div>
 			</main>
 		</div>
@@ -200,10 +198,8 @@
 			integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
 			crossorigin="anonymous"
 		></script>
-		<script src="js/schedule.js"></script>
-		<script src="js/manageevent.js"></script>
-		<script src="js/calendar.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="js/admin.js"></script>
 		<script src="js/chatbox.js"></script>
 	</body>
 </html>
