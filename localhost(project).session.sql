@@ -76,7 +76,7 @@ INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entr
 INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
             ((SELECT id FROM companys WHERE company_id = '1000'), $1, $2, $3, $4, $5, $6, NOW(), NOW())
 
--- ALTER TABLE public.staffs ADD photo varchar(255) NULL;
+ALTER TABLE public.staffs ADD photo varchar(255) NULL;
 
 UPDATE public.staffs
 SET company=1, staff_id=1220, staffpassword='$2a$10$yZ1v86YAbBmXfVWhBy4v1uUkpv4BGkNAJ.KNe6L78E.69FmetoYD2', "name"='Rose', dept=2, "position"=3, entry_date='2022-07-12', created_at='2022-07-12 17:15:54.573', updated_at='2022-07-12 17:15:54.573', photo='c9476f679cb6aa0c2f27afb00.png'
@@ -142,7 +142,7 @@ SELECT company_id FROM staffs join companys ON staffs.company = companys.id join
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-    FOREIGN key (id) REFERENCES staffs (id),
+  
     div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
