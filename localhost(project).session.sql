@@ -3,11 +3,10 @@ CREATE TABLE companys (
     company_id  INTEGER NOT NULL,
     companyname VARCHAR(255) NOT NULL,
     subscriptionexpiresday DATE NOT NULL,
+    payment BOOLEAN,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
-
-ALTER TABLE companys ADD COLUMN payment boolean;
 
 UPDATE companys SET payment = true WHERE company_id = 1000;
 UPDATE companys SET payment = FALSE WHERE company_id = 2000;
@@ -16,9 +15,9 @@ UPDATE companys SET payment = TRUE, updated_at = NOW() WHERE companyname = 'ok s
 
 
 INSERT INTO companys
-(company_id, companyname, subscriptionexpiresday, created_at, updated_at) VALUES
-    (1000, '689store', '2022-12-30', NOW(), NOW()),
-    (2000, 'ok shop', '2022-11-28', NOW(), NOW());
+(company_id, companyname, subscriptionexpiresday, payment, created_at, updated_at) VALUES
+    (1000, '689store', '2022-12-30', true, NOW(), NOW()),
+    (2000, 'ok shop', '2022-11-28', false, NOW(), NOW());
 
 CREATE TABLE department (
     id SERIAL PRIMARY KEY,
@@ -76,7 +75,7 @@ INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entr
 INSERT INTO staffs (company, staff_id, staffPassword, name, dept, position, entry_date, created_at, updated_at) VALUES
             ((SELECT id FROM companys WHERE company_id = '1000'), $1, $2, $3, $4, $5, $6, NOW(), NOW())
 
--- ALTER TABLE public.staffs ADD photo varchar(255) NULL;
+ALTER TABLE public.staffs ADD photo varchar(255) NULL;
 
 UPDATE public.staffs
 SET company=1, staff_id=1220, staffpassword='$2a$10$yZ1v86YAbBmXfVWhBy4v1uUkpv4BGkNAJ.KNe6L78E.69FmetoYD2', "name"='Rose', dept=2, "position"=3, entry_date='2022-07-12', created_at='2022-07-12 17:15:54.573', updated_at='2022-07-12 17:15:54.573', photo='c9476f679cb6aa0c2f27afb00.png'
