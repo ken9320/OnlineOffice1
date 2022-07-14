@@ -1,6 +1,7 @@
 aside {
 	min-width: 15%;
 	background-image: linear-gradient(#5389c0 30%, #211cc5);
+	overflow: auto;
 }
 
 aside > div {
@@ -63,4 +64,14 @@ main {
 #pie-chart {
 	max-width: 800px;
 	max-height: 450px;
+}
+
+#logout{
+	background-color: #c02121;
+	padding: 10px;
+	border-radius: 15px;
+	border: none;
+	color: #ffffff;
+	font-weight: bold;
+	opacity: 0.5;
 }
