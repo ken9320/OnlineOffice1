@@ -4,6 +4,7 @@ let selfInfo = {}
 let otherStaffInfo = []
 let localStream
 let tracking = []
+let peopleCount = 0
 document.querySelector('#callButton').disabled = true
 document.querySelector('#hangupButton').disabled = true
 
@@ -29,6 +30,7 @@ const constraints = {
 socket.on('selfInfo', function (data) {
 	selfInfo = data //selfInfo {position ,staffName, companyname,stocketioID}
 })
+
 
 window.addEventListener('load', () => {
 	document
@@ -86,19 +88,32 @@ async function setlocalStream(constraints) {
 		video.autoplay = 'autoplay'
 		video.playsinline = 'playsinline'
 		video.id = `peerConnections${selfInfo.stocketioID}`
-		document.querySelector('#mainbody').appendChild(video)
+		 document.querySelector(`#divFor${selfInfo.stocketioID}`).appendChild(video)
+		 let span = document.createElement("SPAN");
+		let newContent = document.createTextNode(`Staff name : ${selfInfo.staffName}`);
+		span.appendChild(newContent)
+		document.querySelector(`#divFor${selfInfo.stocketioID}`).appendChild(span);
 	}
 
-	addvideo().then(async function () {
+	async function newDivs (){
+		let newDiv = document.createElement("div");
+		
+		newDiv.id = `divFor${selfInfo.stocketioID}`
+		
+		document.querySelector('#mainbody').appendChild(newDiv)
+
+	}
+
+	newDivs().then(addvideo().then(async function () {
 		document.querySelector(
 			`#peerConnections${selfInfo.stocketioID}`
 		).srcObject = localStream
-	})
-
-	localStream.getTracks().forEach((track) => {
+	})).then(	localStream.getTracks().forEach((track) => {
 		//addTrack to peerConnection
 		tracking.push(track)
-	})
+	}))
+
+
 	let peerConnection = null
 	let remoteStream = null
 	peerConnectionList.push({
@@ -119,11 +134,13 @@ socket.on('joinreadyroomsuccess', (data) => {
 
 let peerConnectionList = []
 
-function s(str) {
-	return encodeURIComponent(str)
-}
+// function s(str) {
+// 	return encodeURIComponent(str)
+// }
 
 socket.on('namelist', async (namelist) => {
+	peopleCount = namelist.length
+	document.querySelector('#numberOfPeople').innerHTML = `房內人數 : ${peopleCount}`
 	//當有人入黎namelist就會更新，幫新黎嘅人開個video tag and new RTCPeerConnection
 	console.log(namelist)
 	if (namelist.length === 1) {
@@ -136,12 +153,23 @@ socket.on('namelist', async (namelist) => {
 
 			let remoteStream = `remoteStream${namelist[i]}`
 
-			if (!document.querySelector(`#${peerConnection}`)) {
+			if (!document.querySelector(`#divFor${namelist[i]}`)) {
+				newDivs().then(newVideo())
+				async function newDivs (){
+					let newDiv = document.createElement("div");
+					
+					newDiv.id = `divFor${namelist[i]}`
+					// newDiv.appendChild();
+				 document.querySelector('#mainbody').appendChild(newDiv)
+			
+				}
+				async function	newVideo(){
 				let video = document.createElement('video')
 				video.autoplay = 'autoplay'
 				video.playsinline = 'playsinline'
-				video.id = peerConnection
-				document.querySelector('#mainbody').appendChild(video)
+				video.id = `${peerConnection}`
+				document.querySelector(`#divFor${namelist[i]}`).appendChild(video)
+				}
 				let idName = peerConnection
 				peerConnection = new RTCPeerConnection(configuration)
 				console.log(peerConnection)
@@ -153,13 +181,14 @@ socket.on('namelist', async (namelist) => {
 					peerConnection.addTrack(track, localStream)
 				})
 				peerConnection.addEventListener('track', async (event) => {
+				
 					//code by: https://webrtc.org/getting-started/remote-streams
 
 					setTimeout(() => {
 						// console.log(event.streams)
 						let [remoteStream] = event.streams
 
-						document.querySelector(`#${idName}`).srcObject =
+						document.querySelector(`#peerConnections${namelist[i]}`).srcObject =
 							remoteStream
 					}, 0)
 				})
@@ -191,7 +220,8 @@ socket.on('namelist', async (namelist) => {
 							let offerData = [
 								offer,
 								x.socketID,
-								selfInfo.stocketioID
+								selfInfo.stocketioID,
+								selfInfo.staffName
 							]
 							socket.emit('sendOffer', offerData)
 							console.log(offer)
@@ -223,11 +253,26 @@ socket.on(`receiveOffer`, async function (receiveofferData) {
 		let answerData = [
 			answer,
 			peerConnectionList[index].socketID,
-			selfInfo.stocketioID
+			selfInfo.stocketioID,
+			selfInfo.staffName
 		]
 		// console.log(answer)
 		socket.emit('sendAnswer', answerData)
 	}, 10)
+	newSpan()
+	async function newSpan (){
+		
+		let span = document.createElement("SPAN");
+		let newContent = document.createTextNode(`Staff name : ${receiveofferData[3]}`);
+		span.appendChild(newContent)
+		
+		document.querySelector(`#divFor${receiveofferData[2]}`).appendChild(span)
+
+	}
+
+
+
+
 })
 
 socket.on('receiveAnswer', async function (answerData) {
@@ -241,6 +286,17 @@ socket.on('receiveAnswer', async function (answerData) {
 			answerData[0]
 		)
 	}, 10)
+
+	newSpan()
+	async function newSpan (){
+		
+		let span = document.createElement("SPAN");
+		let newContent = document.createTextNode(`Staff name : ${answerData[3]}`);
+		span.appendChild(newContent)
+		
+		document.querySelector(`#divFor${answerData[2]}`).appendChild(span)
+
+	}
 })
 socket.on('leaved', async function (id) {
 	console.log(`leave :  ${id}`)
@@ -248,10 +304,11 @@ socket.on('leaved', async function (id) {
 	console.log(peerConnectionList[index])
 	peerConnectionList[index].remoteStream = null
 	await peerConnectionList[index].peerConnection.close()
-	document.querySelector(`#peerConnections${id}`).remove()
+	document.querySelector(`#divFor${id}`).remove()
 	peerConnectionList.splice(index, 1)
 	console.log(peerConnectionList)
 
+<<<<<<< HEAD
 	// for (let peer of peerConnectionList) {
 	// 	if (peer.peerConnection != null ) {
 	// 		peer.remoteStream = null
@@ -294,3 +351,8 @@ socket.on('leaved', async function (id) {
 // 	console.log(peerConnectionList)
 // 	console.log(peerConnectionList.length)
 // }
+=======
+	peopleCount -=1
+	document.querySelector('#numberOfPeople').innerHTML = `房內人數 : ${peopleCount}`
+})
+>>>>>>> daa3bd5cba3944d102a4ed0673a12ae90132b575
