@@ -11,7 +11,7 @@ let divid: string
 eventRouter.use((req, res, next) => {
 	stfid = req.session['staffid']
 
-	console.log(stfid)
+	// console.log(stfid)
 	next()
 })
 
