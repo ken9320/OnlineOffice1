@@ -37,8 +37,8 @@ window.addEventListener('load', () => {
 		.querySelector('#startButton')
 		.addEventListener('click', function () {
 			try {
-				setlocalStream(constraints)
-				document.querySelector('#startButton').disabled = true
+				setlocalStream(constraints).then(document.querySelector('#startButton').disabled = true)
+				
 			} catch (e) {
 				console.log('self cam can not open')
 			}
