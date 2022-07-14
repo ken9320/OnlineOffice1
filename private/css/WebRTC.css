@@ -7,3 +7,20 @@ video {
 #room {
 	width: 100%;
 }
+
+#mainbody > div { 
+	
+	font-size: x-large;
+	display: inline-grid;
+	background-color: whitesmoke;
+	height: auto;
+	width: auto;
+	border:solid 2px black;
+	
+	padding: 5px;
+}
+
+#mainbody {
+	display: flex;
+	flex-wrap: wrap;
+}

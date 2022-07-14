@@ -153,7 +153,11 @@ WebRTC.on('connect', (people) => {
 		console.log(`${selfInfo.staffName} Joined Company Room`)
 		people.join(selfInfo.companyname) //分公司房
 		selfInfo.stocketioID = people.id
+
+		
+
 		//selfInfo {position ,staffName, companyname,stocketioID}
+		// people.emit('nameIdList',nameIdList)
 		people.emit('selfInfo', selfInfo) //每次重新入網址收自己info
 	}
 
@@ -227,9 +231,8 @@ WebRTC.on('connect', (people) => {
 		// let leave : string= people.id
 		// let indexofleave  = socketidlist.indexOf(leave)
 		// socketidlist.splice(indexofleave,0)
-		// socketidlist = []
-		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
-		// console.log(socketidlist)
+		socketidlist = []
+		WebRTC.to(`${selfInfo.companyname}ready`).emit('leaved', people.id)
 		// WebRTC.to(`${selfInfo.companyname}ready`).emit('leave', people.id)
 		
 	})
