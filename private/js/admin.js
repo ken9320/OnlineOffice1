@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = async function () {
 	const socket = io.connect('/chat')
 	socket.on('sessionsend', async (data) => {
 		// 	console.log(data);
@@ -39,8 +39,24 @@ window.onload = function () {
 				})
 		}
 	})
-	postemployee()
-	registeremployee()
+	await postemployee()
+	await registeremployee()
+
+	const buttons = document.querySelectorAll('.info > button')
+	console.log(buttons)
+	for (const button of buttons) {
+		button.addEventListener('click', async function (e) {
+			e.stopPropagation()
+			// console.log(button.dataset.id)
+			const res = await fetch('/register/' + button.dataset.id, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			location.reload();
+		})
+	}
 }
 
 async function postemployee(searchQuery) {
@@ -52,19 +68,31 @@ async function postemployee(searchQuery) {
 	//get
 	let i = 0
 	for (const info of infos) {
-		document.querySelector(
-			'.cur'
-		).innerHTML += `<div class="info" data-id="${i}">
-		<img src="/ing/${info.photo}"/><br>
-        Department: ${info.deptname} <br>
-        Name: ${info.name} <br>
-        Position: ${info.position} <br>
-        Employee-ID: ${info.staff_id} <br>
-        <button data-id="${i}">del</button>
-        </div>`
-		i++
+		if(!info.fire){
+			document.querySelector(
+				'.cur'
+			).innerHTML += `<div class="info" data-id="${i}">
+			<img src="/ing/${info.photo}"/><br>
+    	    Department: ${info.deptname} <br>
+    	    Name: ${info.name} <br>
+    	    Position: ${info.position} <br>
+    	    Employee-ID: ${info.staff_id} <br>
+    	    <button data-id="${info.staff_id}">fire</button>
+    	    </div>`
+			i++
+		} else{
+			document.querySelector(
+				'.fire'
+			).innerHTML += `<div class="info" data-id="${i}">
+			<img src="/ing/${info.photo}"/><br>
+    	    Department: ${info.deptname} <br>
+    	    Name: ${info.name} <br>
+    	    Position: ${info.position} <br>
+    	    Employee-ID: ${info.staff_id} <br>
+    	    </div>`
+		}
 	}
-	console.log(infos)
+	// console.log(infos)
 }
 
 async function registeremployee() {
@@ -82,5 +110,8 @@ async function registeremployee() {
 			let json = await res.json()
 			console.log(formData)
 			document.querySelector('.register').reset()
+			location.reload();
 		})
 }
+
+
