@@ -103,16 +103,16 @@ SELECT company_id, companyname, dept_id, deptname, staff_id, name, positions.pos
 SELECT company_id FROM staffs join companys ON staffs.company = companys.id join department ON staffs.dept = department.id join positions ON staffs.position = positions.id WHERE positions.position = 's%' OR department.deptname LIKE 'l%';
 
 
--- CREATE TABLE schedule (
---     id SERIAL PRIMARY KEY,
---     FOREIGN key (id) REFERENCES staffs (id),
---     div_id VARCHAR(255) NOT NULL,
---     event TEXT,
---     date DATE NOT NULL,
---     time TIME NOT NULL,
---     created_at TIMESTAMP NOT NULL,
---     updated_at TIMESTAMP NOT NULL
--- );
+CREATE TABLE schedule (
+    id SERIAL PRIMARY KEY,
+    staffid INTEGER NOT NULL,
+    div_id VARCHAR(255) NOT NULL,
+    event TEXT,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
 
 
 INSERT INTO public.schedule (staffid, "event", "date", "time", created_at, updated_at, div_id) VALUES(0, '', '', '', '', '', '');

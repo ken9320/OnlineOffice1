@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
 		.querySelector('#hangupButton')
 		.addEventListener('click', async function () {
 			for (let peer of peerConnectionList) {
-				if (peer.peerConnection != null ) {
+				if (peer.peerConnection != null) {
 					peer.remoteStream = null
 					await peer.peerConnection.close()
 					await localStream.getTracks().forEach((track) => {
@@ -68,7 +68,7 @@ window.addEventListener('load', () => {
 			}
 			peerConnectionList = []
 			document.querySelector('#mainbody').innerHTML = ''
-	
+
 			document.querySelector('#startButton').disabled = false
 			document.querySelector('#hangupButton').disabled = true
 			console.log('close call')
@@ -245,12 +245,12 @@ socket.on('receiveAnswer', async function (answerData) {
 socket.on('leaved', async function (id) {
 	console.log(`leave :  ${id}`)
 	let index = peerConnectionList.map((object) => object.socketID).indexOf(id)
-	console.log( peerConnectionList[index])
+	console.log(peerConnectionList[index])
 	peerConnectionList[index].remoteStream = null
 	await peerConnectionList[index].peerConnection.close()
 	document.querySelector(`#peerConnections${id}`).remove()
 	peerConnectionList.splice(index, 1)
-console.log(peerConnectionList)
+	console.log(peerConnectionList)
 
 	// for (let peer of peerConnectionList) {
 	// 	if (peer.peerConnection != null ) {
@@ -265,47 +265,32 @@ console.log(peerConnectionList)
 	// 	}
 	// }
 	// peerConnectionList = []
-		
-	
-	})
-	
-	
+})
 
+// if (
+// 	id != selfInfo.stocketioID &&
+// 	peerConnectionList.map((object) => object.socketID).indexOf(id)
+// ) {
+// 	console.log(id + 'is leave')
+// 	let index = peerConnectionList
+// 		.map((object) => object.socketID)
+// 		.indexOf(id)
+// 	console.log(peerConnectionList)
+// 	console.log(index)
+// 	console.log(peerConnectionList[index])
 
+// 	// await peerConnectionList[index].peerConnection.removeStream(remoteStream)
+// 	await peerConnectionList[index].peerConnection.close()
 
-
-
-
-
-
-
-
-	// if (
-	// 	id != selfInfo.stocketioID &&
-	// 	peerConnectionList.map((object) => object.socketID).indexOf(id)
-	// ) {
-	// 	console.log(id + 'is leave')
-	// 	let index = peerConnectionList
-	// 		.map((object) => object.socketID)
-	// 		.indexOf(id)
-	// 	console.log(peerConnectionList)
-	// 	console.log(index)
-	// 	console.log(peerConnectionList[index])
-
-	// 	// await peerConnectionList[index].peerConnection.removeStream(remoteStream)
-	// 	await peerConnectionList[index].peerConnection.close()
-
-	// 	await peerConnectionList[index].remoteStream
-	// 		.getTracks()
-	// 		.forEach((track) => {
-	// 			//addTrack to peerConnection
-	// 			track.stop()
-	// 		})
-	// 	delete peerConnectionList[index]
-	// 	// peerConnectionList[index].remoteStream = null
-	// 	document.querySelector(`#peerConnections${id}`).remove()
-	// 	console.log(peerConnectionList)
-	// 	console.log(peerConnectionList.length)
-	// }
-
-
+// 	await peerConnectionList[index].remoteStream
+// 		.getTracks()
+// 		.forEach((track) => {
+// 			//addTrack to peerConnection
+// 			track.stop()
+// 		})
+// 	delete peerConnectionList[index]
+// 	// peerConnectionList[index].remoteStream = null
+// 	document.querySelector(`#peerConnections${id}`).remove()
+// 	console.log(peerConnectionList)
+// 	console.log(peerConnectionList.length)
+// }

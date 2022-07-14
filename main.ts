@@ -9,12 +9,7 @@ import { logger } from './ts/logger'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
-import {
-	client,
-	isLogin,
-	stripe,
-	transporter
-} from './ts/middlewares'
+import { client, isLogin, stripe, transporter } from './ts/middlewares'
 
 client.connect()
 // import path from "path";
@@ -208,22 +203,19 @@ WebRTC.on('connect', (people) => {
 		people.leave(`${selfInfo.companyname}ready`)
 		people.join(selfInfo.companyname)
 		WebRTC.to(`${selfInfo.companyname}ready`).emit('leaved', people.id)
-		
+
 		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
 		// console.log(socketidlist)
-		
 	})
-// people.on('leaveRoom',(leaveID)=>{
-// 	WebRTC.in(`${selfInfo.companyname}ready`).emit('haveLeave', leaveID)
+	// people.on('leaveRoom',(leaveID)=>{
+	// 	WebRTC.in(`${selfInfo.companyname}ready`).emit('haveLeave', leaveID)
 
+	// 	people.join(selfInfo.companyname)
+	// 	socketidlist = []
+	// })
 
-
-// 	people.join(selfInfo.companyname)
-// 	socketidlist = []
-// })
-
-
-	people.on('disconnect', () => { //for use F5
+	people.on('disconnect', () => {
+		//for use F5
 		// let leave : string= people.id
 		// let indexofleave  = socketidlist.indexOf(leave)
 		// socketidlist.splice(indexofleave,0)
@@ -231,7 +223,6 @@ WebRTC.on('connect', (people) => {
 		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
 		// console.log(socketidlist)
 		// WebRTC.to(`${selfInfo.companyname}ready`).emit('leave', people.id)
-		
 	})
 })
 

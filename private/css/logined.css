@@ -46,6 +46,21 @@ main {
 	background-clip: content-box, border-box;
 }
 
-.hidden{
+.hidden {
 	display: none;
+}
+
+#bar-chart {
+	max-width: 800px;
+	max-height: 450px;
+	/* background-color: #ffffff; */
+}
+
+#line-chart {
+	max-height: 450px;
+}
+
+#pie-chart {
+	max-width: 800px;
+	max-height: 450px;
 }

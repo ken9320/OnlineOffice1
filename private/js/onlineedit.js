@@ -7,7 +7,7 @@ socketinfo.on('sessionsend', (data) => {
 	document.querySelector('#dept').innerHTML = data.deptname
 	document.querySelector('#position').innerHTML = data.position
 	// console.log(data.isManager)
-	if (!data.isManager){
+	if (!data.isManager) {
 		document.querySelector('#admin').classList.add('hidden')
 	}
 })
