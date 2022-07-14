@@ -107,7 +107,7 @@ app.post(
 			// console.log(event.type)
 			if (event.type === 'invoice.payment_succeeded') {
 				console.log('Payment succeeded')
-				// console.log(event.data.object["customer_email"])
+				console.log(event.data.object["customer_email"])
 				console.log(event.data.object['customer_name'])
 				await client.query(
 					`UPDATE companys SET payment = TRUE, updated_at = NOW() WHERE companyname = '${event.data.object['customer_name']}'`
@@ -115,7 +115,7 @@ app.post(
 				transporter.sendMail({
 					to: event.data.object['customer_email'],
 					subject: 'payment_succeeded',
-					from: 'tom23400@gmail.com',
+					from: 'chenglokyin@gmail.com',
 					text: 'Payment succeeded can use service'
 				})
 				// console.log("after if: "+event.data.object)

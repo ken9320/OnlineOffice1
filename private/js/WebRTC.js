@@ -1,4 +1,19 @@
 let socket = io.connect('/WebRTC')
+
+const socketinfo = io.connect('/chat')
+socketinfo.on('sessionsend', (data) => {
+	document.querySelector('#photo').innerHTML = `<img src="ing/${data.photo}">`
+	document.querySelector('#company').innerHTML = data.companyname
+	document.querySelector('#name').innerHTML = data.staffname
+	document.querySelector('#id').innerHTML = data.staffid
+	document.querySelector('#dept').innerHTML = data.deptname
+	document.querySelector('#position').innerHTML = data.position
+	// console.log(data.isManager)
+	if (!data.isManager) {
+		document.querySelector('#admin').classList.add('hidden')
+	}
+})
+
 let namelist = ''
 let selfInfo = {}
 let otherStaffInfo = []
@@ -308,51 +323,6 @@ socket.on('leaved', async function (id) {
 	peerConnectionList.splice(index, 1)
 	console.log(peerConnectionList)
 
-<<<<<<< HEAD
-	// for (let peer of peerConnectionList) {
-	// 	if (peer.peerConnection != null ) {
-	// 		peer.remoteStream = null
-	// 		await peer.peerConnection.close()
-	// 		await localStream.getTracks().forEach((track) => {
-	// 			//stop track to peerConnection
-	// 			track.stop()
-	// 		})
-
-	// 		console.log(peer)
-	// 	}
-	// }
-	// peerConnectionList = []
-})
-
-// if (
-// 	id != selfInfo.stocketioID &&
-// 	peerConnectionList.map((object) => object.socketID).indexOf(id)
-// ) {
-// 	console.log(id + 'is leave')
-// 	let index = peerConnectionList
-// 		.map((object) => object.socketID)
-// 		.indexOf(id)
-// 	console.log(peerConnectionList)
-// 	console.log(index)
-// 	console.log(peerConnectionList[index])
-
-// 	// await peerConnectionList[index].peerConnection.removeStream(remoteStream)
-// 	await peerConnectionList[index].peerConnection.close()
-
-// 	await peerConnectionList[index].remoteStream
-// 		.getTracks()
-// 		.forEach((track) => {
-// 			//addTrack to peerConnection
-// 			track.stop()
-// 		})
-// 	delete peerConnectionList[index]
-// 	// peerConnectionList[index].remoteStream = null
-// 	document.querySelector(`#peerConnections${id}`).remove()
-// 	console.log(peerConnectionList)
-// 	console.log(peerConnectionList.length)
-// }
-=======
 	peopleCount -=1
 	document.querySelector('#numberOfPeople').innerHTML = `房內人數 : ${peopleCount}`
 })
->>>>>>> daa3bd5cba3944d102a4ed0673a12ae90132b575
