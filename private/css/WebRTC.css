@@ -23,3 +23,8 @@ video {
 	display: flex;
 	flex-wrap: wrap;
 }
+
+#numberOfPeople{
+	font-size: larger;
+	color: aliceblue;
+}
