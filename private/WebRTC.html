@@ -12,7 +12,7 @@
 			crossorigin="anonymous"
 		/>
 		<link rel="stylesheet" href="css/chatbox.css" />
-		
+
 		<link rel="stylesheet" href="css/logined.css" />
 		<link rel="stylesheet" href="./css/WebRTC.css" />
 	</head>
@@ -37,15 +37,15 @@
 						<button id="callButton">開會</button>
 						<button id="hangupButton">收線</button>
 					</div>
-
-					<form class="webrtcRoom">
+<span id="numberOfPeople">房內人數: 0</span>
+					<!-- <form class="webrtcRoom">
 						<label for="rooms">Choose a room:</label>
 						<select name="room" id="room" multiple>
 							<option value="volvo">Vodfsfsdfd40lvo</option>
 						</select>
 						<br /><br />
 						<input type="submit" value="Submit" />
-					</form>
+					</form> -->
 				</div>
 			</aside>
 
@@ -83,10 +83,15 @@
 									>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="/onlineedit.html">OnlineEdit</a>
+									<a class="nav-link" href="/onlineedit.html"
+										>OnlineEdit</a
+									>
 								</li>
 								<li class="nav-item">
-									<a id="admin" class="nav-link" href="/staffinfo.html"
+									<a
+										id="admin"
+										class="nav-link"
+										href="/staffinfo.html"
 										>Staff Information</a
 									>
 								</li>
@@ -146,6 +151,5 @@
 		<script type="module" src="./js/WebRTC.js"></script>
 		<script src="js/chatbox.js"></script>
 		<script src="js/logined.js"></script>
-
 	</body>
 </html>

@@ -42,7 +42,7 @@ loginRoutes.post('/login', async (req, res) => {
 			// if (req.session['isManager']) {
 			// 	res.redirect('/admin.html')
 			// 	return
-			// } else 
+			// } else
 			if (req.session['isAdmin']) {
 				res.redirect('/logined.html')
 				return

@@ -61,7 +61,7 @@ registerRouter.post('/register', isManager, async (req, res) => {
 			return
 		}
 	})
-	// res.redirect('/staffinfo.html')
+	res.redirect('/staffinfo.html')
 })
 
 registerRouter.patch('/register/:id', async (req, res) => {})
