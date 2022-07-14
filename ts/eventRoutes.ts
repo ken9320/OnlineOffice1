@@ -11,7 +11,7 @@ let divid: string
 eventRouter.use((req, res, next) => {
 	stfid = req.session['staffid']
 
-	console.log(stfid)
+	// console.log(stfid)
 	next()
 })
 
@@ -84,11 +84,12 @@ eventRouter.delete('/event/:id', async (req, res) => {
 	// console.log(delId,divid)
 	try {
 		await client.query(`DELETE FROM schedule WHERE div_id=$1`, [divid])
-		res.redirect('/schedule.html')
-		return
+		// res.redirect('/schedule.html')
+		// return
 	} catch (err) {
 		logger.error(err)
 		res.status(500).send('Internal Server Error')
 		return
 	}
+	res.redirect('/schedule.html')
 })

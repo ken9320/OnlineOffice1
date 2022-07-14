@@ -14,6 +14,8 @@
 		<link rel="stylesheet" href="css/chatbox.css" />
 		<link rel="stylesheet" href="css/onlineedit.css" />
 		<link rel="stylesheet" href="css/logined.css" />
+
+	
 	</head>
 	<body>
 		<div class="main">
@@ -87,7 +89,7 @@
 						<div class="card-body">
 						  <h5 class="card-title">Marketing Department</h5>
 						  <p class="card-text">市場部</p>
-						  <a href="/etherpad/p/mktPad" class="btn btn-primary">Go To Pad</a>
+						  <a href="" class="btn btn-primary" id="mktpad">Go To Pad</a>
 						</div>
 					  </div>
 					  <div class="card" style="width: 18rem;">
@@ -95,7 +97,7 @@
 						<div class="card-body">
 						  <h5 class="card-title">HR Department</h5>
 						  <p class="card-text">人力資源部</p>
-						  <a href="/etherpad/p/hrPad" class="btn btn-primary">Go To Pad</a>
+						  <a href= "" class="btn btn-primary" id="hrpad">Go To Pad</a>
 						</div>
 					  </div>
 					  <div class="card" style="width: 18rem;">
@@ -103,7 +105,7 @@
 						<div class="card-body">
 						  <h5 class="card-title">Accounting Department</h5>
 						  <p class="card-text">會計部</p>
-						  <a href="/etherpad/p/acPad" class="btn btn-primary">Go To Pad</a>
+						  <a href="" class="btn btn-primary" id="acpad">Go To Pad</a>
 						</div>
 					  </div>
 					  <div class="card" style="width: 18rem;">
@@ -111,10 +113,10 @@
 						<div class="card-body">
 						  <h5 class="card-title">Administration Department</h5>
 						  <p class="card-text">行政部</p>
-						  <a href="/etherpad/p/adminPad" class="btn btn-primary">Go To Pad</a>
+						  <a href="" class="btn btn-primary" id="adminpad">Go To Pad</a>
 						</div>
 					  </div>
-					  <div class="card" style="width: 18rem;">
+					  <div class="card" style="width: 18rem;" id="adminNewPad">
 						<img src="img/add-photo-icon-12.jpeg" class="card-img-top" alt="...">
 						<div class="card-body">
 						  <h5 class="card-title">Add New Pad</h5>
@@ -167,6 +169,7 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="js/chatbox.js"></script>
 		<script src="js/logined.js"></script>
+		<script src="js/onlineedit.js"></script>
 		
 	</body>
 </html>

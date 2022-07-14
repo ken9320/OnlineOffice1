@@ -9,12 +9,7 @@ import { logger } from './ts/logger'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
 import { registerRouter } from './ts/registerRoutes'
-import {
-	client,
-	isLogin,
-	stripe,
-	transporter
-} from './ts/middlewares'
+import { client, isLogin, stripe, transporter } from './ts/middlewares'
 
 client.connect()
 // import path from "path";
@@ -112,7 +107,7 @@ app.post(
 			// console.log(event.type)
 			if (event.type === 'invoice.payment_succeeded') {
 				console.log('Payment succeeded')
-				// console.log(event.data.object["customer_email"])
+				console.log(event.data.object["customer_email"])
 				console.log(event.data.object['customer_name'])
 				await client.query(
 					`UPDATE companys SET payment = TRUE, updated_at = NOW() WHERE companyname = '${event.data.object['customer_name']}'`
@@ -120,7 +115,7 @@ app.post(
 				transporter.sendMail({
 					to: event.data.object['customer_email'],
 					subject: 'payment_succeeded',
-					from: 'tom23400@gmail.com',
+					from: 'chenglokyin@gmail.com',
 					text: 'Payment succeeded can use service'
 				})
 				// console.log("after if: "+event.data.object)
@@ -212,29 +207,25 @@ WebRTC.on('connect', (people) => {
 		people.leave(`${selfInfo.companyname}ready`)
 		people.join(selfInfo.companyname)
 		WebRTC.to(`${selfInfo.companyname}ready`).emit('leaved', people.id)
-		
+
 		// WebRTC.in(`${selfInfo.companyname}ready`).emit('namelist', socketidlist)
 		// console.log(socketidlist)
-		
 	})
-// people.on('leaveRoom',(leaveID)=>{
-// 	WebRTC.in(`${selfInfo.companyname}ready`).emit('haveLeave', leaveID)
+	// people.on('leaveRoom',(leaveID)=>{
+	// 	WebRTC.in(`${selfInfo.companyname}ready`).emit('haveLeave', leaveID)
 
+	// 	people.join(selfInfo.companyname)
+	// 	socketidlist = []
+	// })
 
-
-// 	people.join(selfInfo.companyname)
-// 	socketidlist = []
-// })
-
-
-	people.on('disconnect', () => { //for use F5
+	people.on('disconnect', () => {
+		//for use F5
 		// let leave : string= people.id
 		// let indexofleave  = socketidlist.indexOf(leave)
 		// socketidlist.splice(indexofleave,0)
 		socketidlist = []
 		WebRTC.to(`${selfInfo.companyname}ready`).emit('leaved', people.id)
 		// WebRTC.to(`${selfInfo.companyname}ready`).emit('leave', people.id)
-		
 	})
 })
 

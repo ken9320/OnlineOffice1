@@ -1,5 +1,5 @@
-	createtalbe()
-	drag()
+createtalbe()
+drag()
 
 function createtalbe() {
 	let hour = 8
@@ -21,7 +21,7 @@ function createtalbe() {
 	}
 }
 
-function drag(){
+function drag() {
 	let dragged
 	document.addEventListener('dragstart', (event) => {
 		dragged = event.target
@@ -65,12 +65,12 @@ function drag(){
 
 // window.onload = function () {
 
-	const socketinfo = io.connect('/chat')
-	socketinfo.on('sessionsend', (data) => {
-		console.log(data.isManager)
-		if (!data.isManager){
-			document.querySelector('#admin').classList.add('hidden')
-		}
-	})
+const socketinfo = io.connect('/chat')
+socketinfo.on('sessionsend', (data) => {
+	console.log(data.isManager)
+	if (!data.isManager) {
+		document.querySelector('#admin').classList.add('hidden')
+	}
+})
 
-// }	
+// }

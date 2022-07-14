@@ -33,7 +33,8 @@ window.onload = function () {
 				.querySelector('.cursearch')
 				.addEventListener('change', function () {
 					searchQuery = document.querySelector('.cursearch').value
-					console.log(searchQuery)
+					// console.log(searchQuery)
+					document.querySelector('.cur').innerHTML = ''
 					postemployee(searchQuery)
 				})
 		}
