@@ -105,11 +105,7 @@ SELECT company_id FROM staffs join companys ON staffs.company = companys.id join
 
 CREATE TABLE schedule (
     id SERIAL PRIMARY KEY,
-<<<<<<< HEAD
-    staffid INTEGER not NULL,
-=======
    staffid INTEGER NOT NULL,
->>>>>>> d71f8f78f2eca8fc821de60f09124b0fd9e03327
     div_id VARCHAR(255) NOT NULL,
     event TEXT,
     date DATE NOT NULL,
@@ -117,12 +113,6 @@ CREATE TABLE schedule (
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL
 );
-<<<<<<< HEAD
-
-
-INSERT INTO public.schedule (staffid, "event", "date", "time", created_at, updated_at, div_id) VALUES(0, '', '', '', '', '', '');
-=======
->>>>>>> d71f8f78f2eca8fc821de60f09124b0fd9e03327
 
 SELECT * FROM schedule ORDER BY id;
 

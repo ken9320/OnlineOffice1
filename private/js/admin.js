@@ -59,8 +59,7 @@ async function postemployee(searchQuery) {
         Department: ${info.deptname} <br>
         Name: ${info.name} <br>
         Position: ${info.position} <br>
-        Employee-ID: ${info.staff_id} <br>
-        <button data-id="${i}">del</button>
+        Employee-ID: ${info.staff_id} 
         </div>`
 		i++
 	}

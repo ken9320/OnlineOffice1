@@ -79,7 +79,7 @@ new Chart(document.getElementById('pie-chart'), {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Maret Share',
+				text: 'Market Share',
 				color: '#000',
 				font: {
 					size: 40
