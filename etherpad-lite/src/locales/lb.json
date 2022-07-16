@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["Gromper", "Robby", "Soued031"]
+		"authors": [
+			"Gromper",
+			"Robby",
+			"Soued031"
+		]
 	},
 	"admin_plugins_info.version": "Etherpad Versioun",
 	"admin_plugins_info.version_latest": "Lescht disponibel Versioun",

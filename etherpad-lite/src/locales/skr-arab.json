@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": ["Saraiki"]
+		"authors": [
+			"Saraiki"
+		]
 	},
 	"index.newPad": "نواں پیڈ",
 	"pad.toolbar.bold.title": "بولڈ(Ctrl+B)",

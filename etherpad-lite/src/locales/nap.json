@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["C.R.", "Chelin", "Ruthven"]
+		"authors": [
+			"C.R.",
+			"Chelin",
+			"Ruthven"
+		]
 	},
 	"index.newPad": "Nuovo Pad",
 	"index.createOpenPad": "o crià o arape nu Pad cu 'o nomme:",

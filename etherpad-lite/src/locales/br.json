@@ -1,6 +1,11 @@
 {
 	"@metadata": {
-		"authors": ["Fohanno", "Fulup", "Gwenn-Ael", "Y-M D"]
+		"authors": [
+			"Fohanno",
+			"Fulup",
+			"Gwenn-Ael",
+			"Y-M D"
+		]
 	},
 	"index.newPad": "Pad nevez",
 	"index.createOpenPad": "pe krouiñ/digeriñ ur Pad gant an anv :",

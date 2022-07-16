@@ -33,22 +33,22 @@ asynchronously. While that is the eventual goal, there are some legacy hooks
 that expect their hook functions to provide a value synchronously. For such
 hooks, the hook functions must do one of the following:
 
--   Call the callback with a non-Promise value (`undefined` is acceptable) and
-    return `undefined`, in that order.
--   Return a non-Promise value other than `undefined` (`null` is acceptable) and
-    never call the callback. Note that `async` functions _always_ return a
-    Promise, so they must never be used for synchronous hooks.
--   Only have two parameters (`hookName` and `context`) and return any non-Promise
-    value (`undefined` is acceptable).
+* Call the callback with a non-Promise value (`undefined` is acceptable) and
+  return `undefined`, in that order.
+* Return a non-Promise value other than `undefined` (`null` is acceptable) and
+  never call the callback. Note that `async` functions *always* return a
+  Promise, so they must never be used for synchronous hooks.
+* Only have two parameters (`hookName` and `context`) and return any non-Promise
+  value (`undefined` is acceptable).
 
 For hooks that permit asynchronous behavior, the hook functions must do one or
 more of the following:
 
--   Return `undefined` and call the callback, in either order.
--   Return something other than `undefined` (`null` is acceptable) and never call
-    the callback. Note that `async` functions _always_ return a Promise, so they
-    must never call the callback.
--   Only have two parameters (`hookName` and `context`).
+* Return `undefined` and call the callback, in either order.
+* Return something other than `undefined` (`null` is acceptable) and never call
+  the callback. Note that `async` functions *always* return a Promise, so they
+  must never call the callback.
+* Only have two parameters (`hookName` and `context`).
 
 Note that the acceptable behaviors for asynchronous hook functions is a superset
 of the acceptable behaviors for synchronous hook functions.
@@ -66,44 +66,44 @@ functions.
 
 A hook function can provide a value to Etherpad in one of the following ways:
 
--   Pass the desired value as the first argument to the callback.
--   Return the desired value directly. The value must not be `undefined` unless
-    the hook function only has two parameters. (Hook functions with three
-    parameters that want to provide `undefined` should instead use the callback.)
--   For hooks that permit asynchronous behavior, return a Promise that resolves to
-    the desired value.
--   For hooks that permit asynchronous behavior, pass a Promise that resolves to
-    the desired value as the first argument to the callback.
+* Pass the desired value as the first argument to the callback.
+* Return the desired value directly. The value must not be `undefined` unless
+  the hook function only has two parameters. (Hook functions with three
+  parameters that want to provide `undefined` should instead use the callback.)
+* For hooks that permit asynchronous behavior, return a Promise that resolves to
+  the desired value.
+* For hooks that permit asynchronous behavior, pass a Promise that resolves to
+  the desired value as the first argument to the callback.
 
 Examples:
 
 ```javascript
 exports.exampleOne = (hookName, context, callback) => {
-	return 'valueOne'
-}
+  return 'valueOne';
+};
 
 exports.exampleTwo = (hookName, context, callback) => {
-	callback('valueTwo')
-	return
-}
+  callback('valueTwo');
+  return;
+};
 
 // ONLY FOR HOOKS THAT PERMIT ASYNCHRONOUS BEHAVIOR
 exports.exampleThree = (hookName, context, callback) => {
-	return new Promise('valueThree')
-}
+  return new Promise('valueThree');
+};
 
 // ONLY FOR HOOKS THAT PERMIT ASYNCHRONOUS BEHAVIOR
 exports.exampleFour = (hookName, context, callback) => {
-	callback(new Promise('valueFour'))
-	return
-}
+  callback(new Promise('valueFour'));
+  return;
+};
 
 // ONLY FOR HOOKS THAT PERMIT ASYNCHRONOUS BEHAVIOR
 exports.exampleFive = async (hookName, context) => {
-	// Note that this function is async, so it actually returns a Promise that
-	// is resolved to 'valueFive'.
-	return 'valueFive'
-}
+  // Note that this function is async, so it actually returns a Promise that
+  // is resolved to 'valueFive'.
+  return 'valueFive';
+};
 ```
 
 Etherpad collects the values provided by the hook functions into an array,
