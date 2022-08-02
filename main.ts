@@ -1,6 +1,7 @@
 import express from 'express'
 import expressSession from 'express-session'
-import https from 'https'
+// import https from 'https'
+import http from 'http'
 import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
@@ -22,13 +23,13 @@ const app = express()
 // const prikey = fs.readFileSync('privatekey.pem', 'utf8')
 // const cert = fs.readFileSync('ca.pem', 'utf8')
 
-//建立憑證及金鑰
+// // 建立憑證及金鑰
 // const credentials = {
 // 	key: prikey,
 // 	cert: cert
 // }
 // const server = https.createServer(credentials, app)
-const server = https.createServer(app)
+const server = http.createServer(app)
 
 export const io = new SocketIO(server) //io is for socketIO communicate
 
