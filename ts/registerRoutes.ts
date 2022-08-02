@@ -56,6 +56,7 @@ registerRouter.post('/register', isManager, async (req, res) => {
 				[stfid, pwd, name, dept, posit, entryday, photo]
 			)
 			res.redirect('/staffinfo.html')
+			// res.send({ result: true, res: [] })
 			return
 		} catch (err) {
 			logger.error(err)
@@ -74,6 +75,7 @@ registerRouter.patch('/register/:id', async (req, res) => {
 			[editId]
 		)
 		// res.redirect('/staffinfo.html')
+		res.send({ result: true, res: [] })
 		return
 	} catch (err) {
 		logger.error(err)

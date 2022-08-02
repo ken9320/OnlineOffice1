@@ -101,7 +101,9 @@ async function registeremployee() {
 	//post
 	document
 		.querySelector('#register')
-		.addEventListener('click', async function () {
+		.addEventListener('click', async function (e) {
+			e.preventDefault()
+			e.stopPropagation()
 			const formData = new FormData(document.querySelector('.register'))
 			let res = await fetch('/register', {
 				method: 'POST',

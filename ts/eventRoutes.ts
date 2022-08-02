@@ -19,7 +19,7 @@ eventRouter.post('/event', function (req, res) {
 	form.parse(req, async (err, fields) => {
 		console.log(fields)
 		try {
-			console.log(stfid)
+			// console.log(stfid)
 			let whatevent = fields.event
 			let whatdate = fields.date
 			let whattime = fields.time
@@ -35,6 +35,8 @@ eventRouter.post('/event', function (req, res) {
             INSERT INTO schedule (staffid, event, date, time, div_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())`,
 				[stfid, whatevent, whatdate, whattime, divid]
 			)
+			
+			// res.send({ result: true, res: [] })
 			return
 		} catch (err) {
 			logger.error(err)
