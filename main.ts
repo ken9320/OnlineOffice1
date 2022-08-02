@@ -4,7 +4,7 @@ import https from 'https'
 import { Server as SocketIO } from 'socket.io'
 import { formatMessage } from './ts/messages'
 import { userJoin, getCurrentUser, userLeave, getRoomUsers } from './ts/users'
-import fs from 'fs'
+// import fs from 'fs'
 import { logger } from './ts/logger'
 import { eventRouter } from './ts/eventRoutes'
 import { loginRoutes } from './ts/loginRoutes'
@@ -19,15 +19,16 @@ logger.info('Client connected')
 const app = express()
 
 //讀取憑證及金鑰 by: https://blog.twtnn.com/2020/04/nodejshttps.html
-const prikey = fs.readFileSync('privatekey.pem', 'utf8')
-const cert = fs.readFileSync('ca.pem', 'utf8')
+// const prikey = fs.readFileSync('privatekey.pem', 'utf8')
+// const cert = fs.readFileSync('ca.pem', 'utf8')
 
 //建立憑證及金鑰
-const credentials = {
-	key: prikey,
-	cert: cert
-}
-const server = https.createServer(credentials, app)
+// const credentials = {
+// 	key: prikey,
+// 	cert: cert
+// }
+// const server = https.createServer(credentials, app)
+const server = https.createServer(app)
 
 export const io = new SocketIO(server) //io is for socketIO communicate
 
