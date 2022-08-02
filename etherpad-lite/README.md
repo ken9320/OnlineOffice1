@@ -1,6 +1,6 @@
 # Etherpad: A real-time collaborative editor for the web
 
-![Demo Etherpad Animated Jif](doc/images/etherpad_demo.gif 'Etherpad in action')
+![Demo Etherpad Animated Jif](doc/images/etherpad_demo.gif "Etherpad in action")
 
 ## About
 
@@ -17,20 +17,20 @@ whatever problem your community has. We provide some demo instances for you try
 different experiences available within Etherpad. Pad content is automatically
 removed after 24 hours.
 
--   [Rich Editing](https://rich.etherpad.com) - A full rich text WYSIWYG editor.
--   [Minimalist editor](https://minimalist.etherpad.com) - A minimalist editor
+  * [Rich Editing](https://rich.etherpad.com) - A full rich text WYSIWYG editor.
+  * [Minimalist editor](https://minimalist.etherpad.com) - A minimalist editor
     that can be embedded within your tool.
--   [Dark Mode](https://dark.etherpad.com) - Theme settings to have Etherpad
+  * [Dark Mode](https://dark.etherpad.com) - Theme settings to have Etherpad
     start in dark mode, ideal for using Etherpad at night or for long durations.
--   [Images](https://image.etherpad.com) - Plugins to improve provide Image
+  * [Images](https://image.etherpad.com) - Plugins to improve provide Image
     support within a pad.
--   [Video Chat](https://video.etherpad.com) - Plugins to enable Video and Audio
+  * [Video Chat](https://video.etherpad.com) - Plugins to enable Video and Audio
     chat in a pad.
--   [Collaboration++](https://collab.etherpad.com) - Plugins to improve the
+  * [Collaboration++](https://collab.etherpad.com) - Plugins to improve the
     really-real time collaboration experience, suitable for busy pads.
--   [Document Analysis](https://analysis.etherpad.com) - Plugins to improve
+  * [Document Analysis](https://analysis.etherpad.com) - Plugins to improve
     author and document analysis during and post creation.
--   [Scale](https://shard.etherpad.com) - Etherpad running at scale with pad
+  * [Scale](https://shard.etherpad.com) - Etherpad running at scale with pad
     sharding which allows Etherpad to scale to ∞ number of Active Pads with up
     to ~20,000 edits per second, per pad.
 
@@ -58,7 +58,7 @@ removed after 24 hours.
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/etherpad/etherpad?color=%2344b492)](https://hub.docker.com/r/etherpad/etherpad)
 [![Discord](https://img.shields.io/discord/741309013593030667?color=%2344b492)](https://discord.com/invite/daEjfhw)
-[![Etherpad plugins](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatic.etherpad.org%2Fshields.json&color=%2344b492 'Etherpad plugins')](https://static.etherpad.org/index.html)
+[![Etherpad plugins](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatic.etherpad.org%2Fshields.json&color=%2344b492 "Etherpad plugins")](https://static.etherpad.org/index.html)
 ![Languages](https://img.shields.io/static/v1?label=Languages&message=105&color=%2344b492)
 ![Translation Coverage](https://img.shields.io/static/v1?label=Languages&message=98%&color=%2344b492)
 
@@ -86,10 +86,12 @@ You'll need Git and [Node.js](https://nodejs.org/) installed.
 
 **As any user (we recommend creating a separate user called etherpad):**
 
-1. Move to a folder where you want to install Etherpad.
-2. Clone the Git repository: `git clone --branch master https://github.com/ether/etherpad-lite.git`
-3. Change into the new directory containing the cloned source code: `cd etherpad-lite`
-4. Run `src/bin/run.sh` and open http://127.0.0.1:9001 in your browser.
+  1. Move to a folder where you want to install Etherpad.
+  2. Clone the Git repository: `git clone --branch master
+     https://github.com/ether/etherpad-lite.git`
+  3. Change into the new directory containing the cloned source code: `cd
+     etherpad-lite`
+  4. Run `src/bin/run.sh` and open http://127.0.0.1:9001 in your browser.
 
 To update to the latest released version, execute `git pull origin`. The next
 start with `src/bin/run.sh` will update the dependencies.
@@ -102,8 +104,8 @@ This package runs on any Windows machine. You can perform a manual installation
 via git for development purposes, but as this uses symlinks which performs
 unreliably on Windows, please stick to the prebuilt package if possible.
 
-1. [Download the latest Windows package](https://etherpad.org/#download)
-2. Extract the folder
+  1. [Download the latest Windows package](https://etherpad.org/#download)
+  2. Extract the folder
 
 Run `start.bat` and open <http://localhost:9001> in your browser.
 
@@ -112,11 +114,12 @@ Run `start.bat` and open <http://localhost:9001> in your browser.
 You'll need [Node.js](https://nodejs.org) and (optionally, though recommended)
 git.
 
-1. Grab the source, either:
-    - download <https://github.com/ether/etherpad-lite/zipball/master>
-    - or `git clone --branch master https://github.com/ether/etherpad-lite.git`
-2. With a "Run as administrator" command prompt execute
-   `src\bin\installOnWindows.bat`
+  1. Grab the source, either:
+      * download <https://github.com/ether/etherpad-lite/zipball/master>
+      * or `git clone --branch master
+        https://github.com/ether/etherpad-lite.git`
+  2. With a "Run as administrator" command prompt execute
+     `src\bin\installOnWindows.bat`
 
 Now, run `start.bat` and open http://localhost:9001 in your browser.
 
@@ -126,10 +129,10 @@ Update to the latest version with `git pull origin`, then run
 If cloning to a subdirectory within another project, you may need to do the
 following:
 
-1. Start the server manually (e.g. `node src/node/server.js`)
-2. Edit the db `filename` in `settings.json` to the relative directory with
-   the file (e.g. `application/lib/etherpad-lite/var/dirty.db`)
-3. Add auto-generated files to the main project `.gitignore`
+  1. Start the server manually (e.g. `node src/node/server.js`)
+  2. Edit the db `filename` in `settings.json` to the relative directory with
+     the file (e.g. `application/lib/etherpad-lite/var/dirty.db`)
+  3. Add auto-generated files to the main project `.gitignore`
 
 ### Docker container
 
@@ -139,9 +142,9 @@ Find [here](doc/docker.md) information on running Etherpad in a container.
 
 Etherpad is very customizable through plugins.
 
-![Basic install](doc/images/etherpad_basic.png 'Basic Installation')
+![Basic install](doc/images/etherpad_basic.png "Basic Installation")
 
-![Full Features](doc/images/etherpad_full_features.png 'You can add a lot of plugins !')
+![Full Features](doc/images/etherpad_full_features.png "You can add a lot of plugins !")
 
 ### Available Plugins
 
@@ -185,13 +188,13 @@ For user authentication, you are encouraged to run an [OpenID
 Connect](https://openid.net/connect/) identity provider (OP) and install the
 following plugins:
 
--   [ep_openid_connect](https://github.com/ether/ep_openid_connect#readme) to
+  * [ep_openid_connect](https://github.com/ether/ep_openid_connect#readme) to
     authenticate against your OP.
--   [ep_guest](https://github.com/ether/ep_guest#readme) to create a
+  * [ep_guest](https://github.com/ether/ep_guest#readme) to create a
     "guest" account that has limited access (e.g., read-only access).
--   [ep_user_displayname](https://github.com/ether/ep_user_displayname#readme)
+  * [ep_user_displayname](https://github.com/ether/ep_user_displayname#readme)
     to automatically populate each user's displayed name from your OP.
--   [ep_stable_authorid](https://github.com/ether/ep_stable_authorid#readme) so
+  * [ep_stable_authorid](https://github.com/ether/ep_stable_authorid#readme) so
     that each user's chosen color, display name, comment ownership, etc. is
     strongly linked to their account.
 
@@ -231,7 +234,7 @@ edit `settings.json` and restart Etherpad each time.
 Open http://127.0.0.1:9001/p/test#skinvariantsbuilder in your browser and start
 playing!
 
-![Skin Variant](doc/images/etherpad_skin_variants.gif 'Skin variants')
+![Skin Variant](doc/images/etherpad_skin_variants.gif "Skin variants")
 
 ## Helpful resources
 
@@ -285,7 +288,7 @@ features. By default your Etherpad is extremely light-weight and it's up to you
 to customize your experience. Once you have Etherpad installed you should [visit
 the plugin page](https://static.etherpad.org/) and take control.
 
-### Translations / Localizations (i18n / l10n)
+### Translations / Localizations  (i18n / l10n)
 
 Etherpad comes with translations into all languages thanks to the team at
 [TranslateWiki](https://translatewiki.net/).

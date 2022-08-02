@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /**
  * Controls the communication with LibreOffice
  */
@@ -17,72 +17,61 @@
  * limitations under the License.
  */
 
-const async = require('async')
-const fs = require('fs').promises
-const log4js = require('log4js')
-const os = require('os')
-const path = require('path')
-const runCmd = require('./run_cmd')
-const settings = require('./Settings')
+const async = require('async');
+const fs = require('fs').promises;
+const log4js = require('log4js');
+const os = require('os');
+const path = require('path');
+const runCmd = require('./run_cmd');
+const settings = require('./Settings');
 
-const logger = log4js.getLogger('LibreOffice')
+const logger = log4js.getLogger('LibreOffice');
 
 const doConvertTask = async (task) => {
-	const tmpDir = os.tmpdir()
-	const p = runCmd(
-		[
-			settings.soffice,
-			'--headless',
-			'--invisible',
-			'--nologo',
-			'--nolockcheck',
-			'--writer',
-			'--convert-to',
-			task.type,
-			task.srcFile,
-			'--outdir',
-			tmpDir
-		],
-		{
-			stdio: [
-				null,
-				(line) => logger.info(`[${p.child.pid}] stdout: ${line}`),
-				(line) => logger.error(`[${p.child.pid}] stderr: ${line}`)
-			]
-		}
-	)
-	logger.info(
-		`[${p.child.pid}] Converting ${task.srcFile} to ${task.type} in ${tmpDir}`
-	)
-	// Soffice/libreoffice is buggy and often hangs.
-	// To remedy this we kill the spawned process after a while.
-	// TODO: Use the timeout option once support for Node.js < v15.13.0 is dropped.
-	const hangTimeout = setTimeout(() => {
-		logger.error(
-			`[${p.child.pid}] Conversion timed out; killing LibreOffice...`
-		)
-		p.child.kill()
-	}, 120000)
-	try {
-		await p
-	} catch (err) {
-		logger.error(`[${p.child.pid}] Conversion failed: ${err.stack || err}`)
-		throw err
-	} finally {
-		clearTimeout(hangTimeout)
-	}
-	logger.info(`[${p.child.pid}] Conversion done.`)
-	const filename = path.basename(task.srcFile)
-	const sourceFile = `${filename.substr(0, filename.lastIndexOf('.'))}.${
-		task.fileExtension
-	}`
-	const sourcePath = path.join(tmpDir, sourceFile)
-	logger.debug(`Renaming ${sourcePath} to ${task.destFile}`)
-	await fs.rename(sourcePath, task.destFile)
-}
+  const tmpDir = os.tmpdir();
+  const p = runCmd([
+    settings.soffice,
+    '--headless',
+    '--invisible',
+    '--nologo',
+    '--nolockcheck',
+    '--writer',
+    '--convert-to',
+    task.type,
+    task.srcFile,
+    '--outdir',
+    tmpDir,
+  ], {stdio: [
+    null,
+    (line) => logger.info(`[${p.child.pid}] stdout: ${line}`),
+    (line) => logger.error(`[${p.child.pid}] stderr: ${line}`),
+  ]});
+  logger.info(`[${p.child.pid}] Converting ${task.srcFile} to ${task.type} in ${tmpDir}`);
+  // Soffice/libreoffice is buggy and often hangs.
+  // To remedy this we kill the spawned process after a while.
+  // TODO: Use the timeout option once support for Node.js < v15.13.0 is dropped.
+  const hangTimeout = setTimeout(() => {
+    logger.error(`[${p.child.pid}] Conversion timed out; killing LibreOffice...`);
+    p.child.kill();
+  }, 120000);
+  try {
+    await p;
+  } catch (err) {
+    logger.error(`[${p.child.pid}] Conversion failed: ${err.stack || err}`);
+    throw err;
+  } finally {
+    clearTimeout(hangTimeout);
+  }
+  logger.info(`[${p.child.pid}] Conversion done.`);
+  const filename = path.basename(task.srcFile);
+  const sourceFile = `${filename.substr(0, filename.lastIndexOf('.'))}.${task.fileExtension}`;
+  const sourcePath = path.join(tmpDir, sourceFile);
+  logger.debug(`Renaming ${sourcePath} to ${task.destFile}`);
+  await fs.rename(sourcePath, task.destFile);
+};
 
 // Conversion tasks will be queued up, so we don't overload the system
-const queue = async.queue(doConvertTask, 1)
+const queue = async.queue(doConvertTask, 1);
 
 /**
  * Convert a file from one type to another
@@ -93,38 +82,28 @@ const queue = async.queue(doConvertTask, 1)
  * @param  {Function}   callback    Standard callback function
  */
 exports.convertFile = async (srcFile, destFile, type) => {
-	// Used for the moving of the file, not the conversion
-	const fileExtension = type
+  // Used for the moving of the file, not the conversion
+  const fileExtension = type;
 
-	if (type === 'html') {
-		// "html:XHTML Writer File:UTF8" does a better job than normal html exports
-		if (path.extname(srcFile).toLowerCase() === '.doc') {
-			type = 'html'
-		}
-		// PDF files need to be converted with LO Draw ref https://github.com/ether/etherpad-lite/issues/4151
-		if (path.extname(srcFile).toLowerCase() === '.pdf') {
-			type = 'html:XHTML Draw File'
-		}
-	}
+  if (type === 'html') {
+    // "html:XHTML Writer File:UTF8" does a better job than normal html exports
+    if (path.extname(srcFile).toLowerCase() === '.doc') {
+      type = 'html';
+    }
+    // PDF files need to be converted with LO Draw ref https://github.com/ether/etherpad-lite/issues/4151
+    if (path.extname(srcFile).toLowerCase() === '.pdf') {
+      type = 'html:XHTML Draw File';
+    }
+  }
 
-	// soffice can't convert from html to doc directly (verified with LO 5 and 6)
-	// we need to convert to odt first, then to doc
-	// to avoid `Error: no export filter for /tmp/xxxx.doc` error
-	if (type === 'doc') {
-		const intermediateFile = destFile.replace(/\.doc$/, '.odt')
-		await queue.pushAsync({
-			srcFile,
-			destFile: intermediateFile,
-			type: 'odt',
-			fileExtension: 'odt'
-		})
-		await queue.pushAsync({
-			srcFile: intermediateFile,
-			destFile,
-			type,
-			fileExtension
-		})
-	} else {
-		await queue.pushAsync({ srcFile, destFile, type, fileExtension })
-	}
-}
+  // soffice can't convert from html to doc directly (verified with LO 5 and 6)
+  // we need to convert to odt first, then to doc
+  // to avoid `Error: no export filter for /tmp/xxxx.doc` error
+  if (type === 'doc') {
+    const intermediateFile = destFile.replace(/\.doc$/, '.odt');
+    await queue.pushAsync({srcFile, destFile: intermediateFile, type: 'odt', fileExtension: 'odt'});
+    await queue.pushAsync({srcFile: intermediateFile, destFile, type, fileExtension});
+  } else {
+    await queue.pushAsync({srcFile, destFile, type, fileExtension});
+  }
+};

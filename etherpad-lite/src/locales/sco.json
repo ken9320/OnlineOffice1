@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["AmaryllisGardener", "John Reid", "Nintendofan885"]
+		"authors": [
+			"AmaryllisGardener",
+			"John Reid",
+			"Nintendofan885"
+		]
 	},
 	"index.newPad": "New Pad",
 	"index.createOpenPad": "or mak/apen ae Pad wi the name:",

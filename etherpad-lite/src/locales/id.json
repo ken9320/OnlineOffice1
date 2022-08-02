@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["Bennylin", "IvanLanin", "Marwan Mohamad"]
+		"authors": [
+			"Bennylin",
+			"IvanLanin",
+			"Marwan Mohamad"
+		]
 	},
 	"index.newPad": "Pad baru",
 	"index.createOpenPad": "atau buat/buka Pad dengan nama:",

@@ -1,6 +1,12 @@
 {
 	"@metadata": {
-		"authors": ["Aefgh39622", "Afaz", "Omotecho", "Shirayuki", "Torinky"]
+		"authors": [
+			"Aefgh39622",
+			"Afaz",
+			"Omotecho",
+			"Shirayuki",
+			"Torinky"
+		]
 	},
 	"index.newPad": "新規作成",
 	"index.createOpenPad": "または作成/編集するパッド名を入力:",

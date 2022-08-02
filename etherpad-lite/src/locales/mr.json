@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["Ganeshgiram", "V.narsikar", "Ydyashad"]
+		"authors": [
+			"Ganeshgiram",
+			"V.narsikar",
+			"Ydyashad"
+		]
 	},
 	"index.newPad": "नव पान",
 	"pad.toolbar.bold.title": "ठळक (Ctrl-B)",

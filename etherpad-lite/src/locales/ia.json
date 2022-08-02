@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": ["McDutchie"]
+		"authors": [
+			"McDutchie"
+		]
 	},
 	"index.newPad": "Nove pad",
 	"index.createOpenPad": "o crear/aperir un pad con le nomine:",

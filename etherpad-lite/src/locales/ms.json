@@ -1,6 +1,9 @@
 {
 	"@metadata": {
-		"authors": ["Anakmalaysia", "Jeluang Terluang"]
+		"authors": [
+			"Anakmalaysia",
+			"Jeluang Terluang"
+		]
 	},
 	"index.newPad": "Pad baru",
 	"index.createOpenPad": "atau cipta/buka Pad yang bernama:",

@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 
-const measured = require('measured-core')
+const measured = require('measured-core');
 
-module.exports = measured.createCollection()
+module.exports = measured.createCollection();
 
 module.exports.shutdown = async (hookName, context) => {
-	module.exports.end()
-}
+  module.exports.end();
+};

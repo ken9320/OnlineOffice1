@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": ["Elisardojm", "Ghose", "Toliño"]
+		"authors": [
+			"Elisardojm",
+			"Ghose",
+			"Toliño"
+		]
 	},
 	"admin.page-title": "Panel de administración - Etherpad",
 	"admin_plugins": "Xestor de complementos",

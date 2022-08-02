@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": ["EileenSanda"]
+		"authors": [
+			"EileenSanda"
+		]
 	},
 	"index.newPad": "Nýggjur teldil",
 	"pad.toolbar.bold.title": "Við feitum (Ctrl-B)",
